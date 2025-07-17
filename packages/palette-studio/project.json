@@ -1,0 +1,28 @@
+{
+    "name": "@artloupe/palette-studio",
+    "targets": {
+      "test": {
+        "executor": "@nx/vite:test",
+        "options": {
+          "vitestConfig": "packages/palette-studio/vitest.config.ts",
+          "passWithNoTests": true,
+          "coverage": true,
+          "run": true
+        }
+      },
+      "lint": {
+        "executor": "@nx/eslint:lint",
+        "options": {
+          "lintFilePatterns": ["packages/palette-studio/**/*.{ts,tsx}"]
+        }
+      },
+      "build": {
+        "executor": "@nx/js:tsc",
+        "options": {
+          "outputPath": "packages/palette-studio/dist",
+          "tsConfig": "packages/palette-studio/tsconfig.json",
+          "main": "packages/palette-studio/dist/src/index.js"
+        }
+      }
+    }
+  }

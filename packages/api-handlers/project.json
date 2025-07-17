@@ -1,0 +1,28 @@
+{
+    "name": "@artloupe/api-handlers",
+    "targets": {
+      "test": {
+        "executor": "@nx/vite:test",
+        "options": {
+          "vitestConfig": "packages/api-handlers/vitest.config.ts",
+          "passWithNoTests": true,
+          "coverage": true,
+          "run": true
+        }
+      },
+      "lint": {
+        "executor": "@nx/eslint:lint",
+        "options": {
+          "lintFilePatterns": ["packages/api-handlers/**/*.{ts,tsx}"]
+        }
+      },
+      "build": {
+        "executor": "@nx/js:tsc",
+        "options": {
+          "tsConfig": "packages/api-handlers/tsconfig.json",
+          "outputPath": "packages/api-handlers/dist",
+          "main": "packages/api-handlers/dist/src/index.js"
+        }
+      }
+    }
+  }

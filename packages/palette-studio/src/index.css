@@ -1,0 +1,21 @@
+/* Tailwind CSS imports */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles for palette-studio components */
+.loading-spinner {
+	@apply flex items-center justify-center min-h-64;
+}
+
+.loading-spinner-content {
+	@apply text-center;
+}
+
+.loading-spinner-animation {
+	@apply animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto;
+}
+
+.loading-spinner-text {
+	@apply mt-4 text-gray-600;
+}

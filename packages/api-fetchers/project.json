@@ -1,0 +1,29 @@
+{
+    "name": "@artloupe/api-fetchers",
+    "targets": {
+      "test": {
+        "executor": "@nx/vite:test",
+        "options": {
+          "vitestConfig": "packages/api-fetchers/vitest.config.ts",
+          "passWithNoTests": true,
+          "coverage": true,
+          "run": true
+        }
+      },
+      "lint": {
+        "executor": "@nx/eslint:lint",
+        "options": {
+          "lintFilePatterns": ["packages/api-fetchers/**/*.{ts,tsx}"]
+        }
+      },
+      "build": {
+        "executor": "@nx/js:tsc",
+        "options": {
+          "outputPath": "packages/api-fetchers/dist",
+          "tsConfig": "packages/api-fetchers/tsconfig.json",
+          "main": "packages/api-fetchers/dist/src/index.js"
+
+        }
+      }
+    }
+  }

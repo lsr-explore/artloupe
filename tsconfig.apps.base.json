@@ -1,0 +1,38 @@
+{
+	"compilerOptions": {
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"target": "ESNext",
+		"allowJs": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"noEmit": true,
+		"incremental": true,
+		"module": "esnext",
+		"esModuleInterop": true,
+		"moduleResolution": "bundler",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"jsx": "react",
+		"forceConsistentCasingInFileNames": true,
+		"baseUrl": ".",
+		"paths": {
+			"@artloupe/api-handlers": ["packages/api-handlers/src"],
+			"@artloupe/api-fetchers": ["packages/api-fetchers/src"],
+			"@artloupe/shared-types": ["packages/shared-types/src"],
+			"@artloupe/palette-studio": ["packages/palette-studio/src"],
+			"@artloupe/react-query-hooks": ["packages/react-query-hooks/src"],
+			"@artloupe/media-display": ["packages/media-display/src"],
+			"@artloupe/mock-data": ["packages/mock-data/src"],
+			"@artloupe/logger": ["packages/logger/src"]
+		},
+		"plugins": [
+			{
+				"name": "next"
+			}
+		],
+		"strictNullChecks": true,
+		"outDir": "./dist"
+	},
+	"include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],
+	"exclude": ["node_modules"]
+}

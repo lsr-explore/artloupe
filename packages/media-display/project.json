@@ -1,0 +1,35 @@
+{
+    "name": "@artloupe/media-display",
+    "targets": {
+      "test": {
+        "executor": "@nx/vite:test",
+        "options": {
+          "vitestConfig": "packages/media-display/vitest.config.ts",
+          "passWithNoTests": true,
+          "coverage": true,
+          "run": true
+        }
+      },
+      "lint": {
+        "executor": "@nx/eslint:lint",
+        "options": {
+          "lintFilePatterns": ["packages/media-display/**/*.{ts,tsx}"]
+        }
+      },
+      "build": {
+        "executor": "@nx/js:tsc",
+        "options": {
+          "outputPath": "packages/media-display/dist",
+          "tsConfig": "packages/media-display/tsconfig.json",
+          "main": "packages/media-display/dist/index.js",
+          "assets": [
+            {
+              "glob": "**/*.css",
+              "input": "packages/media-display/src",
+              "output": "src"
+            }
+          ]
+        }
+      }
+    }
+  }

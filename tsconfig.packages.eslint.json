@@ -1,0 +1,6 @@
+// tsconfig.eslint.json (at the root)
+{
+	"extends": "./tsconfig.packages.base.json",
+	"include": ["packages/**/*", "apps/**/*", "**/.storybook/**/*"],
+	"exclude": []
+}

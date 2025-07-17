@@ -1,0 +1,36 @@
+# Common folders that shouldn’t go into Docker images
+node_modules
+**/node_modules
+dist
+.next
+coverage
+.tmp
+build
+.cache
+.vite
+
+# OS + Editor generated
+.DS_Store
+.vscode
+.idea
+
+# Git
+.git
+.gitignore
+
+# Logs
+*.log
+npm-debug.log*
+
+# Test output
+*.test.ts
+*.spec.ts
+__tests__/
+
+# Dependency lockfiles outside workspace root
+**/yarn.lock
+**/package-lock.json
+
+# Prevent recursive nesting or redundant workspace copies
+apps/*/node_modules
+packages/*/node_modules
