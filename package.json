@@ -30,7 +30,7 @@
     "test:apps": "./scripts/nxs.sh run-many --target=test --projects=main,admin",
     "test:main": "./scripts/nxs.sh test main",
     "test:main:watch": "./scripts/nxs.sh test main --watch",
-    "test:main:coverage": "pnpm build:mocks &&./scripts/nxs.sh test main --coverage",
+    "test:main:coverage": "./scripts/nxs.sh test main --coverage",
     "test:admin": "./scripts/nxs.sh test admin",
     "test:packages": "./scripts/nxs.sh run-many --target=test --projects=api-fetchers,api-handlers,media-display,palette-studio,react-query-hooks,shared-types",
     "test:packages:coverage": "./scripts/nxs.sh run-many --target=test --projects=api-fetchers,api-handlers,media-display,palette-studio,react-query-hooks,shared-types --coverage",
