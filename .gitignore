@@ -1,0 +1,98 @@
+# Node modules (always)
+node_modules/
+
+# Build output
+dist/
+.next/
+out/
+build/
+.esbuild/
+
+# TypeScript
+*.tsbuildinfo
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.*      # e.g., .env.local, .env.development
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Git
+.git/
+.gitignore
+
+# Test output
+coverage/
+coverage-report.json
+
+# Docker
+*.pid
+docker-compose.override.yml
+.docker/
+
+# Supabase local dev artifacts (if using `supabase start`)
+.supabase/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+
+# Monorepo / Workspaces
+apps/*/node_modules/
+packages/*/node_modules/
+
+# Mock files
+mocks/dist/
+
+#Playwrigt/Cypress
+playwright-report/
+cypress/videos/
+cypress/screenshots/
+
+TurboRep/Nx
+turbo/
+nx-cache
+
+# Storybook build output
+storybook-static/
+
+# Storybook cache files
+.cache/
+sb-vite/ # For Vite builder
+
+# Log files
+*storybook.log
+
+# Vitest
+vitest.config*.d.ts
+vitest.config*.js
+
+
+.nx/cache
+.nx/workspace-data
+.cursor/rules/nx-rules.mdc
+.github/instructions/nx.instructions.md
+vite.config.*.timestamp*
+vitest.config.*.timestamp*
+
+# Next.js
+.next
+out
+
+# package manager - we are using pnpm
+package-lock.json
+
+.VSCodeCounter/
+
