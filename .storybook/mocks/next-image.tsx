@@ -1,4 +1,4 @@
-import React from "react";
+/** biome-ignore-all lint/performance/noImgElement: This is a mock for the next/image component */
 
 interface ImageProps {
   src: string;

@@ -1,19 +1,19 @@
-import { mockPhotoWorks } from "@artloupe/mock-data";
-import { waitFor } from "@testing-library/react";
-import { beforeEach, describe, expect, it, vi } from "vitest";
-import { useFetchPhotoWorks } from "../use-fetch-photo-works";
-import { renderHookWithQueryClient } from "./test-utilities";
+import { mockPhotoWorks } from '@artloupe/mock-data';
+import { waitFor } from '@testing-library/react';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { useFetchPhotoWorks } from '../use-fetch-photo-works';
+import { renderHookWithQueryClient } from './test-utilities';
 
 // Get the mocked fetch function
 const mockFetch = vi.mocked(fetch);
 
-describe("useFetchPhotoWorks", () => {
+describe('useFetchPhotoWorks', () => {
   beforeEach(() => {
     // Clear all mocks before each test
     vi.clearAllMocks();
   });
 
-  it("should fetch photo works successfully", async () => {
+  it('should fetch photo works successfully', async () => {
     // Mock successful response
     mockFetch.mockResolvedValueOnce({
       ok: true,
@@ -21,7 +21,7 @@ describe("useFetchPhotoWorks", () => {
     } as unknown as Response);
 
     const { result } = renderHookWithQueryClient(() =>
-      useFetchPhotoWorks("city street"),
+      useFetchPhotoWorks('city street'),
     );
 
     expect(result.current.isLoading).toBe(true);
@@ -35,15 +35,15 @@ describe("useFetchPhotoWorks", () => {
     expect(result.current.error).toBeNull();
   });
 
-  it("should not fetch when query is empty", () => {
-    const { result } = renderHookWithQueryClient(() => useFetchPhotoWorks(""));
+  it('should not fetch when query is empty', () => {
+    const { result } = renderHookWithQueryClient(() => useFetchPhotoWorks(''));
 
     expect(result.current.isLoading).toBe(false);
     expect(result.current.data).toBeUndefined();
   });
 
-  it("should handle different search terms", async () => {
-    const queries = ["nature", "urban", "landscape"];
+  it('should handle different search terms', async () => {
+    const queries = ['nature', 'urban', 'landscape'];
 
     for (const query of queries) {
       // Mock successful response for each query
@@ -64,7 +64,7 @@ describe("useFetchPhotoWorks", () => {
     }
   });
 
-  it("should be enabled by default", () => {
+  it('should be enabled by default', () => {
     // Mock successful response
     mockFetch.mockResolvedValueOnce({
       ok: true,
@@ -72,15 +72,15 @@ describe("useFetchPhotoWorks", () => {
     } as unknown as Response);
 
     const { result } = renderHookWithQueryClient(() =>
-      useFetchPhotoWorks("test"),
+      useFetchPhotoWorks('test'),
     );
 
     expect(result.current.isPending).toBe(true);
   });
 
-  it("should respect enabled parameter", () => {
+  it('should respect enabled parameter', () => {
     const { result } = renderHookWithQueryClient(() =>
-      useFetchPhotoWorks("test", false),
+      useFetchPhotoWorks('test', false),
     );
 
     expect(result.current.isLoading).toBe(false);

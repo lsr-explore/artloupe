@@ -1,1 +1,1 @@
-export { critiqueImage as POST } from "@artloupe/api-handlers";
+export { critiqueImage as POST } from '@artloupe/api-handlers';

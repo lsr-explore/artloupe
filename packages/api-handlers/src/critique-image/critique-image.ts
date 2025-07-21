@@ -1,4 +1,4 @@
-import type { NextRequest } from "next/server";
+import type { NextRequest } from 'next/server';
 
 interface CritiqueRequest {
   imageUrl: string;
@@ -20,35 +20,35 @@ const MOCK_CRITIQUE_RESULTS: CritiqueResponse[] = [
   {
     score: 0.92,
     analysis:
-      "High compositional quality with strong focal points and balanced visual elements.",
+      'High compositional quality with strong focal points and balanced visual elements.',
     strengths: [
-      "Strong composition",
-      "Good color balance",
-      "Clear focal point",
+      'Strong composition',
+      'Good color balance',
+      'Clear focal point',
     ],
     areas_for_improvement: [
-      "Could benefit from more dynamic lighting",
-      "Consider rule of thirds",
+      'Could benefit from more dynamic lighting',
+      'Consider rule of thirds',
     ],
   },
   {
     score: 0.85,
-    analysis: "Good technical execution with room for creative enhancement.",
-    strengths: ["Sharp focus", "Good exposure", "Interesting subject matter"],
+    analysis: 'Good technical execution with room for creative enhancement.',
+    strengths: ['Sharp focus', 'Good exposure', 'Interesting subject matter'],
     areas_for_improvement: [
-      "Composition could be more dynamic",
-      "Background could be less cluttered",
+      'Composition could be more dynamic',
+      'Background could be less cluttered',
     ],
   },
   {
     score: 0.78,
     analysis:
-      "Decent image quality with potential for improvement in several areas.",
-    strengths: ["Clear subject", "Adequate lighting"],
+      'Decent image quality with potential for improvement in several areas.',
+    strengths: ['Clear subject', 'Adequate lighting'],
     areas_for_improvement: [
-      "Improve composition",
-      "Better color grading",
-      "Consider different angle",
+      'Improve composition',
+      'Better color grading',
+      'Consider different angle',
     ],
   },
 ];
@@ -58,8 +58,8 @@ export const critiqueImage = async (
 ): Promise<Response> => {
   const { imageUrl } = (await request.json()) as CritiqueRequest;
 
-  if (process.env.USE_MOCK_CRITIQUE === "true") {
-    console.log("🎨 Using mock image critique data");
+  if (process.env.USE_MOCK_CRITIQUE === 'true') {
+    console.log('🎨 Using mock image critique data');
 
     // Simulate API delay
     await new Promise((resolve) => setTimeout(resolve, 800));
@@ -72,12 +72,12 @@ export const critiqueImage = async (
   }
 
   const response = await fetch(
-    "https://api-inference.huggingface.co/models/vinvino02/saliency-model",
+    'https://api-inference.huggingface.co/models/vinvino02/saliency-model',
     {
-      method: "POST",
+      method: 'POST',
       headers: {
         Authorization: `Bearer ${process.env.HF_TOKEN}`,
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ inputs: imageUrl }),
     },

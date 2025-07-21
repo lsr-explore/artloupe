@@ -1,33 +1,33 @@
-import { renderHook } from "@testing-library/react";
-import { beforeEach, describe, expect, it, vi } from "vitest";
-import "@testing-library/jest-dom";
-import type { ImageType } from "@artloupe/shared-types";
+import { renderHook } from '@testing-library/react';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import '@testing-library/jest-dom';
+import type { ImageType } from '@artloupe/shared-types';
 
 // Mock React's useContext
-vi.mock("react", async () => {
-  const actual = await vi.importActual("react");
+vi.mock('react', async () => {
+  const actual = await vi.importActual('react');
   return {
     ...actual,
     useContext: vi.fn(),
   };
 });
 
-import { useContext } from "react";
+import { useContext } from 'react';
 // Import the hook after mocking
-import { useMediaSource } from "../media-source-hook";
+import { useMediaSource } from '../media-source-hook';
 
 // Mock the context
 const mockContextValue = {
-  source: "paintings" as const,
+  source: 'paintings' as const,
   data: {
     total: 2,
     images: [
       {
-        id: "artwork-1",
-        title: "Test Artwork 1",
-        artist: "Test Artist 1",
-        imageUrl: "https://example.com/artwork1.jpg",
-        description: "Test description 1",
+        id: 'artwork-1',
+        title: 'Test Artwork 1',
+        artist: 'Test Artist 1',
+        imageUrl: 'https://example.com/artwork1.jpg',
+        description: 'Test description 1',
       } as ImageType,
     ],
   },
@@ -35,49 +35,49 @@ const mockContextValue = {
   error: undefined,
 };
 
-describe("useMediaSource", () => {
+describe('useMediaSource', () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
-  it("should return context value when context exists", () => {
+  it('should return context value when context exists', () => {
     (useContext as ReturnType<typeof vi.fn>).mockReturnValue(mockContextValue);
 
     const { result } = renderHook(() => useMediaSource());
 
     expect(result.current).toBe(mockContextValue);
-    expect(result.current.source).toBe("paintings");
+    expect(result.current.source).toBe('paintings');
     expect(result.current.data?.total).toBe(2);
     expect(result.current.data?.images).toHaveLength(1);
     expect(result.current.isLoading).toBe(false);
     expect(result.current.error).toBeUndefined();
   });
 
-  it("should return paintings source type", () => {
+  it('should return paintings source type', () => {
     const paintingsContext = {
       ...mockContextValue,
-      source: "paintings" as const,
+      source: 'paintings' as const,
     };
     (useContext as ReturnType<typeof vi.fn>).mockReturnValue(paintingsContext);
 
     const { result } = renderHook(() => useMediaSource());
 
-    expect(result.current.source).toBe("paintings");
+    expect(result.current.source).toBe('paintings');
   });
 
-  it("should return photos source type", () => {
+  it('should return photos source type', () => {
     const photosContext = {
       ...mockContextValue,
-      source: "photos" as const,
+      source: 'photos' as const,
     };
     (useContext as ReturnType<typeof vi.fn>).mockReturnValue(photosContext);
 
     const { result } = renderHook(() => useMediaSource());
 
-    expect(result.current.source).toBe("photos");
+    expect(result.current.source).toBe('photos');
   });
 
-  it("should return loading state", () => {
+  it('should return loading state', () => {
     const loadingContext = {
       ...mockContextValue,
       isLoading: true,
@@ -89,8 +89,8 @@ describe("useMediaSource", () => {
     expect(result.current.isLoading).toBe(true);
   });
 
-  it("should return error state", () => {
-    const mockError = new Error("Test error message");
+  it('should return error state', () => {
+    const mockError = new Error('Test error message');
     const errorContext = {
       ...mockContextValue,
       error: mockError,
@@ -102,7 +102,7 @@ describe("useMediaSource", () => {
     expect(result.current.error).toBe(mockError);
   });
 
-  it("should return undefined data", () => {
+  it('should return undefined data', () => {
     const undefinedDataContext = {
       ...mockContextValue,
       data: undefined,
@@ -116,7 +116,7 @@ describe("useMediaSource", () => {
     expect(result.current.data).toBeUndefined();
   });
 
-  it("should return empty artworks array", () => {
+  it('should return empty artworks array', () => {
     const emptyArtworksContext = {
       ...mockContextValue,
       data: {
@@ -134,25 +134,25 @@ describe("useMediaSource", () => {
     expect(result.current.data?.total).toBe(0);
   });
 
-  it("should return multiple artworks", () => {
+  it('should return multiple artworks', () => {
     const multipleArtworks: ImageType[] = [
       {
-        id: "artwork-1",
-        title: "Test Artwork 1",
-        artist: "Test Artist 1",
-        imageUrl: "https://example.com/artwork1.jpg",
-        description: "Test description 1",
-        source: "met",
-        metId: "123",
+        id: 'artwork-1',
+        title: 'Test Artwork 1',
+        artist: 'Test Artist 1',
+        imageUrl: 'https://example.com/artwork1.jpg',
+        description: 'Test description 1',
+        source: 'met',
+        metId: '123',
       },
       {
-        id: "artwork-2",
-        title: "Test Artwork 2",
-        artist: "Test Artist 2",
-        imageUrl: "https://example.com/artwork2.jpg",
-        description: "Test description 2",
-        source: "met",
-        metId: "456",
+        id: 'artwork-2',
+        title: 'Test Artwork 2',
+        artist: 'Test Artist 2',
+        imageUrl: 'https://example.com/artwork2.jpg',
+        description: 'Test description 2',
+        source: 'met',
+        metId: '456',
       },
     ];
 
@@ -170,17 +170,17 @@ describe("useMediaSource", () => {
     const { result } = renderHook(() => useMediaSource());
 
     expect(result.current.data?.images).toHaveLength(2);
-    expect(result.current.data?.images[0].id).toBe("artwork-1");
-    expect(result.current.data?.images[1].id).toBe("artwork-2");
+    expect(result.current.data?.images[0].id).toBe('artwork-1');
+    expect(result.current.data?.images[1].id).toBe('artwork-2');
   });
 
-  it("should return minimal Artwork objects", () => {
+  it('should return minimal Artwork objects', () => {
     const minimalArtworks: ImageType[] = [
       {
-        id: "minimal-1",
-        title: "Minimal Artwork",
-        source: "met",
-        metId: "123",
+        id: 'minimal-1',
+        title: 'Minimal Artwork',
+        source: 'met',
+        metId: '123',
       },
     ];
 
@@ -196,15 +196,15 @@ describe("useMediaSource", () => {
     const { result } = renderHook(() => useMediaSource());
 
     expect(result.current.data?.images[0]).toMatchObject({
-      id: "minimal-1",
-      title: "Minimal Artwork",
+      id: 'minimal-1',
+      title: 'Minimal Artwork',
     });
     expect(result.current.data?.images[0].artist).toBeUndefined();
     expect(result.current.data?.images[0].imageUrl).toBeUndefined();
     expect(result.current.data?.images[0].description).toBeUndefined();
   });
 
-  it("should return mock data flag", () => {
+  it('should return mock data flag', () => {
     const mockDataContext = {
       ...mockContextValue,
       data: {
@@ -219,23 +219,23 @@ describe("useMediaSource", () => {
     expect(result.current.data?.mock).toBe(true);
   });
 
-  it("should throw error when context is undefined", () => {
+  it('should throw error when context is undefined', () => {
     (useContext as ReturnType<typeof vi.fn>).mockReturnValue();
 
     expect(() => {
       renderHook(() => useMediaSource());
-    }).toThrow("useMediaSource must be used within MediaSourceProvider");
+    }).toThrow('useMediaSource must be used within MediaSourceProvider');
   });
 
-  it("should throw error when context is null", () => {
+  it('should throw error when context is null', () => {
     (useContext as ReturnType<typeof vi.fn>).mockReturnValue();
 
     expect(() => {
       renderHook(() => useMediaSource());
-    }).toThrow("useMediaSource must be used within MediaSourceProvider");
+    }).toThrow('useMediaSource must be used within MediaSourceProvider');
   });
 
-  it("should handle large datasets", () => {
+  it('should handle large datasets', () => {
     const largeArtworks: ImageType[] = Array.from(
       { length: 100 },
       (_, index) => ({
@@ -244,7 +244,7 @@ describe("useMediaSource", () => {
         artist: `Artist ${index}`,
         imageUrl: `https://example.com/artwork${index}.jpg`,
         description: `Test description ${index}`,
-        source: "met",
+        source: 'met',
         metId: `123-${index}`,
       }),
     );
@@ -262,11 +262,11 @@ describe("useMediaSource", () => {
 
     expect(result.current.data?.images).toHaveLength(100);
     expect(result.current.data?.total).toBe(100);
-    expect(result.current.data?.images[99].id).toBe("artwork-99");
+    expect(result.current.data?.images[99].id).toBe('artwork-99');
   });
 
-  it("should handle complex error objects", () => {
-    const complexError = new Error("Complex error");
+  it('should handle complex error objects', () => {
+    const complexError = new Error('Complex error');
     const complexErrorContext = {
       ...mockContextValue,
       error: complexError,
@@ -278,10 +278,10 @@ describe("useMediaSource", () => {
     const { result } = renderHook(() => useMediaSource());
 
     expect(result.current.error).toBe(complexError);
-    expect(result.current.error?.message).toBe("Complex error");
+    expect(result.current.error?.message).toBe('Complex error');
   });
 
-  it("should handle null error", () => {
+  it('should handle null error', () => {
     const nullErrorContext = {
       ...mockContextValue,
       error: null,

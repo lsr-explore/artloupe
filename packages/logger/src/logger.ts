@@ -1,5 +1,5 @@
-import pino from "pino";
-import type { LogContext, LoggerConfig } from "./types";
+import pino from 'pino';
+import type { LogContext, LoggerConfig } from './types';
 
 class LoggerImpl {
   private pinoLogger: pino.Logger;
@@ -7,10 +7,10 @@ class LoggerImpl {
 
   constructor(config: LoggerConfig = {}) {
     const {
-      level = process.env.LOG_LEVEL || "info",
-      name = process.env.APP_NAME || "artloupe",
+      level = process.env.LOG_LEVEL || 'info',
+      name = process.env.APP_NAME || 'artloupe',
       pretty = false, // Disable pretty printing by default to avoid worker issues
-      redact = ["password", "token", "secret", "key"],
+      redact = ['password', 'token', 'secret', 'key'],
       serializers = {},
     } = config;
 
@@ -27,22 +27,22 @@ class LoggerImpl {
     // Only enable pretty printing if explicitly requested and in a safe environment
     if (
       pretty &&
-      process.env.ENABLE_PRETTY_LOGS === "true" &&
+      process.env.ENABLE_PRETTY_LOGS === 'true' &&
       globalThis.window === undefined &&
       !process.env.NEXT_RUNTIME
     ) {
       try {
         pinoConfig.transport = {
-          target: "pino-pretty",
+          target: 'pino-pretty',
           options: {
             colorize: true,
-            translateTime: "SYS:standard",
-            ignore: "pid,hostname",
+            translateTime: 'SYS:standard',
+            ignore: 'pid,hostname',
           },
         };
       } catch (error) {
         console.warn(
-          "Pretty printing failed, falling back to basic logging:",
+          'Pretty printing failed, falling back to basic logging:',
           error,
         );
       }
@@ -89,29 +89,29 @@ class LoggerImpl {
 
   // Additional convenience methods
   logWithContext(
-    level: "info" | "warn" | "error" | "debug",
+    level: 'info' | 'warn' | 'error' | 'debug',
     message: string,
     data?: unknown,
   ): void {
     const logData = {
       ...this.context,
-      ...(data && typeof data === "object" ? data : { data }),
+      ...(data && typeof data === 'object' ? data : { data }),
     };
 
     switch (level) {
-      case "info": {
+      case 'info': {
         this.info(logData, message);
         break;
       }
-      case "warn": {
+      case 'warn': {
         this.warn(logData, message);
         break;
       }
-      case "error": {
+      case 'error': {
         this.error(logData, message);
         break;
       }
-      case "debug": {
+      case 'debug': {
         this.debug(logData, message);
         break;
       }

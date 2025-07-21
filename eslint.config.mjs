@@ -1,38 +1,37 @@
-import js from "@eslint/js";
-import pluginNext from "@next/eslint-plugin-next";
-import tseslint from "@typescript-eslint/eslint-plugin";
-import tsParser from "@typescript-eslint/parser";
-import pluginCypress from "eslint-plugin-cypress";
-import pluginImport from "eslint-plugin-import"; // ✅ Added
-import pluginJsxA11y from "eslint-plugin-jsx-a11y";
-import pluginMarkdown from "eslint-plugin-markdown";
-import pluginNoSecrets from "eslint-plugin-no-secrets"; // ✅ Added
-import pluginReact from "eslint-plugin-react";
-import pluginReactHooks from "eslint-plugin-react-hooks";
-import pluginReactRefresh from "eslint-plugin-react-refresh"; // ✅ Added
-import pluginUnicorn from "eslint-plugin-unicorn"; // ✅ Added
-
-import path from "path";
-import { fileURLToPath } from "url";
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import js from '@eslint/js';
+import pluginNext from '@next/eslint-plugin-next';
+import tseslint from '@typescript-eslint/eslint-plugin';
+import tsParser from '@typescript-eslint/parser';
+import pluginCypress from 'eslint-plugin-cypress';
+import pluginImport from 'eslint-plugin-import'; // ✅ Added
+import pluginJsxA11y from 'eslint-plugin-jsx-a11y';
+import pluginMarkdown from 'eslint-plugin-markdown';
+import pluginNoSecrets from 'eslint-plugin-no-secrets'; // ✅ Added
+import pluginReact from 'eslint-plugin-react';
+import pluginReactHooks from 'eslint-plugin-react-hooks';
+import pluginReactRefresh from 'eslint-plugin-react-refresh'; // ✅ Added
+import pluginUnicorn from 'eslint-plugin-unicorn'; // ✅ Added
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default [
   // Base JS config
   {
-    files: ["**/*.{js,jsx,cjs,mjs}"],
+    files: ['**/*.{js,jsx,cjs,mjs}'],
     languageOptions: {
       ecmaVersion: 2022,
-      sourceType: "module",
+      sourceType: 'module',
     },
     plugins: {
       import: pluginImport,
       unicorn: pluginUnicorn,
-      "no-secrets": pluginNoSecrets,
+      'no-secrets': pluginNoSecrets,
       react: pluginReact,
-      "react-hooks": pluginReactHooks,
-      "jsx-a11y": pluginJsxA11y,
-      "react-refresh": pluginReactRefresh,
+      'react-hooks': pluginReactHooks,
+      'jsx-a11y': pluginJsxA11y,
+      'react-refresh': pluginReactRefresh,
     },
     rules: {
       ...js.configs.recommended.rules,
@@ -42,43 +41,44 @@ export default [
       ...pluginReactRefresh.configs.recommended.rules,
       ...pluginUnicorn.configs.recommended.rules,
       ...pluginImport.configs.recommended.rules,
-      "no-secrets/no-secrets": "error",
+      'no-secrets/no-secrets': 'error',
+      'react/react-in-jsx-scope': 'off',
     },
     settings: {
-      "import/resolver": {
+      'import/resolver': {
         typescript: {
           alwaysTryTypes: true,
-          project: ["packages/*/tsconfig.json", "apps/*/tsconfig.json"],
+          project: ['packages/*/tsconfig.json', 'apps/*/tsconfig.json'],
         },
       },
       react: {
-        version: "detect",
+        version: 'detect',
       },
     },
   },
 
   // TypeScript config for apps
   {
-    files: ["apps/**/*.{ts,tsx}"],
+    files: ['apps/**/*.{ts,tsx}'],
     languageOptions: {
       parser: tsParser,
-      ecmaVersion: "latest",
-      sourceType: "module",
+      ecmaVersion: 'latest',
+      sourceType: 'module',
       parserOptions: {
-        project: path.resolve(__dirname, "tsconfig.apps.eslint.json"),
+        project: path.resolve(__dirname, 'tsconfig.apps.eslint.json'),
         tsconfigRootDir: __dirname,
       },
     },
     plugins: {
-      "@typescript-eslint": tseslint,
+      '@typescript-eslint': tseslint,
       react: pluginReact,
-      "react-hooks": pluginReactHooks,
-      "jsx-a11y": pluginJsxA11y,
-      "react-refresh": pluginReactRefresh,
+      'react-hooks': pluginReactHooks,
+      'jsx-a11y': pluginJsxA11y,
+      'react-refresh': pluginReactRefresh,
       import: pluginImport,
       unicorn: pluginUnicorn,
-      "no-secrets": pluginNoSecrets,
-      "@next/next": pluginNext,
+      'no-secrets': pluginNoSecrets,
+      '@next/next': pluginNext,
     },
     rules: {
       ...tseslint.configs.recommended.rules,
@@ -88,48 +88,49 @@ export default [
       ...pluginReactRefresh.configs.recommended.rules,
       ...pluginUnicorn.configs.recommended.rules,
       ...pluginImport.configs.recommended.rules,
-      "no-secrets/no-secrets": "error",
-      ...pluginNext.configs["core-web-vitals"].rules,
+      'no-secrets/no-secrets': 'error',
+      ...pluginNext.configs['core-web-vitals'].rules,
+      'react/react-in-jsx-scope': 'off',
     },
     settings: {
-      "import/resolver": {
+      'import/resolver': {
         typescript: {
           alwaysTryTypes: true,
           project: [
-            path.resolve(__dirname, "tsconfig.apps.eslint.json"),
-            path.resolve(__dirname, "apps/*/tsconfig.json"),
+            path.resolve(__dirname, 'tsconfig.apps.eslint.json'),
+            path.resolve(__dirname, 'apps/*/tsconfig.json'),
           ],
         },
       },
       react: {
-        version: "detect",
+        version: 'detect',
       },
     },
   },
 
   // TypeScript config for packages
   {
-    files: ["packages/**/*.{ts,tsx}"],
+    files: ['packages/**/*.{ts,tsx}'],
     languageOptions: {
       parser: tsParser,
-      ecmaVersion: "latest",
+      ecmaVersion: 'latest',
       parserOptions: {
         project: [
-          path.resolve(__dirname, "tsconfig.packages.eslint.json"),
-          path.resolve(__dirname, "packages/*/tsconfig.json"),
+          path.resolve(__dirname, 'tsconfig.packages.eslint.json'),
+          path.resolve(__dirname, 'packages/*/tsconfig.json'),
         ],
         tsconfigRootDir: __dirname,
       },
     },
     plugins: {
-      "@typescript-eslint": tseslint,
+      '@typescript-eslint': tseslint,
       react: pluginReact,
-      "react-hooks": pluginReactHooks,
-      "jsx-a11y": pluginJsxA11y,
-      "react-refresh": pluginReactRefresh,
+      'react-hooks': pluginReactHooks,
+      'jsx-a11y': pluginJsxA11y,
+      'react-refresh': pluginReactRefresh,
       import: pluginImport,
       unicorn: pluginUnicorn,
-      "no-secrets": pluginNoSecrets,
+      'no-secrets': pluginNoSecrets,
     },
     rules: {
       ...tseslint.configs.recommended.rules,
@@ -139,24 +140,25 @@ export default [
       ...pluginReactRefresh.configs.recommended.rules,
       ...pluginUnicorn.configs.recommended.rules,
       ...pluginImport.configs.recommended.rules,
-      "no-secrets/no-secrets": "error",
+      'no-secrets/no-secrets': 'error',
+      'react/react-in-jsx-scope': 'off',
     },
     settings: {
-      "import/resolver": {
+      'import/resolver': {
         typescript: {
           alwaysTryTypes: true,
-          project: path.resolve(__dirname, "tsconfig.packages.eslint.json"),
+          project: path.resolve(__dirname, 'tsconfig.packages.eslint.json'),
         },
       },
       react: {
-        version: "detect",
+        version: 'detect',
       },
     },
   },
 
   // Cypress config
   {
-    files: ["**/*.cy.{js,ts,jsx,tsx}", "cypress/**/*.{js,ts}"],
+    files: ['**/*.cy.{js,ts,jsx,tsx}', 'cypress/**/*.{js,ts}'],
     plugins: {
       cypress: pluginCypress,
     },
@@ -168,22 +170,22 @@ export default [
     },
   },
   {
-    files: ["**/*.md"],
+    files: ['**/*.md'],
     processor: pluginMarkdown.processors.markdown,
   },
 
   // Ignored folders
   {
     ignores: [
-      "**/node_modules/**",
-      "**/.next/**",
-      "**/dist/**",
-      "**/.turbo/**",
-      "**/coverage/**",
-      "**/*.d.ts",
-      "**/storybook-static/**",
-      "**/vite.config.*.timestamp*",
-      "**/vitest.config.*.timestamp*",
+      '**/node_modules/**',
+      '**/.next/**',
+      '**/dist/**',
+      '**/.turbo/**',
+      '**/coverage/**',
+      '**/*.d.ts',
+      '**/storybook-static/**',
+      '**/vite.config.*.timestamp*',
+      '**/vitest.config.*.timestamp*',
     ],
   },
 ];

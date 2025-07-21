@@ -1,33 +1,33 @@
 // Example of how to use client-side logging in your React components
 
-import { logClientEvent } from "../middleware";
+import { logClientEvent } from '../middleware';
 
 // Utility function for client-side logging
 export const clientLogger = {
   info: (message: string, context?: Record<string, unknown>) =>
-    logClientEvent("/api/log", {
-      level: "info",
+    logClientEvent('/api/log', {
+      level: 'info',
       message,
       context: context || {},
     }),
 
   warn: (message: string, context?: Record<string, unknown>) =>
-    logClientEvent("/api/log", {
-      level: "warn",
+    logClientEvent('/api/log', {
+      level: 'warn',
       message,
       context: context || {},
     }),
 
   error: (message: string, context?: Record<string, unknown>) =>
-    logClientEvent("/api/log", {
-      level: "error",
+    logClientEvent('/api/log', {
+      level: 'error',
       message,
       context: context || {},
     }),
 
   debug: (message: string, context?: Record<string, unknown>) =>
-    logClientEvent("/api/log", {
-      level: "debug",
+    logClientEvent('/api/log', {
+      level: 'debug',
       message,
       context: context || {},
     }),
@@ -81,7 +81,7 @@ export class AdvancedClientLogger {
   private retryAttempts: number;
   private retryDelay: number;
 
-  constructor(endpoint = "/api/log", retryAttempts = 3, retryDelay = 1000) {
+  constructor(endpoint = '/api/log', retryAttempts = 3, retryDelay = 1000) {
     this.endpoint = endpoint;
     this.retryAttempts = retryAttempts;
     this.retryDelay = retryDelay;
@@ -97,7 +97,7 @@ export class AdvancedClientLogger {
     for (let attempt = 1; attempt <= this.retryAttempts; attempt++) {
       try {
         const result = await logClientEvent(this.endpoint, {
-          level: level as "info" | "warn" | "error" | "debug",
+          level: level as 'info' | 'warn' | 'error' | 'debug',
           message,
           context: {
             ...context,
@@ -124,7 +124,7 @@ export class AdvancedClientLogger {
     }
 
     // If all retries failed, log to console as fallback
-    console.error("Failed to send log to server after retries:", {
+    console.error('Failed to send log to server after retries:', {
       level,
       message,
       context,
@@ -135,16 +135,16 @@ export class AdvancedClientLogger {
   }
 
   info = (message: string, context?: Record<string, unknown>) =>
-    this.sendLog("info", message, context);
+    this.sendLog('info', message, context);
 
   warn = (message: string, context?: Record<string, unknown>) =>
-    this.sendLog("warn", message, context);
+    this.sendLog('warn', message, context);
 
   error = (message: string, context?: Record<string, unknown>) =>
-    this.sendLog("error", message, context);
+    this.sendLog('error', message, context);
 
   debug = (message: string, context?: Record<string, unknown>) =>
-    this.sendLog("debug", message, context);
+    this.sendLog('debug', message, context);
 }
 
 // Export a default instance

@@ -1,5 +1,5 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
-import { analyzeArt } from "../open-ai/analyze-art";
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { analyzeArt } from '../open-ai/analyze-art';
 
 // Mock NextRequest
 const mockRequest = (body: any) =>
@@ -9,22 +9,22 @@ const mockRequest = (body: any) =>
 
 // Mock fetch
 const mockFetch = vi.fn();
-vi.stubGlobal("fetch", mockFetch);
+vi.stubGlobal('fetch', mockFetch);
 
-describe("analyzeArt", () => {
+describe('analyzeArt', () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
-  it("should return mock analysis when USE_LOCAL_AI is true", async () => {
+  it('should return mock analysis when USE_LOCAL_AI is true', async () => {
     const originalValue = process.env.USE_LOCAL_AI;
-    process.env.USE_LOCAL_AI = "true";
+    process.env.USE_LOCAL_AI = 'true';
 
     const mockArtwork = {
-      id: "1",
-      title: "Test Artwork",
-      artist: "Test Artist",
-      description: "A test artwork",
+      id: '1',
+      title: 'Test Artwork',
+      artist: 'Test Artist',
+      description: 'A test artwork',
     };
 
     const request = mockRequest(mockArtwork);
@@ -39,16 +39,16 @@ describe("analyzeArt", () => {
     process.env.USE_LOCAL_AI = originalValue;
   });
 
-  it("should handle different environment configurations", async () => {
+  it('should handle different environment configurations', async () => {
     const originalValue = process.env.USE_LOCAL_AI;
 
     // Test with undefined USE_LOCAL_AI (should not equal "true")
     delete process.env.USE_LOCAL_AI;
 
     const mockArtwork = {
-      id: "1",
-      title: "Test Artwork",
-      artist: "Test Artist",
+      id: '1',
+      title: 'Test Artwork',
+      artist: 'Test Artist',
     };
 
     // Mock a successful fetch response
@@ -57,7 +57,7 @@ describe("analyzeArt", () => {
         choices: [
           {
             message: {
-              content: "AI generated analysis",
+              content: 'AI generated analysis',
             },
           },
         ],
@@ -73,14 +73,14 @@ describe("analyzeArt", () => {
     process.env.USE_LOCAL_AI = originalValue;
   });
 
-  it("should handle basic functionality", async () => {
+  it('should handle basic functionality', async () => {
     const originalValue = process.env.USE_LOCAL_AI;
-    process.env.USE_LOCAL_AI = "true";
+    process.env.USE_LOCAL_AI = 'true';
 
     const mockArtwork = {
-      id: "1",
-      title: "Starry Night",
-      artist: "Vincent van Gogh",
+      id: '1',
+      title: 'Starry Night',
+      artist: 'Vincent van Gogh',
     };
 
     const request = mockRequest(mockArtwork);
@@ -89,21 +89,21 @@ describe("analyzeArt", () => {
     expect(response).toBeInstanceOf(Response);
 
     const data = await response.json();
-    expect(data).toHaveProperty("result");
-    expect(typeof data.result).toBe("string");
+    expect(data).toHaveProperty('result');
+    expect(typeof data.result).toBe('string');
     expect(data.result.length).toBeGreaterThan(0);
 
     // Restore original value
     process.env.USE_LOCAL_AI = originalValue;
   });
 
-  it("should handle artwork without artist", async () => {
+  it('should handle artwork without artist', async () => {
     const originalValue = process.env.USE_LOCAL_AI;
-    process.env.USE_LOCAL_AI = "true";
+    process.env.USE_LOCAL_AI = 'true';
 
     const mockArtwork = {
-      id: "1",
-      title: "Unknown Artwork",
+      id: '1',
+      title: 'Unknown Artwork',
     };
 
     const request = mockRequest(mockArtwork);

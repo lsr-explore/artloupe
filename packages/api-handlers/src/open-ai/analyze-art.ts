@@ -1,7 +1,7 @@
 // apps/main/src/lib/ai/generate.ts
 
-import type { NextRequest } from "next/server";
-import { MOCK_AI_ANALYSES } from "./mock-data";
+import type { NextRequest } from 'next/server';
+import { MOCK_AI_ANALYSES } from './mock-data';
 
 interface ArtworkRequest {
   id: string;
@@ -21,7 +21,7 @@ interface OpenAIResponse {
 
 export const analyzeArt = async (request: NextRequest): Promise<Response> => {
   const artwork = (await request.json()) as ArtworkRequest;
-  if (process.env.USE_LOCAL_AI === "true") {
+  if (process.env.USE_LOCAL_AI === 'true') {
     console.log(`🤖 Generating mock AI analysis for: ${artwork.title}`);
 
     // Simulate API delay
@@ -36,20 +36,20 @@ export const analyzeArt = async (request: NextRequest): Promise<Response> => {
 
   const prompt = `please provide an analysis of ${artwork.title} by ${artwork.artist}, including its historical context, artistic style, and any notable features.`;
 
-  const response = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
+  const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
     headers: {
       Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      model: "gpt-3.5-turbo",
-      messages: [{ role: "user", content: prompt }],
+      model: 'gpt-3.5-turbo',
+      messages: [{ role: 'user', content: prompt }],
     }),
   });
 
   const data = (await response.json()) as OpenAIResponse;
   return Response.json({
-    result: data.choices?.[0]?.message?.content || "No response",
+    result: data.choices?.[0]?.message?.content || 'No response',
   });
 };

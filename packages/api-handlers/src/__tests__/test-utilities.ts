@@ -1,5 +1,5 @@
-import type { NextRequest } from "next/server";
-import { expect, vi } from "vitest";
+import type { NextRequest } from 'next/server';
+import { expect, vi } from 'vitest';
 // Mock logger to prevent actual logging during tests
 export const mockLogger = {
   info: vi.fn(),
@@ -10,7 +10,7 @@ export const mockLogger = {
 };
 
 // Mock the logger module
-vi.mock("@artloupe/logger", () => ({
+vi.mock('@artloupe/logger', () => ({
   logger: mockLogger,
   withLogging: (handler: (request: NextRequest) => Promise<Response>) =>
     handler,
@@ -20,13 +20,13 @@ vi.mock("@artloupe/logger", () => ({
 export const createMockRequest = (
   url: string,
   headers?: Record<string, string>,
-  method: string = "GET",
+  method: string = 'GET',
 ): NextRequest => {
   const mockHeaders = new Map<string, string>();
 
   // Add default headers
-  mockHeaders.set("user-agent", "test-user-agent");
-  mockHeaders.set("content-type", "application/json");
+  mockHeaders.set('user-agent', 'test-user-agent');
+  mockHeaders.set('content-type', 'application/json');
 
   // Add custom headers if provided
   if (headers) {
@@ -62,9 +62,9 @@ export const createMockPostRequest = (
   headers?: Record<string, string>,
 ): NextRequest => {
   const mockRequest = createMockRequest(
-    "http://localhost/api/test",
+    'http://localhost/api/test',
     headers,
-    "POST",
+    'POST',
   );
 
   // Add json method for POST requests

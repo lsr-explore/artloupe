@@ -1,1 +1,1 @@
-export { handlePhotoSearch as GET } from "@artloupe/api-handlers";
+export { handlePhotoSearch as GET } from '@artloupe/api-handlers';

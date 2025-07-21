@@ -1,6 +1,7 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { type RenderOptions, render } from "@testing-library/react";
-import React, { ReactElement } from "react";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { type RenderOptions, render } from '@testing-library/react';
+import type React from 'react';
+import type { ReactElement } from 'react';
 
 // Create a custom render function that includes providers
 const createTestQueryClient = () =>
@@ -22,17 +23,17 @@ const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
 
 const customRender = (
   ui: ReactElement,
-  options?: Omit<RenderOptions, "wrapper">,
+  options?: Omit<RenderOptions, 'wrapper'>,
 ) => render(ui, { wrapper: AllTheProviders, ...options });
 
 // Mock data factories
 export const createMockArtwork = (overrides = {}) => ({
-  id: "1",
-  title: "Test Artwork",
-  artist: "Test Artist",
-  imageUrl: "https://example.com/image.jpg",
-  description: "Test description",
-  metId: "123",
+  id: '1',
+  title: 'Test Artwork',
+  artist: 'Test Artist',
+  imageUrl: 'https://example.com/image.jpg',
+  description: 'Test description',
+  metId: '123',
   ...overrides,
 });
 
@@ -49,5 +50,5 @@ export const createMockArtworks = (count = 3) =>
   );
 
 // re-export everything
-export * from "@testing-library/react";
+export * from '@testing-library/react';
 export { customRender as render };

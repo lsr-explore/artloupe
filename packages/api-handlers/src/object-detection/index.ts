@@ -1,1 +1,1 @@
-export * from "./detect-objects";
+export * from './detect-objects';

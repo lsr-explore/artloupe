@@ -1,17 +1,17 @@
-import { mockAnalysisResult, mockArtwork } from "@artloupe/mock-data";
-import { beforeEach, describe, expect, it, vi } from "vitest";
-import { postAnalyzeArt } from "../post-analyze-art";
+import { mockAnalysisResult, mockArtwork } from '@artloupe/mock-data';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { postAnalyzeArt } from '../post-analyze-art';
 
 // Get the mocked fetch function
 const mockFetch = vi.mocked(fetch);
 
-describe("postAnalyzeArt", () => {
+describe('postAnalyzeArt', () => {
   beforeEach(() => {
     // Clear all mocks before each test
     vi.clearAllMocks();
   });
 
-  it("should analyze artwork successfully", async () => {
+  it('should analyze artwork successfully', async () => {
     // Mock successful response
     mockFetch.mockResolvedValueOnce({
       ok: true,
@@ -24,7 +24,7 @@ describe("postAnalyzeArt", () => {
     expect(result.result).toBe(mockAnalysisResult.result);
   });
 
-  it("should handle artwork without description", async () => {
+  it('should handle artwork without description', async () => {
     const artworkWithoutDescription = {
       id: mockArtwork.id,
       title: mockArtwork.title,
@@ -42,20 +42,20 @@ describe("postAnalyzeArt", () => {
 
     const result = await postAnalyzeArt(artworkWithoutDescription);
     expect(result).toBeDefined();
-    expect(typeof result.result).toBe("string");
+    expect(typeof result.result).toBe('string');
   });
 
-  it("should throw error for invalid artwork", async () => {
+  it('should throw error for invalid artwork', async () => {
     const invalidArtwork = {
-      id: "",
-      title: "",
-      artist: "",
+      id: '',
+      title: '',
+      artist: '',
     };
 
     await expect(postAnalyzeArt(invalidArtwork as never)).rejects.toThrow();
   });
 
-  it("should return meaningful analysis", async () => {
+  it('should return meaningful analysis', async () => {
     // Mock successful response
     mockFetch.mockResolvedValueOnce({
       ok: true,
@@ -66,18 +66,18 @@ describe("postAnalyzeArt", () => {
 
     expect(result.result).toBeTruthy();
     expect(result.result.length).toBeGreaterThan(10);
-    expect(typeof result.result).toBe("string");
+    expect(typeof result.result).toBe('string');
   });
 
-  it("should throw error when fetch fails", async () => {
+  it('should throw error when fetch fails', async () => {
     // Mock failed response
     mockFetch.mockResolvedValueOnce({
       ok: false,
-      json: vi.fn().mockResolvedValue({ error: "Analysis failed" }),
+      json: vi.fn().mockResolvedValue({ error: 'Analysis failed' }),
     } as unknown as Response);
 
     await expect(postAnalyzeArt(mockArtwork)).rejects.toThrow(
-      "Analysis failed",
+      'Analysis failed',
     );
   });
 });

@@ -1,47 +1,47 @@
-"use client";
+'use client';
 import {
   MediaArtContainer,
   MediaSourceProvider,
-} from "@artloupe/media-display";
-import { Providers } from "data-providers";
-import { useRouter, useSearchParams } from "next/navigation";
-import React, { Suspense, useEffect, useState } from "react";
+} from '@artloupe/media-display';
+import { Providers } from 'data-providers';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Suspense, useEffect, useState } from 'react';
 
 const logSearchAction = async (searchType: string, searchQuery: string) => {
   try {
-    await fetch("/api/log", {
-      method: "POST",
+    await fetch('/api/log', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        level: "info",
-        message: "User initiated search",
+        level: 'info',
+        message: 'User initiated search',
         context: {
           searchType,
           searchQuery,
-          page: "search",
-          action: "explore_click",
+          page: 'search',
+          action: 'explore_click',
         },
         timestamp: new Date().toISOString(),
       }),
     });
   } catch (error) {
     // Silently fail logging to avoid breaking the user experience
-    console.error("Failed to log search action:", error);
+    console.error('Failed to log search action:', error);
   }
 };
 
 const SearchArtPageContent = () => {
   const searchParameters = useSearchParams();
   const router = useRouter();
-  const searchType = searchParameters.get("searchtype");
-  const searchQuery = searchParameters.get("search");
+  const searchType = searchParameters.get('searchtype');
+  const searchQuery = searchParameters.get('search');
   const [selectedSearchQuery, setSelectedSearchQuery] = useState(
-    searchQuery || "",
+    searchQuery || '',
   );
   const [selectedSearchType, setSelectedSearchType] = useState<string>(
-    searchType || "",
+    searchType || '',
   );
   const [shouldSearch, setShouldSearch] = useState<boolean>(true);
   const [shouldUpdate, setShouldUpdate] = useState<boolean>(false);
@@ -52,19 +52,19 @@ const SearchArtPageContent = () => {
     }
     if (
       searchQuery &&
-      searchQuery !== "" &&
+      searchQuery !== '' &&
       searchQuery !== selectedSearchQuery
     ) {
-      setSelectedSearchQuery(searchQuery || "");
+      setSelectedSearchQuery(searchQuery || '');
     }
-    if (searchType && searchType !== "" && searchType !== selectedSearchType) {
-      setSelectedSearchType(searchType || "");
+    if (searchType && searchType !== '' && searchType !== selectedSearchType) {
+      setSelectedSearchType(searchType || '');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery, searchType]);
 
   const handleSearchTypeChange = (event: { target: { value: string } }) => {
-    const newValue = event.target.value || "";
+    const newValue = event.target.value || '';
     setShouldUpdate(true);
     setSelectedSearchType(newValue);
   };
@@ -72,9 +72,9 @@ const SearchArtPageContent = () => {
   const handleExploreClick = async () => {
     const urlSearchParameters = new URLSearchParams();
     if (selectedSearchQuery)
-      urlSearchParameters.set("search", selectedSearchQuery);
+      urlSearchParameters.set('search', selectedSearchQuery);
     if (selectedSearchType)
-      urlSearchParameters.set("searchtype", selectedSearchType);
+      urlSearchParameters.set('searchtype', selectedSearchType);
 
     // Log the search action
     await logSearchAction(selectedSearchType, selectedSearchQuery);
@@ -85,79 +85,77 @@ const SearchArtPageContent = () => {
   };
 
   return (
-    <main className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-8">artloupe</h1>
-      <div className="flex flex-col gap-4 w-1/2 mt-4">
-        <h2 className="text-2xl font-bold">Explore</h2>
-        <div className="flex space-x-4">
+    <main className='container mx-auto px-4 py-8'>
+      <h1 className='text-4xl font-bold mb-8'>artloupe</h1>
+      <div className='flex flex-col gap-4 w-1/2 mt-4'>
+        <h2 className='text-2xl font-bold'>Explore</h2>
+        <div className='flex space-x-4'>
           <div>
-            <label className="flex items-center cursor-pointer">
+            <label className='flex items-center cursor-pointer'>
               <input
-                type="radio"
-                name="paintings"
-                value="paintings"
-                checked={selectedSearchType === "paintings"}
+                type='radio'
+                name='paintings'
+                value='paintings'
+                checked={selectedSearchType === 'paintings'}
                 onChange={handleSearchTypeChange}
-                className="peer hidden" // Hide the native radio button
+                className='peer hidden' // Hide the native radio button
               />
-              <div className="w-4 h-4 rounded-full border-2 border-gray-400 peer-checked:bg-blue-500 peer-checked:border-blue-500 flex items-center justify-center">
-                {selectedSearchType === "paintings" && (
-                  <div className="w-2 h-2 rounded-full bg-white"></div>
+              <div className='w-4 h-4 rounded-full border-2 border-gray-400 peer-checked:bg-blue-500 peer-checked:border-blue-500 flex items-center justify-center'>
+                {selectedSearchType === 'paintings' && (
+                  <div className='w-2 h-2 rounded-full bg-white'></div>
                 )}
               </div>
-              <span className="ml-2 text-gray-700 peer-checked:text-blue-700">
+              <span className='ml-2 text-gray-700 peer-checked:text-blue-700'>
                 Paintings from the Metropolitan Museum of Art
               </span>
             </label>
-            <label className="flex items-center cursor-pointer">
+            <label className='flex items-center cursor-pointer'>
               <input
-                type="radio"
-                name="photos"
-                value="photos"
-                checked={selectedSearchType === "photos"}
+                type='radio'
+                name='photos'
+                value='photos'
+                checked={selectedSearchType === 'photos'}
                 onChange={handleSearchTypeChange}
-                className="peer hidden" // Hide the native radio button
+                className='peer hidden' // Hide the native radio button
               />
-              <div className="w-4 h-4 rounded-full border-2 border-gray-400 peer-checked:bg-blue-500 peer-checked:border-blue-500 flex items-center justify-center">
-                {selectedSearchType === "photos" && (
-                  <div className="w-2 h-2 rounded-full bg-white"></div>
+              <div className='w-4 h-4 rounded-full border-2 border-gray-400 peer-checked:bg-blue-500 peer-checked:border-blue-500 flex items-center justify-center'>
+                {selectedSearchType === 'photos' && (
+                  <div className='w-2 h-2 rounded-full bg-white'></div>
                 )}
               </div>
-              <span className="ml-2 text-gray-700 peer-checked:text-blue-700">
+              <span className='ml-2 text-gray-700 peer-checked:text-blue-700'>
                 Photos from Pexels
               </span>
             </label>
           </div>
         </div>
-        <div className="mt-4 w-full flex items-center gap-2">
+        <div className='mt-4 w-full flex items-center gap-2'>
           <input
-            type="text"
+            type='text'
             maxLength={25}
-            placeholder="Enter search terms..."
+            placeholder='Enter search terms...'
             value={selectedSearchQuery}
             onChange={(event) => {
               setShouldUpdate(true);
               setSelectedSearchQuery(event.target.value);
             }}
-            className="flex-grow text-sm px-3 py-2 border-b-2 border-gray-400"
-            aria-label="Enter search terms..."
+            className='flex-grow text-sm px-3 py-2 border-b-2 border-gray-400'
+            aria-label='Enter search terms...'
           />
           <button
-            type="button"
-            className="px-4 py-2 text-sm font-semibold bg-blue-600 text-white rounded hover:bg-blue-700"
-            onClick={handleExploreClick}
-          >
-            Explore{" "}
-            {selectedSearchType === "paintings" ? "Paintings" : "Photos"}
+            type='button'
+            className='px-4 py-2 text-sm font-semibold bg-blue-600 text-white rounded hover:bg-blue-700'
+            onClick={handleExploreClick}>
+            Explore{' '}
+            {selectedSearchType === 'paintings' ? 'Paintings' : 'Photos'}
           </button>
         </div>
       </div>
       <Providers>
         <MediaSourceProvider
-          searchType={selectedSearchType || ""}
-          searchQuery={selectedSearchQuery || ""}
-          shouldSearch={shouldSearch}
-        >
+          searchType={selectedSearchType || ''}
+          searchQuery={selectedSearchQuery || ''}
+          shouldSearch={shouldSearch}>
           {shouldUpdate ? (
             <div>Select explore to continue...</div>
           ) : (

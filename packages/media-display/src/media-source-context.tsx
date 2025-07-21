@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import type { ImageType } from "@artloupe/shared-types";
-import { createContext } from "react";
+import type { ImageType } from '@artloupe/shared-types';
+import { createContext } from 'react';
 
-type SourceType = "paintings" | "photos";
+type SourceType = 'paintings' | 'photos';
 
 type MediaSourceContextType = {
   source: SourceType;

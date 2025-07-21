@@ -1,29 +1,29 @@
-"use client";
+'use client';
 
-import ColorThief from "colorthief";
-import { ColorTreemap } from "components/ColorTreeMap";
-import { quantizeImageData } from "lib/color";
-import { useSearchParams } from "next/navigation";
-import React, { useEffect, useRef, useState } from "react";
+import ColorThief from 'colorthief';
+import { ColorTreemap } from 'components/ColorTreeMap';
+import { quantizeImageData } from 'lib/color';
+import { useSearchParams } from 'next/navigation';
+import { useEffect, useRef, useState } from 'react';
 
 const HUGGINGFACE_MODELS = [
-  "facebook/detr-resnet-50",
-  "google/vit-base-patch16-224",
-  "microsoft/resnet-50",
+  'facebook/detr-resnet-50',
+  'google/vit-base-patch16-224',
+  'microsoft/resnet-50',
 ];
 
 const getImageDataFromImageElement = (
   img: HTMLImageElement,
 ): ImageData | null => {
   if (!img.complete || img.naturalWidth === 0 || img.naturalHeight === 0) {
-    console.warn("Image not loaded or invalid dimensions.");
+    console.warn('Image not loaded or invalid dimensions.');
     return null;
   }
 
-  const canvas = document.createElement("canvas");
+  const canvas = document.createElement('canvas');
   canvas.width = img.naturalWidth;
   canvas.height = img.naturalHeight;
-  const context = canvas.getContext("2d");
+  const context = canvas.getContext('2d');
   if (!context) return null;
 
   context.drawImage(img, 0, 0);
@@ -45,16 +45,16 @@ const getColorPercentages = (element: HTMLImageElement | null) => {
 const getRandomColor = (): string => {
   return `#${Math.floor(Math.random() * 16_777_215)
     .toString(16)
-    .padStart(6, "0")}`;
+    .padStart(6, '0')}`;
 };
 
 const AnalyzePage = () => {
   const searchParameters = useSearchParams();
   const artwork = {
-    imageUrl: searchParameters.get("imageUrl"),
-    title: searchParameters.get("title"),
-    id: searchParameters.get("id"),
-    author: searchParameters.get("author"),
+    imageUrl: searchParameters.get('imageUrl'),
+    title: searchParameters.get('title'),
+    id: searchParameters.get('id'),
+    author: searchParameters.get('author'),
   };
 
   const [selectedModel, setSelectedModel] = useState(HUGGINGFACE_MODELS[0]);
@@ -79,8 +79,8 @@ const AnalyzePage = () => {
       handleLoad();
     } else {
       setImageLoaded(false);
-      img.addEventListener("load", handleLoad);
-      return () => img.removeEventListener("load", handleLoad);
+      img.addEventListener('load', handleLoad);
+      return () => img.removeEventListener('load', handleLoad);
     }
   }, []);
 
@@ -92,7 +92,7 @@ const AnalyzePage = () => {
     if (img?.complete) {
       try {
         const element = document.querySelector(
-          "#artwork-image",
+          '#artwork-image',
         ) as HTMLImageElement;
         if (!element) return;
         const result = colorThief.getPalette(element, 10);
@@ -102,7 +102,7 @@ const AnalyzePage = () => {
         const colorAmounts = getColorPercentages(element);
         setColorPercentages(colorAmounts);
       } catch (error) {
-        console.error("ColorThief failed:", error);
+        console.error('ColorThief failed:', error);
       }
     }
   }, [imageLoaded]);
@@ -120,9 +120,9 @@ const AnalyzePage = () => {
     if (!artwork.imageUrl) return;
     setLoading(true);
     try {
-      const response = await fetch("/api/ai/detect-objects", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const response = await fetch('/api/ai/detect-objects', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           imageUrl: artwork.imageUrl,
           modelId: selectedModel,
@@ -140,28 +140,28 @@ const AnalyzePage = () => {
       });
       setAnalysisResult(colorCodedResult);
     } catch (error) {
-      console.error("Error analyzing image:", error);
+      console.error('Error analyzing image:', error);
     } finally {
       setLoading(false);
     }
   };
 
-  if (!artwork) return <div className="p-8">Artwork not found.</div>;
+  if (!artwork) return <div className='p-8'>Artwork not found.</div>;
 
   return (
-    <div className="max-w-4xl mx-auto py-10 px-4">
-      <h1 className="text-3xl font-bold mb-6">
+    <div className='max-w-4xl mx-auto py-10 px-4'>
+      <h1 className='text-3xl font-bold mb-6'>
         Analyze Image: {artwork.title}
       </h1>
 
       {/* Next.js image for display */}
-      <div className="relative inline-block mt-6">
+      <div className='relative inline-block mt-6'>
         <img
-          id={"artwork-image"}
+          id={'artwork-image'}
           ref={imageReference}
-          src={`/api/proxy-image?url=${encodeURIComponent(artwork.imageUrl || "")}`}
-          alt="Artwork"
-          className="w-full max-w-lg rounded mb-4 shadow"
+          src={`/api/proxy-image?url=${encodeURIComponent(artwork.imageUrl || '')}`}
+          alt='Artwork'
+          className='w-full max-w-lg rounded mb-4 shadow'
           width={400}
           height={400}
         />
@@ -176,15 +176,14 @@ const AnalyzePage = () => {
           return (
             <div
               key={index}
-              className="absolute border-2  text-xs text-white  px-1"
+              className='absolute border-2  text-xs text-white  px-1'
               style={{
                 left: `${box.xmin}px`,
                 top: `${box.ymin}px`,
                 width: `${width}px`,
                 height: `${height}px`,
                 borderColor: objectItem.color,
-              }}
-            >
+              }}>
               {box.label}
             </div>
           );
@@ -202,7 +201,7 @@ const AnalyzePage = () => {
               <span> ({score}) </span>
               <div
                 key={`${objectItem.color}`}
-                className="w-10 h-10 rounded"
+                className='w-10 h-10 rounded'
                 style={{ backgroundColor: objectItem.color }}
               />
             </div>
@@ -210,12 +209,11 @@ const AnalyzePage = () => {
         })}
       </div>
 
-      <div className="flex items-center gap-4 mb-6">
+      <div className='flex items-center gap-4 mb-6'>
         <select
           value={selectedModel}
           onChange={(e) => setSelectedModel(e.target.value)}
-          className="border rounded px-3 py-2 text-sm"
-        >
+          className='border rounded px-3 py-2 text-sm'>
           {HUGGINGFACE_MODELS.map((model) => (
             <option key={model} value={model}>
               {model}
@@ -223,67 +221,66 @@ const AnalyzePage = () => {
           ))}
         </select>
         <button
-          type="button"
+          type='button'
           onClick={handleAnalyze}
           disabled={loading}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
-        >
-          {loading ? "Analyzing..." : "Analyze with Hugging Face"}
+          className='bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded'>
+          {loading ? 'Analyzing...' : 'Analyze with Hugging Face'}
         </button>
       </div>
 
       {analysisResult && (
-        <div className="mt-6">
-          <h3 className="text-lg font-semibold">Model Output</h3>
-          <pre className="bg-gray-100 p-4 mt-2 rounded">
+        <div className='mt-6'>
+          <h3 className='text-lg font-semibold'>Model Output</h3>
+          <pre className='bg-gray-100 p-4 mt-2 rounded'>
             {JSON.stringify(analysisResult?.result, null, 2)}
           </pre>
         </div>
       )}
 
-      <div className="flex gap-2 flex-wrap">
+      <div className='flex gap-2 flex-wrap'>
         <div
           key={`${dominantColor}`}
-          className="w-20 h-20 rounded"
-          style={{ backgroundColor: `rgb(${dominantColor?.join(",")})` }}
-          title={`rgb(${dominantColor?.join(",")})`}
+          className='w-20 h-20 rounded'
+          style={{ backgroundColor: `rgb(${dominantColor?.join(',')})` }}
+          title={`rgb(${dominantColor?.join(',')})`}
         />
-        <div>{dominantColor?.join(",")}</div>
+        <div>{dominantColor?.join(',')}</div>
         {/* Palette Chips */}
         {palette && (
-          <div className="flex space-x-2 mt-4">
+          <div className='flex space-x-2 mt-4'>
             {palette.map((color) => (
               <>
                 <div
                   key={`${color}`}
-                  className="w-10 h-10 rounded"
-                  style={{ backgroundColor: `rgb(${color.join(",")})` }}
-                  title={`rgb(${color.join(",")})`}
+                  className='w-10 h-10 rounded'
+                  style={{ backgroundColor: `rgb(${color.join(',')})` }}
+                  title={`rgb(${color.join(',')})`}
                 />
-                <span>{color.join(",")}</span>
+                <span>{color.join(',')}</span>
               </>
             ))}
           </div>
         )}
       </div>
 
-      <div className="mt-4">
+      <div className='mt-4'>
         <h2>Top Colors by percentage</h2>
       </div>
-      <div className="flex gap-2 flex-wrap">
+      <div className='flex gap-2 flex-wrap'>
         {/* Palette Chips */}
         {colorPercentages && (
-          <div className=" mt-4 flex space-x-2">
+          <div className=' mt-4 flex space-x-2'>
             {colorPercentages.map((colorItem: any) => {
               return (
                 <div key={`${colorItem.color}`}>
                   <div
-                    className="w-10 h-10 rounded"
+                    className='w-10 h-10 rounded'
                     style={{ backgroundColor: `${colorItem.color}` }}
                     title={`${colorItem.color}`}
                   />
                   <span>{colorItem.color}</span>
-                  <span> | {`rgb(${colorItem.rgb.join(",")})`}</span>
+                  <span> | {`rgb(${colorItem.rgb.join(',')})`}</span>
                   <span> | {colorItem.percentage}</span>
                 </div>
               );

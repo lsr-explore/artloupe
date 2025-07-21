@@ -1,13 +1,12 @@
-import type { Decorator, Preview } from "@storybook/react";
+import type { Decorator, Preview } from '@storybook/react';
 // Import CSS from all packages
-import "../packages/palette-studio/src/index.css";
-import "../packages/media-display/src/components/media-layout.css";
-import "../apps/main/src/app/globals.css";
+import '../packages/palette-studio/src/index.css';
+import '../packages/media-display/src/components/media-layout.css';
+import '../apps/main/src/app/globals.css';
 
 // Optional: mock `next/image` to render as <img /> in Storybook
-import NextImage, * as MockImage from "next/image";
-import NextLink, * as MockLink from "next/link";
-import React from "react";
+import NextImage, * as MockImage from 'next/image';
+import NextLink, * as MockLink from 'next/link';
 
 // // This mock helps avoid SSR/Image optimization issues in Storybook
 // Object.defineProperty(NextImage, "default", {
@@ -17,12 +16,12 @@ import React from "react";
 // 	},
 // });
 
-Object.defineProperty(NextImage, "default", {
+Object.defineProperty(NextImage, 'default', {
   configurable: true,
   value: MockImage,
 });
 
-Object.defineProperty(NextLink, "default", {
+Object.defineProperty(NextLink, 'default', {
   configurable: true,
   value: MockLink,
 });
@@ -30,7 +29,7 @@ Object.defineProperty(NextLink, "default", {
 export const decorators: Decorator[] = [
   (Story) => (
     // <QueryClientProvider client={queryClient}>
-    <div className="p-4">
+    <div className='p-4'>
       <Story />
     </div>
     // </QueryClientProvider>
@@ -43,12 +42,12 @@ export const decorators: Decorator[] = [
 const preview: Preview = {
   decorators,
   parameters: {
-    layout: "centered", // "padded" | "fullscreen" | "centered"
+    layout: 'centered', // "padded" | "fullscreen" | "centered"
     backgrounds: {
-      default: "light",
+      default: 'light',
       values: [
-        { name: "light", value: "#ffffff" },
-        { name: "dark", value: "#1a1a1a" },
+        { name: 'light', value: '#ffffff' },
+        { name: 'dark', value: '#1a1a1a' },
       ],
     },
     controls: {

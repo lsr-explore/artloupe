@@ -109,7 +109,7 @@ jobs:
         run: pnpm lint:md
 
       - name: Check formatting
-        run: pnpm biome:check:ci
+        run: pnpm biome:check
         continue-on-error: true
 
   storybook:

@@ -1,6 +1,9 @@
-import { ImageType, mapMetObjectsToImageType } from "@artloupe/shared-types";
-import type { NextRequest } from "next/server";
-import { MOCK_ARTWORKS } from "./mock-response";
+import {
+  type ImageType,
+  mapMetObjectsToImageType,
+} from '@artloupe/shared-types';
+import type { NextRequest } from 'next/server';
+import { MOCK_ARTWORKS } from './mock-response';
 
 interface MetSearchResponse {
   objectIDs?: number[];
@@ -19,14 +22,14 @@ export const handleMetSearch = async (
   request: NextRequest,
 ): Promise<Response> => {
   const { searchParams } = new URL(request.url);
-  const q = searchParams.get("q");
+  const q = searchParams.get('q');
 
   if (!q) {
-    return Response.json({ error: "Missing query param `q`" }, { status: 400 });
+    return Response.json({ error: 'Missing query param `q`' }, { status: 400 });
   }
 
   // 🔁 Check for mock mode
-  if (process.env.USE_MOCK_MET_API === "true") {
+  if (process.env.USE_MOCK_MET_API === 'true') {
     return Response.json({
       total: 1,
       images: MOCK_ARTWORKS,
@@ -65,16 +68,16 @@ export const handleMetSearch = async (
       (artwork: ImageType) => artwork.imageUrl,
     );
 
-    console.log("🔍 MET API response:", { artworks: filteredArtworks });
+    console.log('🔍 MET API response:', { artworks: filteredArtworks });
 
     return Response.json({
       total: filteredArtworks.length,
       images: filteredArtworks,
     });
   } catch (error: unknown) {
-    console.error("❌ MET API error:", error);
+    console.error('❌ MET API error:', error);
     const errorMessage =
-      error instanceof Error ? error.message : "Unknown error";
+      error instanceof Error ? error.message : 'Unknown error';
     return Response.json({ error: errorMessage }, { status: 500 });
   }
 };

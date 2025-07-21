@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
 import {
   useFetchArtworks,
   useFetchPhotoWorks,
-} from "@artloupe/react-query-hooks";
-import React, { type ReactNode, useEffect, useMemo, useState } from "react";
-import { MediaSourceContext } from "./media-source-context";
+} from '@artloupe/react-query-hooks';
+import { type ReactNode, useEffect, useMemo, useState } from 'react';
+import { MediaSourceContext } from './media-source-context';
 
-type SourceType = "paintings" | "photos";
+type SourceType = 'paintings' | 'photos';
 
 export const MediaSourceProvider = ({
   children,
@@ -33,17 +33,17 @@ export const MediaSourceProvider = ({
     data: metData,
     isLoading: loadingMet,
     error: errorMet,
-  } = useFetchArtworks(query, shouldSearch && source === "paintings");
+  } = useFetchArtworks(query, shouldSearch && source === 'paintings');
 
   const {
     data: pexelsData,
     isLoading: loadingPexels,
     error: errorPexels,
-  } = useFetchPhotoWorks(query, shouldSearch && source === "photos");
+  } = useFetchPhotoWorks(query, shouldSearch && source === 'photos');
 
-  const data = source === "paintings" ? metData : pexelsData;
-  const isLoading = source === "paintings" ? loadingMet : loadingPexels;
-  const error = source === "paintings" ? errorMet : errorPexels;
+  const data = source === 'paintings' ? metData : pexelsData;
+  const isLoading = source === 'paintings' ? loadingMet : loadingPexels;
+  const error = source === 'paintings' ? errorMet : errorPexels;
 
   const value = useMemo(
     () => ({

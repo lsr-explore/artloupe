@@ -1,19 +1,19 @@
-import { mockAnalysisResult, mockArtwork } from "@artloupe/mock-data";
-import { waitFor } from "@testing-library/react";
-import { beforeEach, describe, expect, it, vi } from "vitest";
-import { useAnalyzeArt } from "../use-analyze-art";
-import { renderHookWithQueryClient } from "./test-utilities";
+import { mockAnalysisResult, mockArtwork } from '@artloupe/mock-data';
+import { waitFor } from '@testing-library/react';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { useAnalyzeArt } from '../use-analyze-art';
+import { renderHookWithQueryClient } from './test-utilities';
 
 // Get the mocked fetch function
 const mockFetch = vi.mocked(fetch);
 
-describe("useAnalyzeArt", () => {
+describe('useAnalyzeArt', () => {
   beforeEach(() => {
     // Clear all mocks before each test
     vi.clearAllMocks();
   });
 
-  it("should analyze artwork successfully", async () => {
+  it('should analyze artwork successfully', async () => {
     // Mock successful response
     mockFetch.mockResolvedValueOnce({
       ok: true,
@@ -36,13 +36,13 @@ describe("useAnalyzeArt", () => {
     expect(result.current.error).toBeNull();
   });
 
-  it("should handle mutation errors", async () => {
+  it('should handle mutation errors', async () => {
     const { result } = renderHookWithQueryClient(() => useAnalyzeArt());
 
     const invalidArtwork = {
-      id: "",
-      title: "",
-      artist: "",
+      id: '',
+      title: '',
+      artist: '',
     };
 
     result.current.mutate(invalidArtwork as never);
@@ -55,7 +55,7 @@ describe("useAnalyzeArt", () => {
     expect(result.current.data).toBeUndefined();
   });
 
-  it("should reset mutation state", async () => {
+  it('should reset mutation state', async () => {
     // Mock successful response
     mockFetch.mockResolvedValueOnce({
       ok: true,
@@ -79,7 +79,7 @@ describe("useAnalyzeArt", () => {
     expect(result.current.error).toBeNull();
   });
 
-  it("should support async mutation", async () => {
+  it('should support async mutation', async () => {
     // Mock successful response
     mockFetch.mockResolvedValueOnce({
       ok: true,
@@ -93,7 +93,7 @@ describe("useAnalyzeArt", () => {
     await expect(mutatePromise).resolves.toEqual(mockAnalysisResult);
   });
 
-  it("should track loading state correctly", async () => {
+  it('should track loading state correctly', async () => {
     // Mock successful response
     mockFetch.mockResolvedValueOnce({
       ok: true,

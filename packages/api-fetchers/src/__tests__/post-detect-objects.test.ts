@@ -1,11 +1,11 @@
-import { mockDetectionResult } from "@artloupe/mock-data";
-import { beforeEach, describe, expect, it, vi } from "vitest";
-import { postDetectObjects } from "../post-detect-objects";
+import { mockDetectionResult } from '@artloupe/mock-data';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { postDetectObjects } from '../post-detect-objects';
 
 // Get the mocked fetch function
 const mockFetch = vi.mocked(fetch);
 
-describe("postDetectObjects", () => {
+describe('postDetectObjects', () => {
   const mockImageData = new ArrayBuffer(8);
 
   beforeEach(() => {
@@ -13,7 +13,7 @@ describe("postDetectObjects", () => {
     vi.clearAllMocks();
   });
 
-  it("should detect objects successfully", async () => {
+  it('should detect objects successfully', async () => {
     // Mock successful response
     mockFetch.mockResolvedValueOnce({
       ok: true,
@@ -27,7 +27,7 @@ describe("postDetectObjects", () => {
     expect(result).toHaveLength(mockDetectionResult.objects.length);
   });
 
-  it("should return objects with required properties", async () => {
+  it('should return objects with required properties', async () => {
     // Mock successful response
     mockFetch.mockResolvedValueOnce({
       ok: true,
@@ -38,22 +38,22 @@ describe("postDetectObjects", () => {
 
     if (result.length > 0) {
       const detection = result[0];
-      expect(detection).toHaveProperty("label");
-      expect(detection).toHaveProperty("score");
-      expect(detection).toHaveProperty("box");
-      expect(detection.box).toHaveProperty("xmin");
-      expect(detection.box).toHaveProperty("ymin");
-      expect(detection.box).toHaveProperty("xmax");
-      expect(detection.box).toHaveProperty("ymax");
+      expect(detection).toHaveProperty('label');
+      expect(detection).toHaveProperty('score');
+      expect(detection).toHaveProperty('box');
+      expect(detection.box).toHaveProperty('xmin');
+      expect(detection.box).toHaveProperty('ymin');
+      expect(detection.box).toHaveProperty('xmax');
+      expect(detection.box).toHaveProperty('ymax');
     }
   });
 
-  it("should handle empty image data", async () => {
+  it('should handle empty image data', async () => {
     const emptyData = new ArrayBuffer(0);
     await expect(postDetectObjects(emptyData)).rejects.toThrow();
   });
 
-  it("should return valid confidence scores", async () => {
+  it('should return valid confidence scores', async () => {
     // Mock successful response
     mockFetch.mockResolvedValueOnce({
       ok: true,
@@ -68,15 +68,15 @@ describe("postDetectObjects", () => {
     }
   });
 
-  it("should throw error when fetch fails", async () => {
+  it('should throw error when fetch fails', async () => {
     // Mock failed response
     mockFetch.mockResolvedValueOnce({
       ok: false,
-      json: vi.fn().mockResolvedValue({ error: "Detection failed" }),
+      json: vi.fn().mockResolvedValue({ error: 'Detection failed' }),
     } as unknown as Response);
 
     await expect(postDetectObjects(mockImageData)).rejects.toThrow(
-      "Detection failed",
+      'Detection failed',
     );
   });
 });

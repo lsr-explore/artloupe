@@ -5,7 +5,7 @@ export type ImageType = {
   artist?: string;
   imageUrl: string;
   description?: string;
-  source: "met" | "pexels";
+  source: 'met' | 'pexels';
   metId?: string;
   aiAnalysis?: string;
 };
@@ -40,11 +40,11 @@ export function mapMetObjectsToImageType(
     .map((metObject) => {
       const image: ImageType = {
         id: String(metObject.objectID),
-        title: metObject.title || "Untitled",
-        artist: metObject.artistDisplayName || "Unknown Artist",
+        title: metObject.title || 'Untitled',
+        artist: metObject.artistDisplayName || 'Unknown Artist',
         imageUrl: metObject.primaryImageSmall!,
-        description: metObject.objectDate || "",
-        source: "met",
+        description: metObject.objectDate || '',
+        source: 'met',
         metId: String(metObject.objectID),
       };
       return image;
@@ -62,11 +62,11 @@ export function mapPexelsPhotosToImageType(
     .map((pexelsPhoto) => {
       const image: ImageType = {
         id: String(pexelsPhoto.id),
-        title: pexelsPhoto.alt || "Untitled",
-        artist: pexelsPhoto.photographer || "Unknown Photographer",
+        title: pexelsPhoto.alt || 'Untitled',
+        artist: pexelsPhoto.photographer || 'Unknown Photographer',
         imageUrl: pexelsPhoto.src.medium,
-        description: "",
-        source: "pexels",
+        description: '',
+        source: 'pexels',
       };
       return image;
     });

@@ -1,1 +1,1 @@
-export * from "./handle-photo-search";
+export * from './handle-photo-search';

@@ -1,19 +1,19 @@
-import { mockArtworks } from "@artloupe/mock-data";
-import { waitFor } from "@testing-library/react";
-import { beforeEach, describe, expect, it, vi } from "vitest";
-import { useFetchArtworks } from "../use-fetch-artworks";
-import { renderHookWithQueryClient } from "./test-utilities";
+import { mockArtworks } from '@artloupe/mock-data';
+import { waitFor } from '@testing-library/react';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { useFetchArtworks } from '../use-fetch-artworks';
+import { renderHookWithQueryClient } from './test-utilities';
 
 // Get the mocked fetch function
 const mockFetch = vi.mocked(fetch);
 
-describe("useFetchArtworks", () => {
+describe('useFetchArtworks', () => {
   beforeEach(() => {
     // Clear all mocks before each test
     vi.clearAllMocks();
   });
 
-  it("should fetch artworks successfully", async () => {
+  it('should fetch artworks successfully', async () => {
     // Mock successful response
     mockFetch.mockResolvedValueOnce({
       ok: true,
@@ -21,7 +21,7 @@ describe("useFetchArtworks", () => {
     } as unknown as Response);
 
     const { result } = renderHookWithQueryClient(() =>
-      useFetchArtworks("sunflowers"),
+      useFetchArtworks('sunflowers'),
     );
 
     expect(result.current.isLoading).toBe(true);
@@ -36,23 +36,23 @@ describe("useFetchArtworks", () => {
     expect(result.current.error).toBeNull();
   });
 
-  it("should not fetch when query is empty", () => {
-    const { result } = renderHookWithQueryClient(() => useFetchArtworks(""));
+  it('should not fetch when query is empty', () => {
+    const { result } = renderHookWithQueryClient(() => useFetchArtworks(''));
 
     expect(result.current.isLoading).toBe(false);
     expect(result.current.data).toBeUndefined();
   });
 
-  it("should not fetch when disabled", () => {
+  it('should not fetch when disabled', () => {
     const { result } = renderHookWithQueryClient(() =>
-      useFetchArtworks("test", false),
+      useFetchArtworks('test', false),
     );
 
     expect(result.current.isLoading).toBe(false);
     expect(result.current.data).toBeUndefined();
   });
 
-  it("should have correct query key", () => {
+  it('should have correct query key', () => {
     // Mock successful response
     mockFetch.mockResolvedValueOnce({
       ok: true,
@@ -60,14 +60,14 @@ describe("useFetchArtworks", () => {
     } as unknown as Response);
 
     const { result } = renderHookWithQueryClient(() =>
-      useFetchArtworks("sunflowers"),
+      useFetchArtworks('sunflowers'),
     );
 
     // Query key should be ["met", "search", "sunflowers"]
     expect(result.current.dataUpdatedAt).toBeDefined();
   });
 
-  it("should refetch when query changes", async () => {
+  it('should refetch when query changes', async () => {
     // Mock successful responses for both queries
     mockFetch
       .mockResolvedValueOnce({
@@ -79,7 +79,7 @@ describe("useFetchArtworks", () => {
         json: vi.fn().mockResolvedValue({ images: mockArtworks }),
       } as unknown as Response);
 
-    let query = "sunflowers";
+    let query = 'sunflowers';
     const { result, rerender } = renderHookWithQueryClient(() =>
       useFetchArtworks(query),
     );
@@ -89,7 +89,7 @@ describe("useFetchArtworks", () => {
     });
 
     // Change query
-    query = "monet";
+    query = 'monet';
     rerender();
 
     await waitFor(() => {

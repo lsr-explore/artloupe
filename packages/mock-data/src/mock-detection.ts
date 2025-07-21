@@ -1,12 +1,12 @@
 export const mockDetectionResult = {
   objects: [
     {
-      label: "person",
+      label: 'person',
       score: 0.95,
       box: { xmin: 100, ymin: 50, xmax: 200, ymax: 300 },
     },
     {
-      label: "car",
+      label: 'car',
       score: 0.87,
       box: { xmin: 300, ymin: 150, xmax: 500, ymax: 250 },
     },
@@ -15,7 +15,7 @@ export const mockDetectionResult = {
 export const mockObjectDetectionResponse = {
   detected_objects: [
     {
-      label: "person",
+      label: 'person',
       confidence: 0.95,
       bounding_box: {
         x: 100,

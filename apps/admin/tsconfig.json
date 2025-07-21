@@ -2,13 +2,13 @@
   "extends": "../../tsconfig.apps.base.json",
   "compilerOptions": {
     "outDir": ".next",
-    "jsx": "preserve",
     "baseUrl": "./src",
     "paths": {
       "app/*": ["app/*"],
       "lib/*": ["lib/*"],
       "api/*": ["api/*"]
-    }
+    },
+    "jsx": "preserve"
   },
   "include": ["src", ".next/types/**/*.ts"]
 }

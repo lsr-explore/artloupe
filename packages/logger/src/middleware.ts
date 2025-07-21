@@ -1,5 +1,5 @@
-import type { NextRequest, NextResponse } from "next/server";
-import { logger } from "./logger";
+import type { NextRequest, NextResponse } from 'next/server';
+import { logger } from './logger';
 
 // Helper function to convert Headers to object
 function headersToObject(headers: Headers): Record<string, string> {
@@ -38,7 +38,7 @@ export const withLogging = (
             url: request.url,
             headers: headersToObject(request.headers),
           },
-          "API Request started",
+          'API Request started',
         );
       }
 
@@ -52,7 +52,7 @@ export const withLogging = (
             duration: `${duration}ms`,
             headers: headersToObject(response.headers),
           },
-          "API Request completed",
+          'API Request completed',
         );
       }
 
@@ -66,7 +66,7 @@ export const withLogging = (
             stack: error instanceof Error ? error.stack : undefined,
             duration: `${duration}ms`,
           },
-          "API Request failed",
+          'API Request failed',
         );
       }
       throw error;
@@ -78,16 +78,16 @@ export const withLogging = (
 export const logClientEvent = async (
   endpoint: string,
   payload: {
-    level: "info" | "warn" | "error" | "debug";
+    level: 'info' | 'warn' | 'error' | 'debug';
     message: string;
     context?: Record<string, unknown>;
   },
 ): Promise<{ success: boolean; message: string }> => {
   try {
     const response = await fetch(endpoint, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         ...payload,
@@ -102,10 +102,10 @@ export const logClientEvent = async (
     const result = await response.json();
     return result;
   } catch (error) {
-    console.error("Failed to log client event:", error);
+    console.error('Failed to log client event:', error);
     return {
       success: false,
-      message: error instanceof Error ? error.message : "Unknown error",
+      message: error instanceof Error ? error.message : 'Unknown error',
     };
   }
 };

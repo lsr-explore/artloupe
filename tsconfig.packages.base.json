@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
+    "target": "ESNEXT",
     "module": "ESNext",
     "moduleResolution": "node",
-    "lib": ["ES2020", "DOM"],
+    "lib": ["ESNEXT", "DOM"],
     "declaration": true,
     "strict": true,
     "esModuleInterop": true,
@@ -21,7 +21,9 @@
       "@artloupe/media-display": ["packages/media-display/src"],
       "@artloupe/mock-data": ["packages/mock-data/src"],
       "@artloupe/logger": ["packages/logger/src"]
-    }
+    },
+    "jsx": "react-jsx",
+    "types": ["react", "next"]
   },
   "include": ["./packages/**/*.ts", "./packages/**/*.tsx"],
   "exclude": [

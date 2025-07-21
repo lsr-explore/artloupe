@@ -1,24 +1,24 @@
-import { mockPhotoWorks } from "@artloupe/mock-data";
-import { beforeEach, describe, expect, it, vi } from "vitest";
-import { fetchPhotoWorks } from "../fetch-photo-works";
+import { mockPhotoWorks } from '@artloupe/mock-data';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { fetchPhotoWorks } from '../fetch-photo-works';
 
 // Get the mocked fetch function
 const mockFetch = vi.mocked(fetch);
 
-describe("fetchPhotoWorks", () => {
+describe('fetchPhotoWorks', () => {
   beforeEach(() => {
     // Clear all mocks before each test
     vi.clearAllMocks();
   });
 
-  it("should fetch photo works successfully", async () => {
+  it('should fetch photo works successfully', async () => {
     // Mock successful response
     mockFetch.mockResolvedValueOnce({
       ok: true,
       json: vi.fn().mockResolvedValue({ images: mockPhotoWorks }),
     } as unknown as Response);
 
-    const result = await fetchPhotoWorks("city street");
+    const result = await fetchPhotoWorks('city street');
 
     expect(result).toBeDefined();
     expect(result.images).toHaveLength(mockPhotoWorks.length);
@@ -30,8 +30,8 @@ describe("fetchPhotoWorks", () => {
     });
   });
 
-  it("should handle different search queries", async () => {
-    const queries = ["nature", "urban", "landscape"];
+  it('should handle different search queries', async () => {
+    const queries = ['nature', 'urban', 'landscape'];
 
     for (const query of queries) {
       // Mock successful response for each query
@@ -46,35 +46,35 @@ describe("fetchPhotoWorks", () => {
     }
   });
 
-  it("should throw error for empty query", async () => {
-    await expect(fetchPhotoWorks("")).rejects.toThrow();
+  it('should throw error for empty query', async () => {
+    await expect(fetchPhotoWorks('')).rejects.toThrow();
   });
 
-  it("should include required photo properties", async () => {
+  it('should include required photo properties', async () => {
     // Mock successful response
     mockFetch.mockResolvedValueOnce({
       ok: true,
       json: vi.fn().mockResolvedValue({ images: mockPhotoWorks }),
     } as unknown as Response);
 
-    const result = await fetchPhotoWorks("test");
+    const result = await fetchPhotoWorks('test');
 
     if (result.images.length > 0) {
       const photo = result.images[0];
-      expect(photo).toHaveProperty("id");
-      expect(photo).toHaveProperty("url");
-      expect(photo).toHaveProperty("photographer");
+      expect(photo).toHaveProperty('id');
+      expect(photo).toHaveProperty('url');
+      expect(photo).toHaveProperty('photographer');
     }
   });
 
-  it("should throw error when fetch fails", async () => {
+  it('should throw error when fetch fails', async () => {
     // Mock failed response
     mockFetch.mockResolvedValueOnce({
       ok: false,
     } as unknown as Response);
 
-    await expect(fetchPhotoWorks("test")).rejects.toThrow(
-      "Failed to fetch artworks",
+    await expect(fetchPhotoWorks('test')).rejects.toThrow(
+      'Failed to fetch artworks',
     );
   });
 });

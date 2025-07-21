@@ -1,1 +1,1 @@
-export { default as ColorTreemap } from "./color-treemap";
+export { default as ColorTreemap } from './color-treemap';

@@ -1,6 +1,6 @@
-"use client";
-import * as d3 from "d3";
-import React, { useEffect, useRef } from "react";
+'use client';
+import * as d3 from 'd3';
+import { useEffect, useRef } from 'react';
 
 type ColorData = {
   color: string;
@@ -24,7 +24,7 @@ const ColorTreemap = ({ colors }: { colors: ColorData[] }) => {
     }));
 
     const svg = d3.select(reference.current);
-    svg.selectAll("*").remove(); // Clear previous render
+    svg.selectAll('*').remove(); // Clear previous render
 
     // Build hierarchical data
     const root = d3
@@ -34,31 +34,31 @@ const ColorTreemap = ({ colors }: { colors: ColorData[] }) => {
     d3.treemap().size([width, height]).padding(2)(root as any);
 
     const blocks = svg
-      .selectAll("g")
+      .selectAll('g')
       .data(root.leaves())
       .enter()
-      .append("g")
-      .attr("transform", (d: any) => `translate(${d.x0},${d.y0})`);
+      .append('g')
+      .attr('transform', (d: any) => `translate(${d.x0},${d.y0})`);
 
     blocks
-      .append("rect")
-      .attr("width", (d: any) => d.x1 - d.x0)
-      .attr("height", (d: any) => d.y1 - d.y0)
-      .attr("fill", (d: any) => d.data.color);
+      .append('rect')
+      .attr('width', (d: any) => d.x1 - d.x0)
+      .attr('height', (d: any) => d.y1 - d.y0)
+      .attr('fill', (d: any) => d.data.color);
 
     blocks
-      .append("title")
+      .append('title')
       .text(
         (d: any) =>
-          `${d.data.color} \n(${Math.round(d.data.percentage * 100)}%)\nRGB: ${d.data.rgb?.join(", ")}`,
+          `${d.data.color} \n(${Math.round(d.data.percentage * 100)}%)\nRGB: ${d.data.rgb?.join(', ')}`,
       );
 
     blocks
-      .append("text")
-      .attr("x", 4)
-      .attr("y", 14)
-      .attr("fill", "white")
-      .attr("font-size", "10px")
+      .append('text')
+      .attr('x', 4)
+      .attr('y', 14)
+      .attr('fill', 'white')
+      .attr('font-size', '10px')
       .text((d: any) => d.data.color);
   }, [colors]);
 

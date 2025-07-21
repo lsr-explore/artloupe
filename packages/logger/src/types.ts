@@ -14,7 +14,7 @@ export interface LogContext {
 }
 
 export interface ClientLogPayload {
-  level: "info" | "warn" | "error" | "debug";
+  level: 'info' | 'warn' | 'error' | 'debug';
   message: string;
   context?: LogContext;
   timestamp?: string;

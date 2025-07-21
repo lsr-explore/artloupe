@@ -3,8 +3,12 @@
   "compilerOptions": {
     "composite": true,
     "outDir": "./dist",
-    "jsx": "react",
-    "lib": ["ES2020", "DOM", "DOM.Iterable"]
+    "lib": ["ESNEXT", "DOM", "DOM.Iterable"],
+    "moduleResolution": "bundler", // or "nodenext"
+    "module": "esnext",
+    "target": "esnext",
+    "jsx": "react-jsx",
+    "types": ["next", "react"]
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": [

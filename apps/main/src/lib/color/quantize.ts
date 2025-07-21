@@ -6,9 +6,9 @@ export interface ColorCount {
 
 const hexToRgb = (hex: string) => {
   let alpha = false;
-  let h = hex.slice(hex.startsWith("#") ? 1 : 0);
+  let h = hex.slice(hex.startsWith('#') ? 1 : 0);
 
-  if (h.length === 3) h = [...h].map((x) => x + x).join("");
+  if (h.length === 3) h = [...h].map((x) => x + x).join('');
   else if (h.length === 8) alpha = true;
 
   const hNumber = Number.parseInt(h, 16);
@@ -74,5 +74,5 @@ export const quantizeImageData = (
 };
 
 const rgbToHex = (r: number, g: number, b: number): string => {
-  return `#${[r, g, b].map((x) => x.toString(16).padStart(2, "0")).join("")}`;
+  return `#${[r, g, b].map((x) => x.toString(16).padStart(2, '0')).join('')}`;
 };
