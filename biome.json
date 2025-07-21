@@ -6,11 +6,31 @@
     "useIgnoreFile": false
   },
   "files": {
-    "ignoreUnknown": false
+    "ignoreUnknown": true,
+    "includes": [
+      "!node_modules",
+      "!dist",
+      "!build",
+      "!coverage",
+      "!storybook-static",
+      "!turbo",
+      "!next",
+      "!vscode",
+      "!storybook",
+      "!env",
+      "!env.local",
+      "!env.development",
+      "!env.production",
+      "!env.test",
+      "!env.development.local",
+      "!env.production.local",
+      "!env.test.local"
+    ]
   },
   "formatter": {
     "enabled": true,
-    "indentStyle": "tab"
+    "indentStyle": "space",
+    "indentWidth": 2
   },
   "linter": {
     "enabled": false,
