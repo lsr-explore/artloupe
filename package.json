@@ -58,7 +58,8 @@
     "lint": "./scripts/nxs.sh run-many --target=lint --all",
     "------------------- biome -------------------": "noop",
     "biome:check": "biome check .",
-    "biome:check:fix": "biome check . --write"
+    "biome:check:fix": "biome check . --write",
+    "biome:check:ci": "biome check . --ci"
   },
   "devDependencies": {
     "@biomejs/biome": "2.0.0",

@@ -39,14 +39,11 @@
     "indentWidth": 2
   },
   "linter": {
-    "enabled": false,
-    "rules": {
-      "recommended": true
-    }
+    "enabled": false
   },
   "javascript": {
     "formatter": {
-      "quoteStyle": "double"
+      "quoteStyle": "single"
     }
   },
   "assist": {
