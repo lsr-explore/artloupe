@@ -7,8 +7,8 @@ const config = createVitestConfig(__dirname);
 
 // Override the setupFiles to use the local test-setup.ts
 if (config.test) {
-	config.test.setupFiles = [path.resolve(__dirname, "test-setup.ts")];
-	// Override environment to use jsdom for React component testing
-	config.test.environment = "jsdom";
+  config.test.setupFiles = [path.resolve(__dirname, "test-setup.ts")];
+  // Override environment to use jsdom for React component testing
+  config.test.environment = "jsdom";
 }
 export default config;

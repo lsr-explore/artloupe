@@ -52,4 +52,4 @@ export const ImagePanel = ({ image }: { image: ImageType }) => {
       </div>
     </div>
   );
-}; 
+};

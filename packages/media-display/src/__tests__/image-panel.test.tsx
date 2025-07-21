@@ -3,12 +3,18 @@ import React from "react";
 import { describe, expect, it, vi } from "vitest";
 import "@testing-library/jest-dom";
 import type { ImageType } from "../../../shared-types/src/types/image-type";
-import { ImagePanel } from "../components/image-panel";
 import { mockImageTypes } from "../__stories__/mock-data";
+import { ImagePanel } from "../components/image-panel";
 
 // Mock Next.js components
 vi.mock("next/image", () => ({
-  default: ({ src, alt, className, onError, ...properties }: {
+  default: ({
+    src,
+    alt,
+    className,
+    onError,
+    ...properties
+  }: {
     src: string;
     alt: string;
     className?: string;
@@ -26,7 +32,11 @@ vi.mock("next/image", () => ({
 }));
 
 vi.mock("next/link", () => ({
-  default: ({ href, children, ...properties }: {
+  default: ({
+    href,
+    children,
+    ...properties
+  }: {
     href: string;
     children: React.ReactNode;
     [key: string]: unknown;
@@ -54,8 +64,12 @@ describe("ImagePanel", () => {
     render(<ImagePanel image={mockImageWithoutImage} />);
     expect(screen.getByText(mockImageWithoutImage.title)).toBeInTheDocument();
     expect(screen.getByText(mockImageWithoutImage.artist!)).toBeInTheDocument();
-    expect(screen.getByText(mockImageWithoutImage.description!)).toBeInTheDocument();
-    expect(screen.getByText(`ID: ${mockImageWithoutImage.id}`)).toBeInTheDocument();
+    expect(
+      screen.getByText(mockImageWithoutImage.description!),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(`ID: ${mockImageWithoutImage.id}`),
+    ).toBeInTheDocument();
     expect(screen.getByText("🖼️")).toBeInTheDocument();
   });
 
@@ -103,7 +117,7 @@ describe("ImagePanel", () => {
       "hover:bg-indigo-600",
       "transition-colors",
       "duration-200",
-      "font-medium"
+      "font-medium",
     );
   });
 
@@ -114,7 +128,7 @@ describe("ImagePanel", () => {
       artist: "",
       imageUrl: "",
       description: "",
-      source: "met"
+      source: "met",
     };
     render(<ImagePanel image={minimalImage} />);
     expect(screen.getByText("Minimal Image")).toBeInTheDocument();
@@ -126,7 +140,12 @@ describe("ImagePanel", () => {
     const { container } = render(<ImagePanel image={mockImage} />);
     const imageContainer = container.querySelector(".bg-gray-200");
     expect(imageContainer).toBeInTheDocument();
-    expect(imageContainer).toHaveClass("bg-gray-200", "relative", "aspect-[4/3]", "h-48");
+    expect(imageContainer).toHaveClass(
+      "bg-gray-200",
+      "relative",
+      "aspect-[4/3]",
+      "h-48",
+    );
   });
 
   it("should have correct content container styling", () => {
@@ -171,4 +190,4 @@ describe("ImagePanel", () => {
     );
     expect(actionContainer).toBeInTheDocument();
   });
-}); 
+});

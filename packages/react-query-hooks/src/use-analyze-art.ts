@@ -5,7 +5,7 @@ import type { ImageType } from "@artloupe/shared-types";
 import { useMutation } from "@tanstack/react-query";
 
 export const useAnalyzeArt = () => {
-	return useMutation({
-		mutationFn: (artwork: ImageType) => postAnalyzeArt(artwork),
-	});
+  return useMutation({
+    mutationFn: (artwork: ImageType) => postAnalyzeArt(artwork),
+  });
 };

@@ -1,6 +1,6 @@
+import { mockAnalysisResult, mockArtwork } from "@artloupe/mock-data";
 import { waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { mockAnalysisResult, mockArtwork } from "@artloupe/mock-data";
 import { useAnalyzeArt } from "../use-analyze-art";
 import { renderHookWithQueryClient } from "./test-utilities";
 
@@ -8,106 +8,106 @@ import { renderHookWithQueryClient } from "./test-utilities";
 const mockFetch = vi.mocked(fetch);
 
 describe("useAnalyzeArt", () => {
-	beforeEach(() => {
-		// Clear all mocks before each test
-		vi.clearAllMocks();
-	});
+  beforeEach(() => {
+    // Clear all mocks before each test
+    vi.clearAllMocks();
+  });
 
-	it("should analyze artwork successfully", async () => {
-		// Mock successful response
-		mockFetch.mockResolvedValueOnce({
-			ok: true,
-			json: vi.fn().mockResolvedValue(mockAnalysisResult),
-		} as unknown as Response);
+  it("should analyze artwork successfully", async () => {
+    // Mock successful response
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      json: vi.fn().mockResolvedValue(mockAnalysisResult),
+    } as unknown as Response);
 
-		const { result } = renderHookWithQueryClient(() => useAnalyzeArt());
+    const { result } = renderHookWithQueryClient(() => useAnalyzeArt());
 
-		expect(result.current.isPending).toBe(false);
-		expect(result.current.isIdle).toBe(true);
+    expect(result.current.isPending).toBe(false);
+    expect(result.current.isIdle).toBe(true);
 
-		// Trigger the mutation
-		result.current.mutate(mockArtwork);
+    // Trigger the mutation
+    result.current.mutate(mockArtwork);
 
-		await waitFor(() => {
-			expect(result.current.isSuccess).toBe(true);
-		});
+    await waitFor(() => {
+      expect(result.current.isSuccess).toBe(true);
+    });
 
-		expect(result.current.data?.result).toBe(mockAnalysisResult.result);
-		expect(result.current.error).toBeNull();
-	});
+    expect(result.current.data?.result).toBe(mockAnalysisResult.result);
+    expect(result.current.error).toBeNull();
+  });
 
-	it("should handle mutation errors", async () => {
-		const { result } = renderHookWithQueryClient(() => useAnalyzeArt());
+  it("should handle mutation errors", async () => {
+    const { result } = renderHookWithQueryClient(() => useAnalyzeArt());
 
-		const invalidArtwork = {
-			id: "",
-			title: "",
-			artist: "",
-		};
+    const invalidArtwork = {
+      id: "",
+      title: "",
+      artist: "",
+    };
 
-		result.current.mutate(invalidArtwork as never);
+    result.current.mutate(invalidArtwork as never);
 
-		await waitFor(() => {
-			expect(result.current.isError).toBe(true);
-		});
+    await waitFor(() => {
+      expect(result.current.isError).toBe(true);
+    });
 
-		expect(result.current.error).toBeDefined();
-		expect(result.current.data).toBeUndefined();
-	});
+    expect(result.current.error).toBeDefined();
+    expect(result.current.data).toBeUndefined();
+  });
 
-	it("should reset mutation state", async () => {
-		// Mock successful response
-		mockFetch.mockResolvedValueOnce({
-			ok: true,
-			json: vi.fn().mockResolvedValue(mockAnalysisResult),
-		} as unknown as Response);
+  it("should reset mutation state", async () => {
+    // Mock successful response
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      json: vi.fn().mockResolvedValue(mockAnalysisResult),
+    } as unknown as Response);
 
-		const { result } = renderHookWithQueryClient(() => useAnalyzeArt());
+    const { result } = renderHookWithQueryClient(() => useAnalyzeArt());
 
-		result.current.mutate(mockArtwork);
+    result.current.mutate(mockArtwork);
 
-		await waitFor(() => {
-			expect(result.current.isSuccess).toBe(true);
-		});
+    await waitFor(() => {
+      expect(result.current.isSuccess).toBe(true);
+    });
 
-		result.current.reset();
+    result.current.reset();
 
-		await waitFor(() => {
-			expect(result.current.isSuccess).toBe(false);
-		});
-		expect(result.current.data).toBeUndefined();
-		expect(result.current.error).toBeNull();
-	});
+    await waitFor(() => {
+      expect(result.current.isSuccess).toBe(false);
+    });
+    expect(result.current.data).toBeUndefined();
+    expect(result.current.error).toBeNull();
+  });
 
-	it("should support async mutation", async () => {
-		// Mock successful response
-		mockFetch.mockResolvedValueOnce({
-			ok: true,
-			json: vi.fn().mockResolvedValue(mockAnalysisResult),
-		} as unknown as Response);
+  it("should support async mutation", async () => {
+    // Mock successful response
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      json: vi.fn().mockResolvedValue(mockAnalysisResult),
+    } as unknown as Response);
 
-		const { result } = renderHookWithQueryClient(() => useAnalyzeArt());
+    const { result } = renderHookWithQueryClient(() => useAnalyzeArt());
 
-		const mutatePromise = result.current.mutateAsync(mockArtwork);
+    const mutatePromise = result.current.mutateAsync(mockArtwork);
 
-		await expect(mutatePromise).resolves.toEqual(mockAnalysisResult);
-	});
+    await expect(mutatePromise).resolves.toEqual(mockAnalysisResult);
+  });
 
-	it("should track loading state correctly", async () => {
-		// Mock successful response
-		mockFetch.mockResolvedValueOnce({
-			ok: true,
-			json: vi.fn().mockResolvedValue(mockAnalysisResult),
-		} as unknown as Response);
+  it("should track loading state correctly", async () => {
+    // Mock successful response
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      json: vi.fn().mockResolvedValue(mockAnalysisResult),
+    } as unknown as Response);
 
-		const { result } = renderHookWithQueryClient(() => useAnalyzeArt());
+    const { result } = renderHookWithQueryClient(() => useAnalyzeArt());
 
-		expect(result.current.isPending).toBe(false);
+    expect(result.current.isPending).toBe(false);
 
-		result.current.mutate(mockArtwork);
+    result.current.mutate(mockArtwork);
 
-		await waitFor(() => {
-			expect(result.current.isPending).toBe(false);
-		});
-	});
+    await waitFor(() => {
+      expect(result.current.isPending).toBe(false);
+    });
+  });
 });

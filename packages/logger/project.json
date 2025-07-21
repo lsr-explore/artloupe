@@ -1,30 +1,30 @@
 {
-	"name": "@artloupe/logger",
-	"$schema": "../../node_modules/nx/schemas/project-schema.json",
-	"targets": {
-		"build": {
-			"executor": "@nx/js:tsc",
-			"options": {
-				"outputPath": "packages/logger/dist",
-				"main": "packages/logger/dist/index.js",
-				"tsConfig": "packages/logger/tsconfig.json"
-			}
-		},
-		"lint": {
-			"executor": "@nx/eslint:lint",
-			"options": {
-				"lintFilePatterns": ["packages/logger/**/*.{ts,tsx}"]
-			}
-		},
-		"test": {
-			"executor": "@nx/vite:test",
-			"options": {
-				"passWithNoTests": true,
-				"vitestConfig": "packages/logger/vitest.config.ts",
-				"coverage": true,
-				"run": true
-			}
-		}
-	},
-	"tags": []
-} 
+  "name": "@artloupe/logger",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "options": {
+        "outputPath": "packages/logger/dist",
+        "main": "packages/logger/dist/index.js",
+        "tsConfig": "packages/logger/tsconfig.json"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": ["packages/logger/**/*.{ts,tsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "options": {
+        "passWithNoTests": true,
+        "vitestConfig": "packages/logger/vitest.config.ts",
+        "coverage": true,
+        "run": true
+      }
+    }
+  },
+  "tags": []
+}

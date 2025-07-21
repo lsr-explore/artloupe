@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
+import type { ImageType } from "../../../shared-types/src/types/image-type";
 import { mockImageTypes } from "../__stories__/mock-data";
 import { ImagePanel } from "./image-panel";
-import type { ImageType } from "../../../shared-types/src/types/image-type";
 
 const ImagePanelStory = ({ image }: { image: ImageType }) => (
   <div style={{ maxWidth: 400 }}>
@@ -79,4 +79,4 @@ export const MultipleImages: Story = {
       ))}
     </div>
   ),
-}; 
+};

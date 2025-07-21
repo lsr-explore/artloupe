@@ -7,7 +7,7 @@ const config = createVitestConfig(__dirname);
 
 // Override the setupFiles to use the local test-setup.ts
 if (config.test) {
-	config.test.setupFiles = [path.resolve(__dirname, "test-setup.ts")];
+  config.test.setupFiles = [path.resolve(__dirname, "test-setup.ts")];
 }
 
-export default config; 
+export default config;

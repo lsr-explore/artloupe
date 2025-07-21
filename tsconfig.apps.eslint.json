@@ -1,5 +1,5 @@
 {
-	"extends": "./tsconfig.apps.base.json",
-	"include": ["apps/**/*"],
-	"exclude": []
+  "extends": "./tsconfig.apps.base.json",
+  "include": ["apps/**/*"],
+  "exclude": []
 }

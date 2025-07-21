@@ -1,18 +1,18 @@
-import { describe, it, expect } from 'vitest';
-import * as sharedTypes from '../index';
+import { describe, expect, it } from "vitest";
+import * as sharedTypes from "../index";
 
-describe('Shared Types Index', () => {
-  it('should export all types', () => {
-    expect(typeof sharedTypes).toBe('object');
+describe("Shared Types Index", () => {
+  it("should export all types", () => {
+    expect(typeof sharedTypes).toBe("object");
   });
 
-  it('should be importable from main index', () => {
+  it("should be importable from main index", () => {
     const types = Object.keys(sharedTypes);
     expect(types).toBeDefined();
   });
 
-  it('should allow importing the module', () => {
+  it("should allow importing the module", () => {
     expect(sharedTypes).toBeDefined();
-    expect(typeof sharedTypes).toBe('object');
+    expect(typeof sharedTypes).toBe("object");
   });
 });

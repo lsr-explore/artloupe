@@ -1,15 +1,15 @@
 {
-	"extends": "../../tsconfig.apps.base.json",
-	"compilerOptions": {
-		"outDir": ".next",
-		"jsx": "preserve",
-		"baseUrl": "./src",
-		"paths": {
-			"components/*": ["components/*"],
-			"lib/*": ["lib/*"],
-			"app/*": ["app/*"],
-			"data-providers/*": ["data-providers/*"]
-		}
-	},
-	"include": ["src", ".next/types/**/*.ts"]
+  "extends": "../../tsconfig.apps.base.json",
+  "compilerOptions": {
+    "outDir": ".next",
+    "jsx": "preserve",
+    "baseUrl": "./src",
+    "paths": {
+      "components/*": ["components/*"],
+      "lib/*": ["lib/*"],
+      "app/*": ["app/*"],
+      "data-providers/*": ["data-providers/*"]
+    }
+  },
+  "include": ["src", ".next/types/**/*.ts"]
 }

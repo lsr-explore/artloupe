@@ -1,24 +1,24 @@
 {
-	"extends": "../../tsconfig.packages.base.json",
-	"compilerOptions": {
-		"composite": true,
-		"outDir": "./dist",
-		"jsx": "react",
-		"lib": ["ES2020", "DOM", "DOM.Iterable"]
-	},
-	"include": ["src/**/*.ts", "src/**/*.tsx"],
-	"exclude": [
-		"node_modules",
-		"dist",
-		"**/*.test.*",
-		"**/*.spec.*",
-		"**/test-*",
-		"**/tests/**",
-		"**/__tests__/**",
-		"**/*.stories.tsx"
-	],
-	"references": [
-		{ "path": "../shared-types" },
-		{ "path": "../react-query-hooks" }
-	]
+  "extends": "../../tsconfig.packages.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "outDir": "./dist",
+    "jsx": "react",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"]
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.test.*",
+    "**/*.spec.*",
+    "**/test-*",
+    "**/tests/**",
+    "**/__tests__/**",
+    "**/*.stories.tsx"
+  ],
+  "references": [
+    { "path": "../shared-types" },
+    { "path": "../react-query-hooks" }
+  ]
 }

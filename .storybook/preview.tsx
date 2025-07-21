@@ -18,46 +18,46 @@ import React from "react";
 // });
 
 Object.defineProperty(NextImage, "default", {
-	configurable: true,
-	value: MockImage,
+  configurable: true,
+  value: MockImage,
 });
 
 Object.defineProperty(NextLink, "default", {
-	configurable: true,
-	value: MockLink,
+  configurable: true,
+  value: MockLink,
 });
 
 export const decorators: Decorator[] = [
-	(Story) => (
-		// <QueryClientProvider client={queryClient}>
-		<div className="p-4">
-			<Story />
-		</div>
-		// </QueryClientProvider>
-	),
+  (Story) => (
+    // <QueryClientProvider client={queryClient}>
+    <div className="p-4">
+      <Story />
+    </div>
+    // </QueryClientProvider>
+  ),
 ];
 
 // Optional: You can add global decorators here for layout or providers
 // For example, if you use React Query or ThemeProvider
 
 const preview: Preview = {
-	decorators,
-	parameters: {
-		layout: "centered", // "padded" | "fullscreen" | "centered"
-		backgrounds: {
-			default: "light",
-			values: [
-				{ name: "light", value: "#ffffff" },
-				{ name: "dark", value: "#1a1a1a" },
-			],
-		},
-		controls: {
-			matchers: {
-				color: /(background|color)$/i,
-				date: /Date$/i,
-			},
-		},
-	},
+  decorators,
+  parameters: {
+    layout: "centered", // "padded" | "fullscreen" | "centered"
+    backgrounds: {
+      default: "light",
+      values: [
+        { name: "light", value: "#ffffff" },
+        { name: "dark", value: "#1a1a1a" },
+      ],
+    },
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/i,
+      },
+    },
+  },
 };
 
 export default preview;

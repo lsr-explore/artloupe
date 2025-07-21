@@ -1,17 +1,17 @@
 {
-	"extends": "../../tsconfig.packages.base.json",
-	"compilerOptions": {
-		"composite": true,
-		"outDir": "./dist"
-	},
-	"include": ["src/**/*.ts", "src/**/*.tsx"],
-	"exclude": [
-		"node_modules", 
-		"dist", 
-		"**/*.test.*", 
-		"**/*.spec.*", 
-		"**/test-*", 
-		"**/tests/**", 
-		"**/__tests__/**"
-	]
+  "extends": "../../tsconfig.packages.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "outDir": "./dist"
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.test.*",
+    "**/*.spec.*",
+    "**/test-*",
+    "**/tests/**",
+    "**/__tests__/**"
+  ]
 }
