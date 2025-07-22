@@ -1,8 +1,12 @@
+/** biome-ignore-all lint/performance/noImgElement: <explanation> */
 'use client';
 
 import ColorThief from 'colorthief';
 import { ColorTreemap } from 'components/ColorTreeMap';
-import { quantizeImageData } from 'lib/color';
+import {
+  type ColorCount as BaseColorCount,
+  quantizeImageData,
+} from 'lib/color';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
@@ -14,17 +18,17 @@ const HUGGINGFACE_MODELS = [
 
 const getImageDataFromImageElement = (
   img: HTMLImageElement,
-): ImageData | null => {
+): ImageData | undefined => {
   if (!img.complete || img.naturalWidth === 0 || img.naturalHeight === 0) {
     console.warn('Image not loaded or invalid dimensions.');
-    return null;
+    return;
   }
 
   const canvas = document.createElement('canvas');
   canvas.width = img.naturalWidth;
   canvas.height = img.naturalHeight;
   const context = canvas.getContext('2d');
-  if (!context) return null;
+  if (!context) return;
 
   context.drawImage(img, 0, 0);
   return context.getImageData(0, 0, canvas.width, canvas.height);
@@ -48,6 +52,11 @@ const getRandomColor = (): string => {
     .padStart(6, '0')}`;
 };
 
+// Extend ColorCount to include rgb if not present
+interface ColorCount extends BaseColorCount {
+  rgb?: number[];
+}
+
 const AnalyzePage = () => {
   const searchParameters = useSearchParams();
   const artwork = {
@@ -58,13 +67,30 @@ const AnalyzePage = () => {
   };
 
   const [selectedModel, setSelectedModel] = useState(HUGGINGFACE_MODELS[0]);
-  const [dominantColor, setDominantColor] = useState<number[] | null>(null);
-  const [colorPercentages, setColorPercentages] = useState<any>(null);
-  const [palette, setPalette] = useState<number[][] | null>(null);
-  const imageReference = useRef<HTMLImageElement | null>(null);
+  const [dominantColor, setDominantColor] = useState<number[] | undefined>();
+  const [colorPercentages, setColorPercentages] = useState<
+    ColorCount[] | undefined
+  >();
+  const [palette, setPalette] = useState<number[][] | undefined>();
+  const imageReference = useRef<HTMLImageElement | undefined>();
   const [imageLoaded, setImageLoaded] = useState(false);
 
-  const [analysisResult, setAnalysisResult] = useState<any>(null);
+  // Define DetectionObject type inline (or import if available)
+  type DetectionObject = {
+    label: string;
+    score: number;
+    box: {
+      xmin: number;
+      ymin: number;
+      xmax: number;
+      ymax: number;
+    };
+    color?: string;
+  };
+
+  const [analysisResult, setAnalysisResult] = useState<
+    DetectionObject[] | undefined
+  >();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -129,9 +155,9 @@ const AnalyzePage = () => {
         }),
       });
 
-      const result = await response.json();
+      const result: DetectionObject[] = await response.json();
 
-      const colorCodedResult = result.map((item: any) => {
+      const colorCodedResult = result.map((item: DetectionObject) => {
         const color = getColorForLabel(item.label);
         return {
           ...item,
@@ -165,17 +191,14 @@ const AnalyzePage = () => {
           width={400}
           height={400}
         />
-        {analysisResult?.map((objectItem: any, index: number) => {
+        {analysisResult?.map((objectItem: DetectionObject) => {
           const box = objectItem.box;
-
           const width = box.xmax - box.xmin;
           const height = box.ymax - box.ymin;
-
-          if (objectItem.score < 0.9) return null;
-
+          if (objectItem.score < 0.9) return;
           return (
             <div
-              key={index}
+              key={`${objectItem.label}-${box.xmin}-${box.ymin}-${box.xmax}-${box.ymax}`}
               className='absolute border-2  text-xs text-white  px-1'
               style={{
                 left: `${box.xmin}px`,
@@ -184,19 +207,19 @@ const AnalyzePage = () => {
                 height: `${height}px`,
                 borderColor: objectItem.color,
               }}>
-              {box.label}
+              {objectItem.label}
             </div>
           );
         })}
       </div>
       <div>
-        {analysisResult?.map((objectItem: any, index: number) => {
+        {analysisResult?.map((objectItem: DetectionObject) => {
           const label = objectItem.label;
           const score = objectItem.score;
-          if (objectItem.score < 0.9 || !label) return null;
-
+          if (objectItem.score < 0.9 || !label) return;
           return (
-            <div key={`analysis-${index}`}>
+            <div
+              key={`analysis-${label}-${objectItem.box.xmin}-${objectItem.box.ymin}`}>
               <span> {label} </span>
               <span> ({score}) </span>
               <div
@@ -212,7 +235,7 @@ const AnalyzePage = () => {
       <div className='flex items-center gap-4 mb-6'>
         <select
           value={selectedModel}
-          onChange={(e) => setSelectedModel(e.target.value)}
+          onChange={(event) => setSelectedModel(event.target.value)}
           className='border rounded px-3 py-2 text-sm'>
           {HUGGINGFACE_MODELS.map((model) => (
             <option key={model} value={model}>
@@ -233,7 +256,7 @@ const AnalyzePage = () => {
         <div className='mt-6'>
           <h3 className='text-lg font-semibold'>Model Output</h3>
           <pre className='bg-gray-100 p-4 mt-2 rounded'>
-            {JSON.stringify(analysisResult?.result, null, 2)}
+            {JSON.stringify(analysisResult, undefined, 2)}
           </pre>
         </div>
       )}
@@ -242,8 +265,12 @@ const AnalyzePage = () => {
         <div
           key={`${dominantColor}`}
           className='w-20 h-20 rounded'
-          style={{ backgroundColor: `rgb(${dominantColor?.join(',')})` }}
-          title={`rgb(${dominantColor?.join(',')})`}
+          style={{
+            backgroundColor: dominantColor
+              ? `rgb(${dominantColor.join(',')})`
+              : undefined,
+          }}
+          title={dominantColor ? `rgb(${dominantColor.join(',')})` : undefined}
         />
         <div>{dominantColor?.join(',')}</div>
         {/* Palette Chips */}
@@ -271,7 +298,7 @@ const AnalyzePage = () => {
         {/* Palette Chips */}
         {colorPercentages && (
           <div className=' mt-4 flex space-x-2'>
-            {colorPercentages.map((colorItem: any) => {
+            {colorPercentages.map((colorItem) => {
               return (
                 <div key={`${colorItem.color}`}>
                   <div
@@ -280,7 +307,7 @@ const AnalyzePage = () => {
                     title={`${colorItem.color}`}
                   />
                   <span>{colorItem.color}</span>
-                  <span> | {`rgb(${colorItem.rgb.join(',')})`}</span>
+                  <span> | {colorItem.rgb?.join(',')}</span>
                   <span> | {colorItem.percentage}</span>
                 </div>
               );
@@ -288,7 +315,13 @@ const AnalyzePage = () => {
           </div>
         )}
       </div>
-      <ColorTreemap colors={colorPercentages} />
+      <ColorTreemap
+        colors={
+          colorPercentages?.filter((c): c is ColorCount & { rgb: number[] } =>
+            Array.isArray(c.rgb),
+          ) ?? []
+        }
+      />
     </div>
   );
 };
