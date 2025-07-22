@@ -1,4 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { type RenderOptions, render } from '@testing-library/react';
 import type React from 'react';
@@ -15,6 +14,7 @@ const createTestQueryClient = () =>
     },
   });
 
+// eslint-disable-next-line react-refresh/only-export-components
 const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
   const queryClient = createTestQueryClient();
   return (

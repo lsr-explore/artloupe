@@ -59,9 +59,9 @@ export default [
     },
   },
 
-  // TypeScript config for apps
+  // TypeScript config for main apps
   {
-    files: ['apps/**/*.{ts,tsx}'],
+    files: ['apps/main/**/*.{ts,tsx}'],
     languageOptions: {
       ...pluginNext.configs['core-web-vitals'].languageOptions,
       parser: tsParser,
@@ -70,7 +70,7 @@ export default [
       parserOptions: {
         project: [
           path.resolve(__dirname, 'tsconfig.apps.eslint.json'),
-          path.resolve(__dirname, 'apps/*/tsconfig.json'),
+          path.resolve(__dirname, 'apps/main/tsconfig.json'),
         ],
         tsconfigRootDir: __dirname,
       },
@@ -104,7 +104,61 @@ export default [
           alwaysTryTypes: true,
           project: [
             path.resolve(__dirname, 'tsconfig.apps.eslint.json'),
-            path.resolve(__dirname, 'apps/*/tsconfig.json'),
+            path.resolve(__dirname, 'apps/main/tsconfig.json'),
+          ],
+        },
+      },
+      react: {
+        version: 'detect',
+      },
+    },
+  },
+  // TypeScript config for admin apps
+  {
+    files: ['apps/admin/**/*.{ts,tsx}'],
+    languageOptions: {
+      ...pluginNext.configs['core-web-vitals'].languageOptions,
+      parser: tsParser,
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      parserOptions: {
+        project: [
+          path.resolve(__dirname, 'tsconfig.apps.eslint.json'),
+          path.resolve(__dirname, 'apps/admin/tsconfig.json'),
+        ],
+        tsconfigRootDir: __dirname,
+      },
+    },
+    plugins: {
+      '@typescript-eslint': tseslint,
+      react: pluginReact,
+      'react-hooks': pluginReactHooks,
+      'jsx-a11y': pluginJsxA11y,
+      'react-refresh': pluginReactRefresh,
+      import: pluginImport,
+      unicorn: pluginUnicorn,
+      'no-secrets': pluginNoSecrets,
+      '@next/next': pluginNext,
+    },
+    rules: {
+      ...tseslint.configs.recommended.rules,
+      ...pluginReact.configs.recommended.rules,
+      ...pluginReactHooks.configs.recommended.rules,
+      ...pluginJsxA11y.configs.recommended.rules,
+      ...pluginReactRefresh.configs.recommended.rules,
+      ...pluginUnicorn.configs.recommended.rules,
+      ...pluginImport.configs.recommended.rules,
+      'no-secrets/no-secrets': 'error',
+      ...pluginNext.configs['core-web-vitals'].rules,
+      'react/react-in-jsx-scope': 'off',
+    },
+    settings: {
+      'import/resolver': {
+        typescript: {
+          alwaysTryTypes: true,
+          project: [
+            path.resolve(__dirname, 'tsconfig.apps.eslint.json'),
+            path.resolve(__dirname, 'apps/admin/tsconfig.json'),
           ],
         },
       },

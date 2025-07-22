@@ -1,6 +1,6 @@
 import type React from 'react';
 import { describe, expect, it, vi } from 'vitest';
-import { render, screen } from '@/__tests__/test-utilities';
+import { render, screen } from '../../__tests__/test-utilities';
 import { Header } from './header';
 
 // Mock Next.js Link component

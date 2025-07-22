@@ -1,4 +1,4 @@
-/** biome-ignore-all lint/performance/noImgElement: <explanation> */
+/** biome-ignore-all lint/performance/noImgElement: TBD - Image */
 'use client';
 
 import ColorThief from 'colorthief';
@@ -72,7 +72,7 @@ const AnalyzePage = () => {
     ColorCount[] | undefined
   >();
   const [palette, setPalette] = useState<number[][] | undefined>();
-  const imageReference = useRef<HTMLImageElement | undefined>();
+  const imageReference = useRef<HTMLImageElement | null>(null);
   const [imageLoaded, setImageLoaded] = useState(false);
 
   // Define DetectionObject type inline (or import if available)
@@ -94,7 +94,7 @@ const AnalyzePage = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const img = imageReference.current;
+    const img = imageReference?.current;
     if (!img) return;
 
     const handleLoad = () => {

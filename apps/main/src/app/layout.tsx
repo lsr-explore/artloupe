@@ -6,6 +6,7 @@ import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const metadata: Metadata = {
   title: 'ArtLoupe',
   description: 'AI-powered art analysis platform',
