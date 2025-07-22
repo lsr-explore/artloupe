@@ -68,7 +68,10 @@ export default [
       ecmaVersion: 'latest',
       sourceType: 'module',
       parserOptions: {
-        project: path.resolve(__dirname, 'tsconfig.apps.eslint.json'),
+        project: [
+          path.resolve(__dirname, 'tsconfig.apps.eslint.json'),
+          path.resolve(__dirname, 'apps/*/tsconfig.json'),
+        ],
         tsconfigRootDir: __dirname,
       },
     },
@@ -153,7 +156,7 @@ export default [
       'import/resolver': {
         typescript: {
           alwaysTryTypes: true,
-          project: path.resolve(__dirname, 'tsconfig.packages.eslint.json'),
+          project: [path.resolve(__dirname, 'tsconfig.packages.eslint.json')],
         },
       },
       react: {
