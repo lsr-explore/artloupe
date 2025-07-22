@@ -1,5 +1,1 @@
-
-
-
-
-export {proxyImage as GET} from "@artloupe/api-handlers";
+export { proxyImage as GET } from '@artloupe/api-handlers';

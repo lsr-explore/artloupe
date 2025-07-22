@@ -1,10 +1,10 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import {
-  ImageType,
-  MetObjectResponse,
-  PexelsPhoto,
+  type ImageType,
+  type MetObjectResponse,
   mapMetObjectsToImageType,
   mapPexelsPhotosToImageType,
+  type PexelsPhoto,
 } from '../types/image-type';
 
 describe('ImageType', () => {
@@ -134,4 +134,4 @@ describe('mapPexelsPhotosToImageType', () => {
   it('returns an empty array for empty input', () => {
     expect(mapPexelsPhotosToImageType([])).toEqual([]);
   });
-}); 
+});

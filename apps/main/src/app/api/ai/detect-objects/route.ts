@@ -1,5 +1,1 @@
-
-
-
-
-export {detectObjects as POST} from "@artloupe/api-handlers";
+export { detectObjects as POST } from '@artloupe/api-handlers';

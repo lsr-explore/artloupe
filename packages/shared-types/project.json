@@ -1,28 +1,28 @@
 {
-    "name": "@artloupe/shared-types",
-    "targets": {
-      "test": {
-        "executor": "@nx/vite:test",
-        "options": {
-          "vitestConfig": "packages/shared-types/vitest.config.ts",
-          "passWithNoTests": true,
-          "coverage": true,
-          "run": true
-        }
-      },
-      "lint": {
-        "executor": "@nx/eslint:lint",
-        "options": {
-          "lintFilePatterns": ["packages/shared-types/**/*.{ts,tsx}"]
-        }
-      },
-      "build": {
-        "executor": "@nx/js:tsc",
-        "options": {
-          "outputPath": "packages/shared-types/dist",
-          "tsConfig": "packages/shared-types/tsconfig.json",
-          "main": "packages/shared-types/dist/index.js"
-        }
+  "name": "@artloupe/shared-types",
+  "targets": {
+    "test": {
+      "executor": "@nx/vite:test",
+      "options": {
+        "vitestConfig": "packages/shared-types/vitest.config.ts",
+        "passWithNoTests": true,
+        "coverage": true,
+        "run": true
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": ["packages/shared-types/**/*.{ts,tsx}"]
+      }
+    },
+    "build": {
+      "executor": "@nx/js:tsc",
+      "options": {
+        "outputPath": "packages/shared-types/dist",
+        "tsConfig": "packages/shared-types/tsconfig.json",
+        "main": "packages/shared-types/dist/index.js"
       }
     }
   }
+}

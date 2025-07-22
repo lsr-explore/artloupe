@@ -1,25 +1,32 @@
-import React from 'react';
-// apps/admin/src/app/layout.tsx
+import { Inter } from 'next/font/google';
+import type React from 'react';
+import { ReactQueryProvider } from './react-query-provider';
+import './globals.css';
 
-import { Inter } from "next/font/google";
-import { ReactQueryProvider } from "./react-query-provider";
-import type { Metadata } from "next";
-import "./globals.css";
+import type { Metadata } from 'next';
 
-const inter = Inter({ subsets: ["latin"] });
-
+// eslint-disable-next-line react-refresh/only-export-components
 export const metadata: Metadata = {
-	title: "artloupe Admin",
-	description: "Admin panel for artloupe",
+  title: 'artloupe Admin',
+  description: 'Admin panel for artloupe',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-	return (
-		<html lang="en">
-			<body className={inter.className}>
-				<ReactQueryProvider>{children}</ReactQueryProvider>
-			</body>
-		</html>
-	);
-}
+const inter = Inter({ subsets: ['latin'] });
 
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang='en'>
+      <body>
+        <div className={inter.className}>
+          <ReactQueryProvider>
+            <div>{children}</div>
+          </ReactQueryProvider>
+        </div>
+      </body>
+    </html>
+  );
+}

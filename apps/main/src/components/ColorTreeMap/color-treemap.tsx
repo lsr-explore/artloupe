@@ -1,68 +1,68 @@
-"use client";
-import * as d3 from "d3";
-import React, { useEffect, useRef } from "react";
+'use client';
+import * as d3 from 'd3';
+import { useEffect, useRef } from 'react';
 
 type ColorData = {
-	color: string;
-	rgb: number[];
-	count: number;
-	percentage: number; // already in 0–1 range
+  color: string;
+  rgb: number[];
+  count: number;
+  percentage: number; // already in 0–1 range
 };
 
 const ColorTreemap = ({ colors }: { colors: ColorData[] }) => {
-	const reference = useRef<SVGSVGElement>(null);
-	const width = 800;
-	const height = 600;
+  const reference = useRef<SVGSVGElement>(null);
+  const width = 800;
+  const height = 600;
 
-	useEffect(() => {
-		if (!reference.current) return;
+  useEffect(() => {
+    if (!reference.current) return;
 
-		const normalizedColors = colors?.map((c) => ({
-			...c,
-			hex: c.color,
-			percentage: c.percentage / 100,
-		}));
+    // D3 expects a root node with children, so we wrap colors in a dummy root
+    type TreemapNode = ColorData | { children: ColorData[] };
+    const root = d3
+      .hierarchy<TreemapNode>({ children: colors }, (d) =>
+        'children' in d ? d.children : undefined,
+      )
+      .sum((d) => ('percentage' in d ? d.percentage : 0));
 
-		const svg = d3.select(reference.current);
-		svg.selectAll("*").remove(); // Clear previous render
+    d3.treemap<TreemapNode>().size([width, height]).padding(2)(root);
 
-		// Build hierarchical data
-		const root = d3
-			.hierarchy({ children: normalizedColors })
-			.sum((d: any) => d.percentage); // Value drives size
+    // Leaves are always ColorData
+    const leaves = root.leaves() as d3.HierarchyRectangularNode<ColorData>[];
 
-		d3.treemap().size([width, height]).padding(2)(root as any);
+    const svg = d3.select(reference.current);
+    svg.selectAll('*').remove(); // Clear previous render
 
-		const blocks = svg
-			.selectAll("g")
-			.data(root.leaves())
-			.enter()
-			.append("g")
-			.attr("transform", (d: any) => `translate(${d.x0},${d.y0})`);
+    const blocks = svg
+      .selectAll<SVGGElement, d3.HierarchyRectangularNode<ColorData>>('g')
+      .data(leaves)
+      .enter()
+      .append('g')
+      .attr('transform', (d) => `translate(${d.x0},${d.y0})`);
 
-		blocks
-			.append("rect")
-			.attr("width", (d: any) => d.x1 - d.x0)
-			.attr("height", (d: any) => d.y1 - d.y0)
-			.attr("fill", (d: any) => d.data.color);
+    blocks
+      .append('rect')
+      .attr('width', (d) => d.x1 - d.x0)
+      .attr('height', (d) => d.y1 - d.y0)
+      .attr('fill', (d) => d.data.color);
 
-		blocks
-			.append("title")
-			.text(
-				(d: any) =>
-					`${d.data.color} \n(${Math.round(d.data.percentage * 100)}%)\nRGB: ${d.data.rgb?.join(", ")}`,
-			);
+    blocks
+      .append('title')
+      .text(
+        (d) =>
+          `${d.data.color} \n(${Math.round(d.data.percentage * 100)}%)\nRGB: ${d.data.rgb?.join(', ')}`,
+      );
 
-		blocks
-			.append("text")
-			.attr("x", 4)
-			.attr("y", 14)
-			.attr("fill", "white")
-			.attr("font-size", "10px")
-			.text((d: any) => d.data.color);
-	}, [colors]);
+    blocks
+      .append('text')
+      .attr('x', 4)
+      .attr('y', 14)
+      .attr('fill', 'white')
+      .attr('font-size', '10px')
+      .text((d) => d.data.color);
+  }, [colors]);
 
-	return <svg ref={reference} width={width} height={height} />;
+  return <svg ref={reference} width={width} height={height} />;
 };
 
 export default ColorTreemap;

@@ -58,7 +58,6 @@
         "outputStyle": "stream",
         "watch": false,
         "cacheableOperations": ["build", "test", "lint"]
-
       }
     }
   }

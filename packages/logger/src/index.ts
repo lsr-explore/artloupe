@@ -1,3 +1,3 @@
 export * from './logger';
+export * from './middleware';
 export * from './types';
-export * from './middleware'; 

@@ -1,1 +1,1 @@
-export * from "./quantize";
+export * from './quantize';

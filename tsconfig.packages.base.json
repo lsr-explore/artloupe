@@ -1,38 +1,40 @@
 {
-	"compilerOptions": {
-		"target": "ES2020",
-		"module": "ESNext",
-		"moduleResolution": "node",
-		"lib": ["ES2020", "DOM"],
-		"declaration": true,
-		"strict": true,
-		"esModuleInterop": true,
-		"skipLibCheck": true,
-		"forceConsistentCasingInFileNames": true,
-		"noUncheckedIndexedAccess": true,
-		"exactOptionalPropertyTypes": true,
-		"baseUrl": ".",
-		"paths": {
-			"@artloupe/api-handlers": ["packages/api-handlers/src"],
-			"@artloupe/api-fetchers": ["packages/api-fetchers/src"],
-			"@artloupe/shared-types": ["packages/shared-types/src"],
-			"@artloupe/palette-studio": ["packages/palette-studio/src"],
-			"@artloupe/react-query-hooks": ["packages/react-query-hooks/src"],
-			"@artloupe/media-display": ["packages/media-display/src"],
-			"@artloupe/mock-data": ["packages/mock-data/src"],
-			"@artloupe/logger": ["packages/logger/src"]
-		}
-	},
-	"include": ["./packages/**/*.ts", "./packages/**/*.tsx"],
-	"exclude": [
-		"node_modules",
-		"dist",
-		"**/*.test.*",
-		"**/*.spec.*",
-		"**/test-*",
-		"**/tests/**",
-		"**/__tests__/**",
-		"**/mocks/**",
-		"**/vitest.config.*"
-	]
+  "compilerOptions": {
+    "target": "ESNEXT",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "lib": ["ESNEXT", "DOM"],
+    "declaration": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "baseUrl": ".",
+    "paths": {
+      "@artloupe/api-handlers": ["packages/api-handlers/src"],
+      "@artloupe/api-fetchers": ["packages/api-fetchers/src"],
+      "@artloupe/shared-types": ["packages/shared-types/src"],
+      "@artloupe/palette-studio": ["packages/palette-studio/src"],
+      "@artloupe/react-query-hooks": ["packages/react-query-hooks/src"],
+      "@artloupe/media-display": ["packages/media-display/src"],
+      "@artloupe/mock-data": ["packages/mock-data/src"],
+      "@artloupe/logger": ["packages/logger/src"]
+    },
+    "jsx": "react-jsx",
+    "types": ["react", "next"]
+  },
+  "include": ["./packages/**/*.ts", "./packages/**/*.tsx"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.test.*",
+    "**/*.spec.*",
+    "**/test-*",
+    "**/tests/**",
+    "**/__tests__/**",
+    "**/mocks/**",
+    "**/vitest.config.*"
+  ]
 }

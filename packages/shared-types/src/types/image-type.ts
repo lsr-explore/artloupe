@@ -1,5 +1,5 @@
 // A shared type for both Met artworks and Pexels photos
-export type ImageType  = {
+export type ImageType = {
   id: string;
   title: string;
   artist?: string;
@@ -8,7 +8,7 @@ export type ImageType  = {
   source: 'met' | 'pexels';
   metId?: string;
   aiAnalysis?: string;
-}
+};
 
 // Met API object response type (copied from handle-met-search)
 export interface MetObjectResponse {
@@ -33,7 +33,7 @@ export interface PexelsPhoto {
  * Maps an array of Met API object responses to ImageType[]
  */
 export function mapMetObjectsToImageType(
-  metObjects: MetObjectResponse[]
+  metObjects: MetObjectResponse[],
 ): ImageType[] {
   return metObjects
     .filter((metObject) => !!metObject.primaryImageSmall)
@@ -51,12 +51,11 @@ export function mapMetObjectsToImageType(
     });
 }
 
-
 /**
  * Maps an array of Pexels API photo objects to ImageType[]
  */
 export function mapPexelsPhotosToImageType(
-  pexelsPhotos: PexelsPhoto[]
+  pexelsPhotos: PexelsPhoto[],
 ): ImageType[] {
   return pexelsPhotos
     .filter((pexelsPhoto) => !!pexelsPhoto.src.medium)
@@ -71,4 +70,4 @@ export function mapPexelsPhotosToImageType(
       };
       return image;
     });
-} 
+}

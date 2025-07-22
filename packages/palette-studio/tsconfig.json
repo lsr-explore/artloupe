@@ -1,20 +1,19 @@
 {
-	"compilerOptions": {
-		"jsx": "react",
-		"composite": true,
-		"outDir": "./dist"
-	},
-	"extends": "../../tsconfig.packages.base.json",
-	"include": ["src/**/*.ts", "src/**/*.tsx"],
-	"exclude": [
-		"node_modules",
-		"dist",
-		"**/*.test.*",
-		"**/*.spec.*",
-		"**/test-*",
-		"**/tests/**",
-		"**/__tests__/**",
-		"**/*.stories.tsx"
-	],
-	"references": [{ "path": "../shared-types" }]
+  "compilerOptions": {
+    "composite": true,
+    "outDir": "./dist"
+  },
+  "extends": "../../tsconfig.packages.base.json",
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.test.*",
+    "**/*.spec.*",
+    "**/test-*",
+    "**/tests/**",
+    "**/__tests__/**",
+    "**/*.stories.tsx"
+  ],
+  "references": [{ "path": "../shared-types" }]
 }

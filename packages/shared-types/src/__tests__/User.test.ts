@@ -1,6 +1,11 @@
-import { describe, it, expect } from 'vitest';
-import * as UserTypes from '../types/user-type';
-import { createUser, isAdmin, getUserDisplayName, isValidUser } from '../types/user-type';
+import { describe, expect, it } from 'vitest';
+import type * as UserTypes from '../types/user-type';
+import {
+  createUser,
+  getUserDisplayName,
+  isAdmin,
+  isValidUser,
+} from '../types/user-type';
 
 describe('User', () => {
   it('should create a valid user with required fields', () => {
@@ -85,7 +90,12 @@ describe('User', () => {
   });
 
   it('should get user display name', () => {
-    const userWithName = createUser('16', 'user@example.com', 'user', 'John Doe');
+    const userWithName = createUser(
+      '16',
+      'user@example.com',
+      'user',
+      'John Doe',
+    );
     const userWithoutName = createUser('17', 'user2@example.com', 'user');
 
     expect(getUserDisplayName(userWithName)).toBe('John Doe');

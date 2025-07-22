@@ -1,5 +1,1 @@
-
-
-
-
-export {analyzeArt as POST} from "@artloupe/api-handlers";
+export { analyzeArt as POST } from '@artloupe/api-handlers';

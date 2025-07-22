@@ -107,6 +107,9 @@ jobs:
 
       - name: Lint all markdown docs
         run: pnpm lint:md
+
+      - name: Check formatting
+        run: pnpm biome:check
         continue-on-error: true
 
   storybook:

@@ -1,1 +1,1 @@
-export * from "./analyze-art";
+export * from './analyze-art';

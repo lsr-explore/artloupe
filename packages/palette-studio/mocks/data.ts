@@ -15,6 +15,6 @@ export const mockImageData = {
   palette: mockColorPalette.map((color, index) => ({
     color,
     percentage: Math.floor(Math.random() * 30) + 5,
-    index
-  }))
+    index,
+  })),
 };

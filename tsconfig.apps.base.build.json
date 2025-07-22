@@ -1,14 +1,14 @@
 {
-	"extends": "./tsconfig.apps.base.json",
-	"files": [],
-	"references": [
-		{ "path": "packages/shared-types" },
-		{ "path": "packages/api-fetchers" },
-		{ "path": "packages/api-handlers" },
-		{ "path": "packages/react-query-hooks" },
-		{ "path": "packages/palette-studio" },
-		{ "path": "packages/media-display" },
-		{ "path": "packages/mock-data" },
-		{ "path": "packages/logger" }
-	]
+  "extends": "./tsconfig.apps.base.json",
+  "files": [],
+  "references": [
+    { "path": "packages/shared-types" },
+    { "path": "packages/api-fetchers" },
+    { "path": "packages/api-handlers" },
+    { "path": "packages/react-query-hooks" },
+    { "path": "packages/palette-studio" },
+    { "path": "packages/media-display" },
+    { "path": "packages/mock-data" },
+    { "path": "packages/logger" }
+  ]
 }

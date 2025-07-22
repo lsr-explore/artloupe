@@ -1,21 +1,21 @@
 {
-	"extends": "../tsconfig.apps.base.json",
-	"compilerOptions": {
-		"baseUrl": "..",
-		"paths": {
-			"@artloupe/palette-studio": ["packages/palette-studio/src"],
-			"@artloupe/media-display": ["packages/media-display/src"],
-			"@artloupe/shared-types": ["packages/shared-types/src"],
-			"@artloupe/api-fetchers": ["packages/api-fetchers/src"],
-			"@artloupe/api-handlers": ["packages/api-handlers/src"],
-			"@artloupe/react-query-hooks": ["packages/react-query-hooks/src"],
-			"@artloupe/logger": ["packages/logger/src"]
-		}
-	},
-	"include": [
-		"**/*",
-		"../packages/*/src/**/*",
-		"../packages/*/src/**/*.stories.*"
-	],
-	"exclude": ["node_modules"]
+  "extends": "../tsconfig.apps.base.json",
+  "compilerOptions": {
+    "baseUrl": "..",
+    "paths": {
+      "@artloupe/palette-studio": ["packages/palette-studio/src"],
+      "@artloupe/media-display": ["packages/media-display/src"],
+      "@artloupe/shared-types": ["packages/shared-types/src"],
+      "@artloupe/api-fetchers": ["packages/api-fetchers/src"],
+      "@artloupe/api-handlers": ["packages/api-handlers/src"],
+      "@artloupe/react-query-hooks": ["packages/react-query-hooks/src"],
+      "@artloupe/logger": ["packages/logger/src"]
+    }
+  },
+  "include": [
+    "**/*",
+    "../packages/*/src/**/*",
+    "../packages/*/src/**/*.stories.*"
+  ],
+  "exclude": ["node_modules"]
 }
