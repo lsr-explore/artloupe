@@ -31,6 +31,8 @@ const nextConfig = {
     '@artloupe/shared-types',
     '@artloupe/mock-data',
     '@artloupe/logger',
+    '@artloupe/api-handlers',
+    '@artloupe/react-query-hooks',
   ], // Example for a monorepo package
 };
 
