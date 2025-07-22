@@ -1,18 +1,17 @@
-import type React from 'react';
-
-// apps/admin/src/app/layout.tsx
-
-import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import type React from 'react';
 import { ReactQueryProvider } from './react-query-provider';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
+import type { Metadata } from 'next';
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const metadata: Metadata = {
   title: 'artloupe Admin',
   description: 'Admin panel for artloupe',
 };
+
+const inter = Inter({ subsets: ['latin'] });
 
 export default function RootLayout({
   children,
@@ -21,8 +20,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={inter.className}>
-        <ReactQueryProvider>{children}</ReactQueryProvider>
+      <body>
+        <div className={inter.className}>
+          <ReactQueryProvider>
+            <div>{children}</div>
+          </ReactQueryProvider>
+        </div>
       </body>
     </html>
   );

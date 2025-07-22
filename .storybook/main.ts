@@ -28,9 +28,7 @@ const config: StorybookConfig = {
     return mergeConfig(config, {
       define: {
         process: {
-          env: {
-            NODE_ENV: JSON.stringify('development'),
-          },
+          env: {},
         },
       },
       resolve: {

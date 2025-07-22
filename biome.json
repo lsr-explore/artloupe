@@ -31,7 +31,8 @@
       "!**/next",
       "!**/.next",
       "!**/vscode",
-      "!**/storybook"
+      "!**/storybook",
+      "!**/.env*"
     ]
   },
   "formatter": {

@@ -58,7 +58,7 @@
     "autoprefixer": "^10.4.21",
     "cypress": "^13.6.2",
     "eslint": "^9.30.1",
-    "eslint-config-next": "^15.2.4",
+    "eslint-config-next": "^15.3.5",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-cypress": "^5.1.0",
     "eslint-plugin-eslint-comments": "^3.2.0",

@@ -50,5 +50,6 @@ export const createMockArtworks = (count = 3) =>
   );
 
 // re-export everything
+// eslint-disable-next-line react-refresh/only-export-components
 export * from '@testing-library/react';
 export { customRender as render };

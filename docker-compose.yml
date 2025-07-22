@@ -9,7 +9,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - NODE_ENV=development
+      - NODE_ENV="development"
     volumes:
       - ./apps/main:/app/apps/main
       - /app/node_modules
@@ -24,7 +24,7 @@ services:
     ports:
       - "3001:3001" # Host port 3001 → Container port 3001
     environment:
-      - NODE_ENV=development
+      - NODE_ENV="development"
       - NEXT_PUBLIC_AUTH0_DOMAIN=your-auth0-domain
       - NEXT_PUBLIC_AUTH0_CLIENT_ID=your-auth0-client-id
     volumes:

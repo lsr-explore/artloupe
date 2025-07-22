@@ -32,6 +32,7 @@ export default [
       'react-hooks': pluginReactHooks,
       'jsx-a11y': pluginJsxA11y,
       'react-refresh': pluginReactRefresh,
+      '@next/next': pluginNext,
     },
     rules: {
       ...js.configs.recommended.rules,
@@ -43,6 +44,7 @@ export default [
       ...pluginImport.configs.recommended.rules,
       'no-secrets/no-secrets': 'error',
       'react/react-in-jsx-scope': 'off',
+      ...pluginNext.configs['core-web-vitals'].rules,
     },
     settings: {
       'import/resolver': {
@@ -61,6 +63,7 @@ export default [
   {
     files: ['apps/**/*.{ts,tsx}'],
     languageOptions: {
+      ...pluginNext.configs['core-web-vitals'].languageOptions,
       parser: tsParser,
       ecmaVersion: 'latest',
       sourceType: 'module',
@@ -112,6 +115,7 @@ export default [
   {
     files: ['packages/**/*.{ts,tsx}'],
     languageOptions: {
+      ...pluginNext.configs['core-web-vitals'].languageOptions,
       parser: tsParser,
       ecmaVersion: 'latest',
       parserOptions: {
@@ -131,6 +135,7 @@ export default [
       import: pluginImport,
       unicorn: pluginUnicorn,
       'no-secrets': pluginNoSecrets,
+      '@next/next': pluginNext,
     },
     rules: {
       ...tseslint.configs.recommended.rules,
@@ -142,6 +147,7 @@ export default [
       ...pluginImport.configs.recommended.rules,
       'no-secrets/no-secrets': 'error',
       'react/react-in-jsx-scope': 'off',
+      ...pluginNext.configs['core-web-vitals'].rules,
     },
     settings: {
       'import/resolver': {

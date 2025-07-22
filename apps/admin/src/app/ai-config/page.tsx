@@ -1,7 +1,18 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/** biome-ignore-all lint/nursery/useUniqueElementIds: ToDo - biome lint */
+/** biome-ignore-all lint/a11y/noLabelWithoutControl: ToDo - biome lint */
 'use client';
 
 import Link from 'next/link';
 import { useState } from 'react';
+
+const handleSave = () => {
+  alert('Configuration saved! (Mock - not actually saved)');
+};
+
+const testConnection = async () => {
+  alert('Connection test would run here (Mock)');
+};
 
 const AIConfigPage = () => {
   const [config, setConfig] = useState({
@@ -13,14 +24,6 @@ const AIConfigPage = () => {
     maxTokens: 200,
     temperature: 0.7,
   });
-
-  const handleSave = () => {
-    alert('Configuration saved! (Mock - not actually saved)');
-  };
-
-  const testConnection = async () => {
-    alert('Connection test would run here (Mock)');
-  };
 
   return (
     <div className='min-h-screen bg-gray-50'>
@@ -161,8 +164,11 @@ const AIConfigPage = () => {
                         type='password'
                         id='api-key'
                         value={config.openaiApiKey}
-                        onChange={(e) =>
-                          setConfig({ ...config, openaiApiKey: e.target.value })
+                        onChange={(event) =>
+                          setConfig({
+                            ...config,
+                            openaiApiKey: event.target.value,
+                          })
                         }
                         className='mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2 border'
                         placeholder='sk-...'

@@ -15,10 +15,18 @@ const hexToRgb = (hex: string) => {
 
   return [
     hNumber >>> (alpha ? 24 : 16),
+    // eslint-disable-next-line unicorn/number-literal-case
     (hNumber & (alpha ? 0x00_ff_00_00 : 0x00_ff_00)) >>> (alpha ? 16 : 8),
+    // eslint-disable-next-line unicorn/number-literal-case
     (hNumber & (alpha ? 0x00_00_ff_00 : 0x00_00_ff)) >>> (alpha ? 8 : 0),
+    // eslint-disable-next-line unicorn/number-literal-case
     alpha ? hNumber & 0x00_00_00_ff : 0,
   ];
+};
+
+const quantize = (value: number, precision: number) => {
+  const step = 256 / precision;
+  return Math.floor(value / step) * step;
 };
 
 // You can tune colorPrecision to group similar shades:
@@ -38,11 +46,6 @@ export const quantizeImageData = (
   const { data, width, height } = imageData;
   const totalPixels = width * height;
   const colorMap = new Map<string, number>();
-
-  const quantize = (value: number, precision: number) => {
-    const step = 256 / precision;
-    return Math.floor(value / step) * step;
-  };
 
   for (let index = 0; index < data.length; index += 4) {
     const r = data[index];

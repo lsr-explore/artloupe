@@ -1,8 +1,7 @@
 'use client';
 
+import { useFetchArtworks } from '@artloupe/react-query-hooks';
 import type { ImageType } from '@artloupe/shared-types';
-import { useQuery } from '@tanstack/react-query';
-import { fetchAdminArtworks } from 'lib/api/artworks';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -12,12 +11,8 @@ const ArtworksPage = () => {
     string | undefined
   >();
   const [analyzingId, setAnalyzingId] = useState<string | undefined>();
-  // const [, setAnalyzeResults] = useState<string | undefined>();
 
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['admin-artworks'],
-    queryFn: fetchAdminArtworks,
-  });
+  const { data, isLoading, error } = useFetchArtworks('flowers', true);
 
   const handleAnalyze = async (artworkId: string) => {
     setAnalyzingId(artworkId);
@@ -56,7 +51,7 @@ const ArtworksPage = () => {
         <div className='px-4 py-6 sm:px-0'>
           <div className='bg-white shadow overflow-hidden sm:rounded-md'>
             <ul className='divide-y divide-gray-200'>
-              {data?.images?.map((artwork: any) => (
+              {data?.images?.map((artwork: ImageType) => (
                 <li key={artwork.id}>
                   <div className='px-4 py-4'>
                     <div className='flex items-center justify-between'>
@@ -66,6 +61,8 @@ const ArtworksPage = () => {
                             className='h-16 w-16 rounded-lg object-cover'
                             src={artwork.imageUrl}
                             alt={artwork.title}
+                            width={400}
+                            height={0}
                           />
                         )}
                         <div className='ml-4'>
