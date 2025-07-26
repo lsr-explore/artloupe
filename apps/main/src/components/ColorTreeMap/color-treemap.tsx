@@ -66,6 +66,7 @@ const ColorTreemap = ({
       .attr('fill', 'white')
       .attr('font-size', '10px')
       .text((d) => d.data.color);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [colors]);
 
   return <svg ref={reference} width={width} height={height} />;

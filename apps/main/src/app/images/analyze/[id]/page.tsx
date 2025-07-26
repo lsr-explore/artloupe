@@ -1,7 +1,7 @@
 /** biome-ignore-all lint/performance/noImgElement: TBD - Image */
 'use client';
 
-import ColorThief from 'colorthief';
+// import ColorThief from 'colorthief';
 import { ColorTreemap } from 'components/ColorTreeMap';
 import {
   type ColorCount as BaseColorCount,
@@ -68,11 +68,11 @@ const AnalyzePage = () => {
   };
 
   const [selectedModel, setSelectedModel] = useState(HUGGINGFACE_MODELS[0]);
-  const [dominantColor, setDominantColor] = useState<number[] | undefined>();
+  // const [dominantColor, setDominantColor] = useState<number[] | undefined>();
   const [colorPercentages, setColorPercentages] = useState<
     ColorCount[] | undefined
   >();
-  const [palette, setPalette] = useState<number[][] | undefined>();
+  // const [palette, setPalette] = useState<number[][] | undefined>();
   const imageReference = useRef<HTMLImageElement | null>(null);
   const [imageLoaded, setImageLoaded] = useState(false);
 
@@ -115,17 +115,17 @@ const AnalyzePage = () => {
     if (!imageLoaded) return;
     const img = imageReference.current;
 
-    const colorThief = new ColorThief();
+    // const colorThief = new ColorThief();
     if (img?.complete) {
       try {
         const element = document.querySelector(
           '#artwork-image',
         ) as HTMLImageElement;
         if (!element) return;
-        const result = colorThief.getPalette(element, 10);
-        setPalette(result);
-        const color = colorThief.getColor(element, 10);
-        setDominantColor(color);
+        // const result = colorThief.getPalette(element, 10);
+        // setPalette(result);
+        // const color = colorThief.getColor(element, 10);
+        // setDominantColor(color);
         const colorAmounts = getColorPercentages(element);
         setColorPercentages(colorAmounts);
       } catch (error) {
