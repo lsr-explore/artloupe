@@ -9,10 +9,16 @@ type ColorData = {
   percentage: number; // already in 0–1 range
 };
 
-const ColorTreemap = ({ colors }: { colors: ColorData[] }) => {
+const ColorTreemap = ({
+  colors,
+  width,
+  height,
+}: {
+  colors: ColorData[];
+  width: number;
+  height: number;
+}) => {
   const reference = useRef<SVGSVGElement>(null);
-  const width = 800;
-  const height = 600;
 
   useEffect(() => {
     if (!reference.current) return;
@@ -60,6 +66,7 @@ const ColorTreemap = ({ colors }: { colors: ColorData[] }) => {
       .attr('fill', 'white')
       .attr('font-size', '10px')
       .text((d) => d.data.color);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [colors]);
 
   return <svg ref={reference} width={width} height={height} />;

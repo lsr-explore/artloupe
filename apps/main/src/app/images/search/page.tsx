@@ -85,7 +85,7 @@ const SearchArtPageContent = () => {
   };
 
   return (
-    <main className='container mx-auto px-4 py-8'>
+    <main className='max-w-screen-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8'>
       <h1 className='text-4xl font-bold mb-8'>artloupe</h1>
       <div className='flex flex-col gap-4 w-1/2 mt-4'>
         <h2 className='text-2xl font-bold'>Explore</h2>
