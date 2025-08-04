@@ -32,7 +32,7 @@ const LandingPage = () => {
         <div className='grid md:grid-cols-2 grid-cols-1  gap-8 w-full'>
           {/* Painting Panel */}
           <div className='bg-white rounded-xl shadow p-6 flex flex-col items-center'>
-            <div className='relative h-[300px] w-full max-w-[600px] mx-auto'>
+            <div className='relative  w-full aspect-[4/3] mx-auto'>
               <Image
                 src='/landing-page/winslow-homer.jpg'
                 alt='A wall by the water with green shrub and red flowers and a sailboat in the distance'
@@ -79,7 +79,7 @@ const LandingPage = () => {
 
           {/* Photo Panel */}
           <div className='bg-white rounded-xl shadow p-6 flex flex-col items-center'>
-            <div className='relative h-[300px] w-full max-w-[600px] mx-auto'>
+            <div className='relative  w-full aspect-[4/3] mx-auto'>
               <Image
                 src='/landing-page/pexels-jokassis-5881933.jpg'
                 alt='Golden Gate Bridge'

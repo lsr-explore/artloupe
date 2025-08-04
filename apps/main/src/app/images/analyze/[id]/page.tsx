@@ -1,7 +1,7 @@
 /** biome-ignore-all lint/performance/noImgElement: TBD - Image */
 'use client';
 
-import ColorThief from 'colorthief';
+// import ColorThief from 'colorthief';
 import { ColorTreemap } from 'components/ColorTreeMap';
 import {
   type ColorCount as BaseColorCount,
@@ -63,15 +63,16 @@ const AnalyzePage = () => {
     imageUrl: searchParameters.get('imageUrl'),
     title: searchParameters.get('title'),
     id: searchParameters.get('id'),
-    author: searchParameters.get('author'),
+    artist: searchParameters.get('artist'),
+    description: searchParameters.get('description'),
   };
 
   const [selectedModel, setSelectedModel] = useState(HUGGINGFACE_MODELS[0]);
-  const [dominantColor, setDominantColor] = useState<number[] | undefined>();
+  // const [dominantColor, setDominantColor] = useState<number[] | undefined>();
   const [colorPercentages, setColorPercentages] = useState<
     ColorCount[] | undefined
   >();
-  const [palette, setPalette] = useState<number[][] | undefined>();
+  // const [palette, setPalette] = useState<number[][] | undefined>();
   const imageReference = useRef<HTMLImageElement | null>(null);
   const [imageLoaded, setImageLoaded] = useState(false);
 
@@ -114,17 +115,17 @@ const AnalyzePage = () => {
     if (!imageLoaded) return;
     const img = imageReference.current;
 
-    const colorThief = new ColorThief();
+    // const colorThief = new ColorThief();
     if (img?.complete) {
       try {
         const element = document.querySelector(
           '#artwork-image',
         ) as HTMLImageElement;
         if (!element) return;
-        const result = colorThief.getPalette(element, 10);
-        setPalette(result);
-        const color = colorThief.getColor(element, 10);
-        setDominantColor(color);
+        // const result = colorThief.getPalette(element, 10);
+        // setPalette(result);
+        // const color = colorThief.getColor(element, 10);
+        // setDominantColor(color);
         const colorAmounts = getColorPercentages(element);
         setColorPercentages(colorAmounts);
       } catch (error) {
@@ -175,42 +176,61 @@ const AnalyzePage = () => {
   if (!artwork) return <div className='p-8'>Artwork not found.</div>;
 
   return (
-    <div className='max-w-4xl mx-auto py-10 px-4'>
-      <h1 className='text-3xl font-bold mb-6'>
-        Analyze Image: {artwork.title}
-      </h1>
+    <div className='max-w-screen-2xl mx-auto py-10 px-4'>
+      <h1 className='text-3xl font-bold mb-6'>Analyze Image</h1>
+      <h2 className='text-xl text-gray-600'>{artwork.title}</h2>
+      <h3>{artwork.artist && ` by ${artwork.artist}`}</h3>
+      <div>{artwork.description && `${artwork.description}`}</div>
 
       {/* Next.js image for display */}
-      <div className='relative inline-block mt-6'>
-        <img
-          id={'artwork-image'}
-          ref={imageReference}
-          src={`/api/proxy-image?url=${encodeURIComponent(artwork.imageUrl || '')}`}
-          alt='Artwork'
-          className='w-full max-w-lg rounded mb-4 shadow'
-          width={400}
-          height={400}
-        />
-        {analysisResult?.map((objectItem: DetectionObject) => {
-          const box = objectItem.box;
-          const width = box.xmax - box.xmin;
-          const height = box.ymax - box.ymin;
-          if (objectItem.score < 0.9) return;
-          return (
-            <div
-              key={`${objectItem.label}-${box.xmin}-${box.ymin}-${box.xmax}-${box.ymax}`}
-              className='absolute border-2  text-xs text-white  px-1'
-              style={{
-                left: `${box.xmin}px`,
-                top: `${box.ymin}px`,
-                width: `${width}px`,
-                height: `${height}px`,
-                borderColor: objectItem.color,
-              }}>
-              {objectItem.label}
-            </div>
-          );
-        })}
+      <div className='grid md:grid-cols-2 grid-cols-1  gap-8 w-full mt-6'>
+        <div className='relative  w-full aspect-[4/3] mx-auto'>
+          <img
+            id={'artwork-image'}
+            ref={imageReference}
+            src={`/api/proxy-image?url=${encodeURIComponent(artwork.imageUrl || '')}`}
+            alt='Artwork'
+            className='w-full max-w-lg rounded mb-4 shadow'
+            width={400}
+            height={400}
+          />
+          {analysisResult?.map((objectItem: DetectionObject) => {
+            const box = objectItem.box;
+            const width = box.xmax - box.xmin;
+            const height = box.ymax - box.ymin;
+            if (objectItem.score < 0.9) return;
+            return (
+              <div
+                key={`${objectItem.label}-${box.xmin}-${box.ymin}-${box.xmax}-${box.ymax}`}
+                className='absolute border-2  text-xs text-white  px-1'
+                style={{
+                  left: `${box.xmin}px`,
+                  top: `${box.ymin}px`,
+                  width: `${width}px`,
+                  height: `${height}px`,
+                  borderColor: objectItem.color,
+                }}>
+                {objectItem.label}
+              </div>
+            );
+          })}
+        </div>
+        <div className='relative  w-full aspect-[4/3] mx-auto'>
+          {/* <div>
+            <h2>Top Colors by percentage</h2>
+          </div> */}
+
+          <ColorTreemap
+            colors={
+              colorPercentages?.filter(
+                (c): c is ColorCount & { rgb: number[] } =>
+                  Array.isArray(c.rgb),
+              ) ?? []
+            }
+            width={600}
+            height={600}
+          />
+        </div>
       </div>
       <div>
         {analysisResult?.map((objectItem: DetectionObject) => {
@@ -251,79 +271,69 @@ const AnalyzePage = () => {
           {loading ? 'Analyzing...' : 'Analyze with Hugging Face'}
         </button>
       </div>
-
-      {analysisResult && (
-        <div className='mt-6'>
-          <h3 className='text-lg font-semibold'>Model Output</h3>
-          <pre className='bg-gray-100 p-4 mt-2 rounded'>
-            {JSON.stringify(analysisResult, undefined, 2)}
-          </pre>
-        </div>
-      )}
-
-      <div className='flex gap-2 flex-wrap'>
-        <div
-          key={`${dominantColor}`}
-          className='w-20 h-20 rounded'
-          style={{
-            backgroundColor: dominantColor
-              ? `rgb(${dominantColor.join(',')})`
-              : undefined,
-          }}
-          title={dominantColor ? `rgb(${dominantColor.join(',')})` : undefined}
-        />
-        <div>{dominantColor?.join(',')}</div>
-        {/* Palette Chips */}
-        {palette && (
-          <div className='flex space-x-2 mt-4'>
-            {palette.map((color) => (
-              <>
-                <div
-                  key={`${color}`}
-                  className='w-10 h-10 rounded'
-                  style={{ backgroundColor: `rgb(${color.join(',')})` }}
-                  title={`rgb(${color.join(',')})`}
-                />
-                <span>{color.join(',')}</span>
-              </>
-            ))}
-          </div>
-        )}
-      </div>
-
-      <div className='mt-4'>
-        <h2>Top Colors by percentage</h2>
-      </div>
-      <div className='flex gap-2 flex-wrap'>
-        {/* Palette Chips */}
-        {colorPercentages && (
-          <div className=' mt-4 flex space-x-2'>
-            {colorPercentages.map((colorItem) => {
-              return (
-                <div key={`${colorItem.color}`}>
-                  <div
-                    className='w-10 h-10 rounded'
-                    style={{ backgroundColor: `${colorItem.color}` }}
-                    title={`${colorItem.color}`}
-                  />
-                  <span>{colorItem.color}</span>
-                  <span> | {colorItem.rgb?.join(',')}</span>
-                  <span> | {colorItem.percentage}</span>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </div>
-      <ColorTreemap
-        colors={
-          colorPercentages?.filter((c): c is ColorCount & { rgb: number[] } =>
-            Array.isArray(c.rgb),
-          ) ?? []
-        }
-      />
     </div>
   );
 };
 
 export default AnalyzePage;
+
+// {analysisResult && (
+//   <div className='mt-6'>
+//     <h3 className='text-lg font-semibold'>Model Output</h3>
+//     <pre className='bg-gray-100 p-4 mt-2 rounded'>
+//       {JSON.stringify(analysisResult, undefined, 2)}
+//     </pre>
+//   </div>
+// )}
+
+// <div className='flex gap-2 flex-wrap'>
+//   <div
+//     key={`${dominantColor}`}
+//     className='w-20 h-20 rounded'
+//     style={{
+//       backgroundColor: dominantColor
+//         ? `rgb(${dominantColor.join(',')})`
+//         : undefined,
+//     }}
+//     title={dominantColor ? `rgb(${dominantColor.join(',')})` : undefined}
+//   />
+//   <div>{dominantColor?.join(',')}</div>
+//   {/* Palette Chips */}
+//   {palette && (
+//     <div className='flex space-x-2 mt-4'>
+//       {palette.map((color) => (
+//         <>
+//           <div
+//             key={`${color}`}
+//             className='w-10 h-10 rounded'
+//             style={{ backgroundColor: `rgb(${color.join(',')})` }}
+//             title={`rgb(${color.join(',')})`}
+//           />
+//           <span>{color.join(',')}</span>
+//         </>
+//       ))}
+//     </div>
+//   )}
+// </div>
+
+// <div className='flex gap-2 flex-wrap'>
+// {/* Palette Chips */}
+// {colorPercentages && (
+//   <div className=' mt-4 flex space-x-2'>
+//     {colorPercentages.map((colorItem) => {
+//       return (
+//         <div key={`${colorItem.color}`}>
+//           <div
+//             className='w-10 h-10 rounded'
+//             style={{ backgroundColor: `${colorItem.color}` }}
+//             title={`${colorItem.color}`}
+//           />
+//           <span>{colorItem.color}</span>
+//           <span> | {colorItem.rgb?.join(',')}</span>
+//           <span> | {colorItem.percentage}</span>
+//         </div>
+//       );
+//     })}
+//   </div>
+// )}
+// </div>

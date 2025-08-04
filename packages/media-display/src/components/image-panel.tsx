@@ -5,7 +5,7 @@ import Link from 'next/link';
 export const ImagePanel = ({ image }: { image: ImageType }) => {
   return (
     <div className='bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300'>
-      <div className='relative aspect-[4/3] h-48 bg-gray-200'>
+      <div className='relative w-full bg-gray-200'>
         {image.imageUrl ? (
           <Image
             width={600}
@@ -13,7 +13,7 @@ export const ImagePanel = ({ image }: { image: ImageType }) => {
             sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
             src={image.imageUrl}
             alt={image.title}
-            className='w-full h-full object-cover'
+            className='w-full h-auto object-cover rounded'
             onError={(event) => {
               console.log('Image failed to load:', image.imageUrl);
               const target = event.currentTarget as HTMLImageElement;
