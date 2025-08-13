@@ -5,9 +5,14 @@ afterEach(() => {
   cleanup();
 });
 
-// Mock environment variables
-process.env.USE_LOCAL_AI = 'true';
-
-// Mock fetch globally for all tests
+// Mock global fetch
 const mockFetch = vi.fn();
 vi.stubGlobal('fetch', mockFetch);
+
+// Setup default fetch mock
+mockFetch.mockResolvedValue({
+  ok: true,
+  json: async () => ({ result: 'AI analysis result' }),
+});
+
+process.env.USE_LOCAL_AI = 'true';

@@ -1,13 +1,46 @@
-import { resolve } from 'node:path';
-import { defineConfig } from 'vitest/config';
+// vitest.config.shared.ts (root)
+import path from 'node:path';
+import {
+  defineConfig,
+  type PluginOption,
+  type UserConfig,
+} from 'vitest/config';
 
-export const createVitestConfig = (packagePath: string) =>
+type Env = 'node' | 'jsdom';
+
+type CreateOpts = {
+  rootDir: string;
+  environment?: Env;
+  name?: string;
+  setupFiles?: string[];
+  alias?: Record<string, string>;
+  plugins?: PluginOption[]; // <-- allow plugins (e.g., react)
+};
+
+export const createVitestConfig = ({
+  rootDir,
+  environment = 'node',
+  name,
+  setupFiles = [],
+  alias = {},
+  plugins = [],
+}: CreateOpts): UserConfig =>
   defineConfig({
+    plugins,
     test: {
-      environment: 'node',
+      name,
+      environment,
       globals: true,
-      setupFiles: [resolve(__dirname, 'test-setup.ts')],
-      include: ['**/__tests__/**/*.{test,spec}.{ts,tsx}'],
+      include: [
+        '**/__tests__/**/*.{test,spec}.{ts,tsx}',
+        '**/*.{test,spec}.{ts,tsx}',
+      ],
+      setupFiles,
+      // JSDOM quality-of-life
+      environmentOptions:
+        environment === 'jsdom'
+          ? { jsdom: { url: 'http://localhost' } }
+          : undefined,
       reporters: ['verbose'],
       coverage: {
         provider: 'v8',
@@ -15,24 +48,32 @@ export const createVitestConfig = (packagePath: string) =>
         all: true,
         include: ['src/**/*.ts', 'src/**/*.tsx'],
         exclude: [
-          '**/*.d.ts',
-          '**/index.ts',
-          '**/test-setup.ts',
-          '**/__tests__/**',
-          '**/__mocks__/**',
-          '**/vitest.config*.ts',
-          '**/.storybook/**',
-          '**/storybook-static/**',
-          '**/*.stories.*',
-          'dist/**',
           'node_modules/**',
-          '**/*.config.*',
+          'dist/**',
+          'build/**',
+          '.next/**',
+          'coverage/**',
+          '**/*.d.ts',
+          '**/*.config.{ts,js,cjs,mjs}',
+          '**/vite-env.d.ts',
+          '**/stories/**',
+          '**/storybook/**',
+          '**/mocks/**',
+          '**/cypress/**',
+          'jest.setup.js',
+          'TEST_SETUP.md',
         ],
       },
     },
+    // Ensure automatic JSX transform even if tsconfig is off
+    esbuild: {
+      jsx: 'automatic',
+      jsxImportSource: 'react',
+    },
     resolve: {
       alias: {
-        '@': resolve(packagePath, 'src'),
+        '@': path.resolve(rootDir, 'src'),
+        ...alias,
       },
     },
   });

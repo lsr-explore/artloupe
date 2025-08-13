@@ -1,41 +1,12 @@
-import { resolve } from 'node:path';
-import react from '@vitejs/plugin-react';
-import { defineConfig } from 'vitest/config';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { createVitestConfig } from '../../vitest.config.shared';
 
-export default defineConfig({
-  plugins: [react()],
-  test: {
-    environment: 'jsdom',
-    globals: true,
-    setupFiles: [resolve(__dirname, 'src/__tests__/setup.ts')],
-    coverage: {
-      provider: 'v8',
-      reporter: ['text', 'json', 'html'],
-      exclude: [
-        'node_modules/',
-        'dist/',
-        '.next/',
-        'coverage/',
-        '**/*.d.ts',
-        '**/*.config.*',
-        '**/test-setup.ts',
-        '**/__mocks__/**',
-        '**/__tests__/**',
-        '**/*.test.*',
-        '**/*.spec.*',
-        '**/index.ts',
-        '**/index.tsx',
-        '**/mocks/**',
-        '**/cypress/**',
-        'jest.setup.js',
-        'TEST_SETUP.md',
-      ],
-    },
-  },
-  resolve: {
-    alias: {
-      '@': resolve(__dirname, 'src'),
-      'data-providers': resolve(__dirname, 'src/data-providers'),
-    },
-  },
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+export default createVitestConfig({
+  rootDir: __dirname,
+  environment: 'jsdom',
+  name: 'app-main',
+  setupFiles: [path.resolve(__dirname, 'src/__tests__/setup.ts')], // if you have one
 });
