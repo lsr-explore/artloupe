@@ -105,7 +105,7 @@ describe('MediaLayout', () => {
 
     const mainContainer = container.firstChild as HTMLElement;
     expect(mainContainer).toHaveClass(
-      'max-w-7xl',
+      'max-w-screen-3xl',
       'mx-auto',
       'px-4',
       'sm:px-6',

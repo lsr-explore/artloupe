@@ -92,7 +92,7 @@ describe('ImagePanel', () => {
     const image = screen.getByAltText(mockImage.title);
     expect(image).toBeInTheDocument();
     expect(image).toHaveAttribute('src', mockImage.imageUrl);
-    expect(image).toHaveClass('w-full', 'h-full', 'object-cover');
+    expect(image).toHaveClass('w-full', 'h-auto', 'object-cover', 'rounded');
   });
 
   it('should have correct link structure for analyze button', () => {
@@ -140,12 +140,7 @@ describe('ImagePanel', () => {
     const { container } = render(<ImagePanel image={mockImage} />);
     const imageContainer = container.querySelector('.bg-gray-200');
     expect(imageContainer).toBeInTheDocument();
-    expect(imageContainer).toHaveClass(
-      'bg-gray-200',
-      'relative',
-      'aspect-[4/3]',
-      'h-48',
-    );
+    expect(imageContainer).toHaveClass('relative', 'w-full', 'bg-gray-200');
   });
 
   it('should have correct content container styling', () => {
