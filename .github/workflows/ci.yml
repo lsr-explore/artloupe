@@ -205,19 +205,14 @@ jobs:
       - name: Build all
         run: pnpm build:ci
 
-      # Ensure the base branch ref exists for PRs from forks, etc.
-      - name: Fetch base branch (PR only)
-        if: ${{ github.event_name == 'pull_request' }}
-        run: |
-          git fetch --no-tags --prune --depth=1 origin +refs/heads/${{ github.base_ref }}:refs/remotes/origin/${{ github.base_ref }}
-
       # PRs: only run affected packages
+      # pnpm test:affected -- --base=origin/${{ github.base_ref }} --head=${{ github.sha }}
       - name: Run affected package tests
         if: ${{ github.event_name == 'pull_request' }}
         shell: bash
         run: |
           set -euo pipefail
-          pnpm test:affected -- --base=origin/${{ github.base_ref }} --head=${{ github.sha }}
+          pnpm test:packages:ci
 
       # Pushes to main: run all packages
       - name: Run all package tests
