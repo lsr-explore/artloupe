@@ -36,6 +36,7 @@
     "test:admin:coverage": "./scripts/nxs.sh test admin --coverage",
     "test:packages": "./scripts/nxs.sh run-many --target=test --projects=api-fetchers,api-handlers,media-display,palette-studio,react-query-hooks,shared-types",
     "test:packages:coverage": "./scripts/nxs.sh run-many --target=test --projects=api-fetchers,api-handlers,media-display,palette-studio,react-query-hooks,shared-types,logger --coverage",
+    "test:packages:ci": "nx run-many -t test --all --exclude=main,admin --parallel --continue-on-error --output-style=stream",
     "test:e2e": "./scripts/nxs.sh e2e main",
     "test:e2e:open": "./scripts/nxs.sh e2e main --watch",
     "cypress:open": "./scripts/nxs.sh e2e main --watch",
