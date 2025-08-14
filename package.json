@@ -27,6 +27,7 @@
     "clean:caches": "rm -rf .turbo .eslintcache .cache .vite .playwright coverage",
     "clean:storybook": "rm -rf .storybook/node_modules .storybook/dist storybook-static",
     "------------------- test -------------------": "noop",
+    "test:affected": "nx affected -t test --parallel --continue-on-error --exclude=main,admin",
     "test:apps": "./scripts/nxs.sh run-many --target=test --projects=main,admin",
     "test:apps:coverage": "./scripts/nxs.sh run-many --target=test --projects=main,admin --coverage",
     "test:main": "./scripts/nxs.sh test main",
