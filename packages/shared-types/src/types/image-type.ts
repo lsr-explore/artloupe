@@ -42,7 +42,7 @@ export function mapMetObjectsToImageType(
         id: String(metObject.objectID),
         title: metObject.title || 'Untitled',
         artist: metObject.artistDisplayName || 'Unknown Artist',
-        imageUrl: metObject.primaryImageSmall!,
+        imageUrl: metObject.primaryImageSmall || '',
         description: metObject.objectDate || '',
         source: 'met',
         metId: String(metObject.objectID),

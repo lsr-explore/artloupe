@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import {
-  MediaLayout,
-  type MediaLayoutProps as MediaLayoutProperties,
-} from './media-layout';
+// biome-ignore lint/correctness/noUnusedImports: temp fix until I can fix the configuration
+import React from 'react';
+import { MediaLayout, type MediaLayoutProperties } from './media-layout';
 
 // Dummy artwork data
 type Artwork = {
@@ -35,6 +34,7 @@ const mockArtworks: Artwork[] = [
 // Render function for each item
 const renderArtwork = (item: Artwork) => (
   <div key={item.id} className='bg-white shadow rounded p-4'>
+    {/** biome-ignore lint/performance/noImgElement: fine for stories */}
     <img
       src={item.imageUrl}
       alt={item.title}

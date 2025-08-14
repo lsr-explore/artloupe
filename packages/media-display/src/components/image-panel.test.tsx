@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import type React from 'react';
+import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom';
 import type { ImageType } from '../../../shared-types/src/types/image-type';
@@ -21,6 +21,7 @@ vi.mock('next/image', () => ({
     onError?: (event: React.SyntheticEvent<HTMLImageElement, Event>) => void;
     [key: string]: unknown;
   }) => (
+    // biome-ignore lint/performance/noImgElement: fine to use for tests.
     <img
       src={src}
       alt={alt}
@@ -53,24 +54,28 @@ const mockImageWithoutImage: ImageType = { ...mockImageTypes[2], imageUrl: '' };
 describe('ImagePanel', () => {
   it('should render image panel with image', () => {
     render(<ImagePanel image={mockImage} />);
-    expect(screen.getByText(mockImage.title)).toBeInTheDocument();
-    expect(screen.getByText(mockImage.artist!)).toBeInTheDocument();
-    expect(screen.getByText(mockImage.description!)).toBeInTheDocument();
-    expect(screen.getByText(`ID: ${mockImage.id}`)).toBeInTheDocument();
-    expect(screen.getByText('Analyze Image')).toBeInTheDocument();
+    screen.getByText(mockImage.title);
+    if (mockImage.artist) {
+      screen.getByText(mockImage.artist);
+    }
+    if (mockImage.description) {
+      screen.getByText(mockImage.description);
+    }
+    screen.getByText(`ID: ${mockImage.id}`);
+    screen.getByText('Analyze Image');
   });
 
   it('should render image panel without image', () => {
     render(<ImagePanel image={mockImageWithoutImage} />);
-    expect(screen.getByText(mockImageWithoutImage.title)).toBeInTheDocument();
-    expect(screen.getByText(mockImageWithoutImage.artist!)).toBeInTheDocument();
-    expect(
-      screen.getByText(mockImageWithoutImage.description!),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(`ID: ${mockImageWithoutImage.id}`),
-    ).toBeInTheDocument();
-    expect(screen.getByText('🖼️')).toBeInTheDocument();
+    screen.getByText(mockImageWithoutImage.title);
+    if (mockImageWithoutImage.artist) {
+      screen.getByText(mockImageWithoutImage.artist);
+    }
+    if (mockImageWithoutImage.description) {
+      screen.getByText(mockImageWithoutImage.description);
+    }
+    screen.getByText(`ID: ${mockImageWithoutImage.id}`);
+    screen.getByText('🖼️');
   });
 
   it('should have correct CSS classes for card styling', () => {

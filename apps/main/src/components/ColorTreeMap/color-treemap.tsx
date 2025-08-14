@@ -20,6 +20,7 @@ const ColorTreemap = ({
 }) => {
   const reference = useRef<SVGSVGElement>(null);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: not needed
   useEffect(() => {
     if (!reference.current) return;
 
