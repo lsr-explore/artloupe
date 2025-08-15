@@ -10,6 +10,12 @@ export type ImageType = {
   aiAnalysis?: string;
 };
 
+export type ArtworksResponse = {
+  total: number;
+  images: ImageType[];
+  mock?: boolean;
+};
+
 // Met API object response type (copied from handle-met-search)
 export interface MetObjectResponse {
   objectID: number;

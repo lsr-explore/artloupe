@@ -12,12 +12,12 @@ describe('User', () => {
     const user: UserTypes.User = {
       id: '1',
       email: 'user@example.com',
-      role: 'user',
+      role: 'pro',
     };
 
     expect(user.id).toBe('1');
     expect(user.email).toBe('user@example.com');
-    expect(user.role).toBe('user');
+    expect(user.role).toBe('pro');
   });
 
   it('should create a valid user with optional name field', () => {
@@ -39,13 +39,13 @@ describe('User', () => {
       id: '3',
       email: 'test@example.com',
       name: undefined,
-      role: 'user',
+      role: 'pro',
     };
 
     expect(user.id).toBe('3');
     expect(user.email).toBe('test@example.com');
     expect(user.name).toBeUndefined();
-    expect(user.role).toBe('user');
+    expect(user.role).toBe('pro');
   });
 
   it('should validate user role types', () => {
@@ -58,18 +58,18 @@ describe('User', () => {
     const regularUser: UserTypes.User = {
       id: '5',
       email: 'user@example.com',
-      role: 'user',
+      role: 'pro',
     };
 
     expect(adminUser.role).toBe('admin');
-    expect(regularUser.role).toBe('user');
+    expect(regularUser.role).toBe('pro');
   });
 
   it('should create user with createUser function', () => {
-    const user = createUser('12', 'test@example.com', 'user');
+    const user = createUser('12', 'test@example.com', 'pro');
     expect(user.id).toBe('12');
     expect(user.email).toBe('test@example.com');
-    expect(user.role).toBe('user');
+    expect(user.role).toBe('pro');
     expect(user.name).toBeUndefined();
   });
 
@@ -83,7 +83,7 @@ describe('User', () => {
 
   it('should check if user is admin', () => {
     const adminUser = createUser('14', 'admin@example.com', 'admin');
-    const regularUser = createUser('15', 'user@example.com', 'user');
+    const regularUser = createUser('15', 'user@example.com', 'free');
 
     expect(isAdmin(adminUser)).toBe(true);
     expect(isAdmin(regularUser)).toBe(false);
@@ -93,10 +93,10 @@ describe('User', () => {
     const userWithName = createUser(
       '16',
       'user@example.com',
-      'user',
+      'free',
       'John Doe',
     );
-    const userWithoutName = createUser('17', 'user2@example.com', 'user');
+    const userWithoutName = createUser('17', 'user2@example.com', 'free');
 
     expect(getUserDisplayName(userWithName)).toBe('John Doe');
     expect(getUserDisplayName(userWithoutName)).toBe('user2@example.com');
@@ -106,7 +106,7 @@ describe('User', () => {
     const validUser = {
       id: '18',
       email: 'valid@example.com',
-      role: 'user' as const,
+      role: 'pro' as const,
     };
 
     const invalidUser = {
@@ -124,7 +124,7 @@ describe('User', () => {
       {
         id: '7',
         email: 'simple@example.com',
-        role: 'user',
+        role: 'pro',
       },
       {
         id: '8',
@@ -134,7 +134,7 @@ describe('User', () => {
       {
         id: '9',
         email: 'user123@subdomain.example.org',
-        role: 'user',
+        role: 'pro',
       },
     ];
 
@@ -155,10 +155,10 @@ describe('User', () => {
       id: '11',
       email: 'user@company.com',
       name: 'Regular User',
-      role: 'user',
+      role: 'free',
     };
 
     expect(adminUser.role).toBe('admin');
-    expect(regularUser.role).toBe('user');
+    expect(regularUser.role).toBe('free');
   });
 });

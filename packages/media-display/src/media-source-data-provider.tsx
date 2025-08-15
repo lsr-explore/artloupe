@@ -4,6 +4,7 @@ import {
   useFetchArtworks,
   useFetchPhotoWorks,
 } from '@artloupe/react-query-hooks';
+import type { ArtworksResponse } from '@artloupe/shared-types';
 import { type ReactNode, useEffect, useMemo, useState } from 'react';
 import { MediaSourceContext } from './media-source-context';
 
@@ -49,7 +50,7 @@ export const MediaSourceProvider = ({
     () => ({
       source,
       query,
-      data: data as any, // Type assertion needed since data could be either artworks or photos
+      data: data as ArtworksResponse, // Type assertion needed since data could be either artworks or photos
       isLoading,
       error,
       setSource,

@@ -8,7 +8,7 @@ export const MOCK_ARTWORKS = [
       'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1280px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
     description: 'A swirling night sky over a French village',
     metId: '436532',
-    aiAnalysis: null,
+    aiAnalysis: undefined,
   },
   {
     id: '2',
@@ -18,7 +18,7 @@ export const MOCK_ARTWORKS = [
       'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/The_Great_Wave_off_Kanagawa.jpg/1280px-The_Great_Wave_off_Kanagawa.jpg',
     description: 'A famous Japanese woodblock print depicting a great wave',
     metId: '45434',
-    aiAnalysis: null,
+    aiAnalysis: undefined,
   },
   {
     id: '3',
@@ -29,7 +29,7 @@ export const MOCK_ARTWORKS = [
     description:
       'A captivating portrait of a girl with a mysterious pearl earring',
     metId: '45435',
-    aiAnalysis: null,
+    aiAnalysis: undefined,
   },
   {
     id: '4',
@@ -39,7 +39,7 @@ export const MOCK_ARTWORKS = [
       'https://upload.wikimedia.org/wikipedia/en/d/dd/The_Persistence_of_Memory.jpg',
     description: 'Surrealist painting featuring melting clocks',
     metId: '45436',
-    aiAnalysis: null,
+    aiAnalysis: undefined,
   },
   {
     id: '5',
@@ -49,7 +49,7 @@ export const MOCK_ARTWORKS = [
       'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Grant_Wood_-_American_Gothic_-_Google_Art_Project.jpg/1200px-Grant_Wood_-_American_Gothic_-_Google_Art_Project.jpg',
     description: 'Iconic American painting of a farmer and his daughter',
     metId: '45437',
-    aiAnalysis: null,
+    aiAnalysis: undefined,
   },
   {
     id: '6',
@@ -60,7 +60,7 @@ export const MOCK_ARTWORKS = [
     description:
       'Expressionist painting depicting anxiety and existential angst',
     metId: '45438',
-    aiAnalysis: null,
+    aiAnalysis: undefined,
   },
   {
     id: '7',
@@ -71,6 +71,6 @@ export const MOCK_ARTWORKS = [
     description:
       'Post-Impressionist painting depicting a Sunday afternoon in Paris',
     metId: '1111',
-    aiAnalysis: null,
+    aiAnalysis: undefined,
   },
 ];

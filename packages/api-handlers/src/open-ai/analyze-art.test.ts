@@ -1,11 +1,12 @@
+import type { NextRequest } from 'next/server';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { analyzeArt } from './analyze-art';
 
 // Mock NextRequest
-const mockRequest = (body: any) =>
+const mockRequest = (body: Record<string, unknown>) =>
   ({
     json: vi.fn().mockResolvedValue(body),
-  }) as any;
+  }) as unknown as NextRequest;
 
 // Mock fetch
 const mockFetch = vi.fn();

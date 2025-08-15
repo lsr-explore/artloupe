@@ -2,11 +2,21 @@ import { render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom';
 import type { ImageType } from '@artloupe/shared-types';
+// biome-ignore lint/correctness/noUnusedImports: React importe needed
+import React, { type ReactNode } from 'react';
 import { MediaLayout } from './media-layout';
 
 // Mock react-masonry-css
 vi.mock('react-masonry-css', () => ({
-  default: ({ children, className, columnClassName }: any) => (
+  default: ({
+    children,
+    className,
+    columnClassName,
+  }: {
+    children: ReactNode;
+    className: string;
+    columnClassName: string;
+  }) => (
     <div className={className} data-testid='masonry-grid'>
       <div className={columnClassName} data-testid='masonry-column'>
         {children}
@@ -32,7 +42,7 @@ const mockArtworks: ImageType[] = [
   },
 ];
 
-const mockRenderItem = (artwork: Artwork) => (
+const mockRenderItem = (artwork: ImageType) => (
   <div key={artwork.id} data-testid={`artwork-item-${artwork.id}`}>
     <h3>{artwork.title}</h3>
     <p>{artwork.artist}</p>

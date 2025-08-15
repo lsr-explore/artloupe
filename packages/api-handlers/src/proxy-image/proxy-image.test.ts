@@ -1,3 +1,4 @@
+import type { NextRequest } from 'next/server';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { proxyImage } from './proxy-image';
 
@@ -9,7 +10,7 @@ const mockRequest = (url: string) =>
         get: vi.fn().mockReturnValue(url),
       },
     },
-  }) as any;
+  }) as unknown as NextRequest;
 
 // Mock fetch
 const mockFetch = vi.fn();
@@ -20,7 +21,7 @@ describe('proxyImage', () => {
     vi.clearAllMocks();
   });
   it('should return error when URL parameter is missing', async () => {
-    const request = mockRequest(null);
+    const request = mockRequest();
     const response = await proxyImage(request);
     const data = await response.json();
 

@@ -1,3 +1,4 @@
+import type { NextRequest } from 'next/server';
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 import { critiqueImage } from './critique-image';
 
@@ -5,7 +6,7 @@ import { critiqueImage } from './critique-image';
 const mockRequest = (body: Record<string, unknown>) =>
   ({
     json: vi.fn().mockResolvedValue(body),
-  }) as any;
+  }) as unknown as NextRequest;
 
 describe('critiqueImage', () => {
   beforeEach(() => {
