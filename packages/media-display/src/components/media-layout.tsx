@@ -12,7 +12,7 @@ const breakpointColsObject = {
   500: 1,
 };
 
-export type MediaLayoutProps<T> = {
+export type MediaLayoutProperties = {
   artworks: ImageType[];
   renderItem: (item: ImageType) => React.ReactNode;
   title?: string;
@@ -21,14 +21,14 @@ export type MediaLayoutProps<T> = {
   layout?: 'grid' | 'masonry';
 };
 
-export const MediaLayout = <T,>({
+export const MediaLayout = ({
   artworks,
   renderItem,
   title = 'Media Collection',
   subtitle,
   emptyMessage = 'No items found.',
   layout = 'masonry',
-}: MediaLayoutProps<T>) => {
+}: MediaLayoutProperties) => {
   if (!artworks || artworks.length === 0) {
     return (
       <div className='text-center p-12'>
@@ -39,8 +39,6 @@ export const MediaLayout = <T,>({
       </div>
     );
   }
-
-  console.log('.....layout = ', layout);
 
   return (
     <div className='max-w-screen-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8'>

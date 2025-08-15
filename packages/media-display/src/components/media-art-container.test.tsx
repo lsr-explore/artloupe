@@ -3,7 +3,7 @@ import type React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom';
 import type { ImageType } from '../../../shared-types/src/types/image-type';
-import { MediaArtContainer } from '../components/media-art-container';
+import { MediaArtContainer } from './media-art-container';
 
 // Mock the media source hook
 const mockUseMediaSource = vi.fn();

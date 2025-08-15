@@ -1,14 +1,16 @@
+export type UserRoles = 'admin' | 'pro' | 'free';
+
 export interface User {
   id: string;
   email: string;
   name?: string;
-  role: 'admin' | 'user';
+  role: UserRoles;
 }
 
 export function createUser(
   id: string,
   email: string,
-  role: 'admin' | 'user',
+  role: UserRoles,
   name?: string,
 ): User {
   return {
@@ -34,8 +36,8 @@ export function isValidUser(object: unknown): object is User {
     'id' in object &&
     'email' in object &&
     'role' in object &&
-    typeof (object as any).id === 'string' &&
-    typeof (object as any).email === 'string' &&
-    ['admin', 'user'].includes((object as any).role)
+    typeof (object as User).id === 'string' &&
+    typeof (object as User).email === 'string' &&
+    ['admin', 'pro', 'free'].includes((object as User).role)
   );
 }

@@ -14,7 +14,7 @@ vi.mock('react', async () => {
 
 import { useContext } from 'react';
 // Import the hook after mocking
-import { useMediaSource } from '../media-source-hook';
+import { useMediaSource } from './media-source-hook';
 
 // Mock the context
 const mockContextValue = {
@@ -284,12 +284,12 @@ describe('useMediaSource', () => {
   it('should handle null error', () => {
     const nullErrorContext = {
       ...mockContextValue,
-      error: null,
+      error: undefined,
     };
     (useContext as ReturnType<typeof vi.fn>).mockReturnValue(nullErrorContext);
 
     const { result } = renderHook(() => useMediaSource());
 
-    expect(result.current.error).toBeNull();
+    expect(result.current.error).toBeUndefined();
   });
 });

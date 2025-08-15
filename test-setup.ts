@@ -1,5 +1,5 @@
 import { cleanup } from '@testing-library/react';
-import { afterEach } from 'vitest';
+import { afterEach, vi } from 'vitest';
 
 afterEach(() => {
   cleanup();
@@ -7,3 +7,7 @@ afterEach(() => {
 
 // Mock environment variables
 process.env.USE_LOCAL_AI = 'true';
+
+// Mock fetch globally for all tests
+const mockFetch = vi.fn();
+vi.stubGlobal('fetch', mockFetch);

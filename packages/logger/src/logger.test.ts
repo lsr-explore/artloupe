@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { createLogger, logger } from '../logger';
+import { createLogger, logger } from './logger';
 
 // Mock console methods to capture output
 const mockConsole = {

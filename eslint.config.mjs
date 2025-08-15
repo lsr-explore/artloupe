@@ -42,9 +42,19 @@ export default [
       ...pluginReactRefresh.configs.recommended.rules,
       ...pluginUnicorn.configs.recommended.rules,
       ...pluginImport.configs.recommended.rules,
-      'no-secrets/no-secrets': 'error',
       'react/react-in-jsx-scope': 'off',
       ...pluginNext.configs['core-web-vitals'].rules,
+      'no-secrets/no-secrets': [
+        'error',
+        {
+          ignoreContent: [
+            '^https?://',
+            String.raw`.*upload\.wikimedia\.org.*`,
+            'data:image/svg+xml',
+            'image.unsplash.com',
+          ],
+        },
+      ],
     },
     settings: {
       'import/resolver': {
@@ -202,9 +212,19 @@ export default [
       ...pluginReactRefresh.configs.recommended.rules,
       ...pluginUnicorn.configs.recommended.rules,
       ...pluginImport.configs.recommended.rules,
-      'no-secrets/no-secrets': 'error',
       'react/react-in-jsx-scope': 'off',
       ...pluginNext.configs['core-web-vitals'].rules,
+      'no-secrets/no-secrets': [
+        'error',
+        {
+          ignoreContent: [
+            '^https?://',
+            String.raw`.*upload\.wikimedia\.org.*`,
+            String.raw`^data:image/svg\+xml`,
+            'image.unsplash.com',
+          ],
+        },
+      ],
     },
     settings: {
       'import/resolver': {

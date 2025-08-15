@@ -1,11 +1,12 @@
+import type { NextRequest } from 'next/server';
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
-import { detectObjects } from '../object-detection/detect-objects';
+import { detectObjects } from './detect-objects';
 
 // Mock NextRequest
 const mockRequest = (body: Record<string, unknown>) =>
   ({
     json: vi.fn().mockResolvedValue(body),
-  }) as any;
+  }) as unknown as NextRequest;
 
 describe('detectObjects', () => {
   beforeEach(() => {

@@ -1,8 +1,8 @@
 import { mockPhotoWorks } from '@artloupe/mock-data';
 import { waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { useFetchPhotoWorks } from '../use-fetch-photo-works';
-import { renderHookWithQueryClient } from './test-utilities';
+import { renderHookWithQueryClient } from './__tests__/test-utilities';
+import { useFetchPhotoWorks } from './use-fetch-photo-works';
 
 // Get the mocked fetch function
 const mockFetch = vi.mocked(fetch);

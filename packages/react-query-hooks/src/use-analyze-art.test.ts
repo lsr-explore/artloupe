@@ -1,8 +1,8 @@
 import { mockAnalysisResult, mockArtwork } from '@artloupe/mock-data';
 import { waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { useAnalyzeArt } from '../use-analyze-art';
-import { renderHookWithQueryClient } from './test-utilities';
+import { renderHookWithQueryClient } from './__tests__/test-utilities';
+import { useAnalyzeArt } from './use-analyze-art';
 
 // Get the mocked fetch function
 const mockFetch = vi.mocked(fetch);

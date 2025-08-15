@@ -3,8 +3,8 @@ import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom';
 import type { ImageType } from '@artloupe/shared-types';
-import { MediaSourceContext } from '../media-source-context';
-import { MediaSourceProvider } from '../media-source-data-provider';
+import { MediaSourceContext } from './media-source-context';
+import { MediaSourceProvider } from './media-source-data-provider';
 
 // Mock the react-query hooks
 const mockUseFetchArtworks = vi.fn();

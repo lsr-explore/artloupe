@@ -1,11 +1,12 @@
+import type { NextRequest } from 'next/server';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { handleMetSearch } from '../met/handle-met-search';
+import { handleMetSearch } from './handle-met-search';
 
 // Mock NextRequest
 const mockRequest = (url: string) =>
   ({
     url,
-  }) as any;
+  }) as unknown as NextRequest;
 
 // Mock fetch
 const mockFetch = vi.fn();

@@ -46,6 +46,7 @@ const SearchArtPageContent = () => {
   const [shouldSearch, setShouldSearch] = useState<boolean>(true);
   const [shouldUpdate, setShouldUpdate] = useState<boolean>(false);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: not needed
   useEffect(() => {
     if (shouldSearch) {
       setShouldSearch(false);

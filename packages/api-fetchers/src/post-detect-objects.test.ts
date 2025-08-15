@@ -1,6 +1,6 @@
 import { mockDetectionResult } from '@artloupe/mock-data';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { postDetectObjects } from '../post-detect-objects';
+import { postDetectObjects } from './post-detect-objects';
 
 // Get the mocked fetch function
 const mockFetch = vi.mocked(fetch);

@@ -4,7 +4,8 @@ import { logger } from './logger';
 // Helper function to convert Headers to object
 function headersToObject(headers: Headers): Record<string, string> {
   const result: Record<string, string> = {};
-  (headers as any).forEach((value: string, key: string) => {
+  // eslint-disable-next-line unicorn/no-array-for-each
+  headers.forEach((value: string, key: string) => {
     result[key] = value;
   });
   return result;

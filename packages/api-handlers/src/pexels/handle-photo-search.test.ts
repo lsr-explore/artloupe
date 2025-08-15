@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { handlePhotoSearch } from '../pexels/handle-photo-search';
-import { createMockGetRequest, resetMocks } from './test-utilities';
+import { createMockGetRequest, resetMocks } from '../__tests__/test-utilities';
+import { handlePhotoSearch } from './handle-photo-search';
 
 // Mock NextRequest
 // Mock fetch

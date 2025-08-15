@@ -5,7 +5,7 @@ import {
   mapMetObjectsToImageType,
   mapPexelsPhotosToImageType,
   type PexelsPhoto,
-} from '../types/image-type';
+} from './image-type';
 
 describe('ImageType', () => {
   it('should allow minimal valid fields', () => {

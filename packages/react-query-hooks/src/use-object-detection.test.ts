@@ -1,8 +1,8 @@
 import { mockDetectionResult } from '@artloupe/mock-data';
 import { waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { useDetectObjects } from '../use-object-detection';
-import { renderHookWithQueryClient } from './test-utilities';
+import { renderHookWithQueryClient } from './__tests__/test-utilities';
+import { useDetectObjects } from './use-object-detection';
 
 // Get the mocked fetch function
 const mockFetch = vi.mocked(fetch);

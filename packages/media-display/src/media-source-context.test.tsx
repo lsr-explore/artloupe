@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import '@testing-library/jest-dom';
 import type { ImageType } from '@artloupe/shared-types';
-import { MediaSourceContext } from '../media-source-context';
+import { MediaSourceContext } from './media-source-context';
 
 describe('MediaSourceContext', () => {
   it('should be created with correct type', () => {
@@ -28,7 +28,7 @@ describe('MediaSourceContext', () => {
         ],
       },
       isLoading: false,
-      error: null,
+      error: undefined,
     };
 
     // This test ensures the context can accept the expected type
@@ -36,7 +36,7 @@ describe('MediaSourceContext', () => {
     expect(mockContextValue.data?.total).toBe(2);
     expect(mockContextValue.data?.images).toHaveLength(1);
     expect(mockContextValue.isLoading).toBe(false);
-    expect(mockContextValue.error).toBeNull();
+    expect(mockContextValue.error).toBeUndefined();
   });
 
   it('should support paintings source type', () => {

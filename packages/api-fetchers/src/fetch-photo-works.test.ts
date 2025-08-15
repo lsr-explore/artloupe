@@ -1,6 +1,6 @@
 import { mockPhotoWorks } from '@artloupe/mock-data';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { fetchPhotoWorks } from '../fetch-photo-works';
+import { fetchPhotoWorks } from './fetch-photo-works';
 
 // Get the mocked fetch function
 const mockFetch = vi.mocked(fetch);

@@ -5,6 +5,7 @@ export const Header = () => {
     <header className='flex justify-between items-center p-6 border-b'>
       <Link href='/' className='flex items-center space-x-3'>
         {}
+        {/** biome-ignore lint/performance/noImgElement: not needed for an icon */}
         <img src='/loupe-logo.svg' alt='Loupe Logo' className='w-8 h-8' />
         <span className='text-2xl font-semibold'>ArtLoupe.ai</span>
       </Link>

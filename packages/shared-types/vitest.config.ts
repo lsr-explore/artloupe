@@ -6,7 +6,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default createVitestConfig({
   rootDir: __dirname,
-  environment: 'jsdom',
-  name: 'app-main',
+  environment: 'node',
+  name: 'pkg-shared-types',
   setupFiles: [path.resolve(__dirname, 'src/__tests__/setup.ts')], // if you have one
 });

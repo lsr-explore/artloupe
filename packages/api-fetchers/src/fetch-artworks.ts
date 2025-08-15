@@ -1,6 +1,4 @@
-import type { ImageType } from '@artloupe/shared-types';
-
-type ArtworksResponse = { total: number; images: ImageType[]; mock?: boolean };
+import type { ArtworksResponse } from '@artloupe/shared-types';
 
 export const fetchArtworks = async (
   query: string,
