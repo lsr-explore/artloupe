@@ -70,7 +70,7 @@
     "@next/eslint-plugin-next": "^15.3.5",
     "@nx/cypress": "21.3.2",
     "@nx/eslint": "21.3.11",
-    "@nx/js": "^21.2.3",
+    "@nx/js": "^21.4.0",
     "@nx/next": "21.2.3",
     "@nx/storybook": "21.2.3",
     "@nx/vite": "21.2.3",
