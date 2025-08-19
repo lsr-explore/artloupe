@@ -103,7 +103,7 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "eslint-plugin-unicorn": "^59.0.1",
-    "jiti": "2.4.2",
+    "jiti": "2.5.1",
     "nx": "21.2.3",
     "replace-in-files": "^3.0.0",
     "storybook": "^9.0.16",
